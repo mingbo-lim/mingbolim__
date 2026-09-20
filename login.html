@@ -1,118 +1,98 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>나의 가계부</title>
+  <meta charset="UTF-8" />
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>나의 가계부 - 로그인</title>
 
   <style>
     * {
       box-sizing: border-box;
     }
 
-    :root {
-      --green: #5f9270;
-      --green-dark: #3f7455;
-      --green-light: #e9f2ea;
-      --bg: #f6f7f2;
-      --text: #252a26;
-      --muted: #858c86;
-      --line: #e6ebe4;
-      --danger: #d96f6f;
-    }
-
     body {
       margin: 0;
       min-height: 100vh;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+      background: #f6f3eb;
+      color: #24352b;
+
       display: flex;
-      align-items: center;
       justify-content: center;
+      align-items: center;
+
       padding: 24px;
-      background:
-        radial-gradient(circle at 15% 15%, #edf5e9 0, transparent 28%),
-        radial-gradient(circle at 85% 80%, #fff0e5 0, transparent 26%),
-        var(--bg);
-      color: var(--text);
-      font-family: "Noto Sans KR", sans-serif;
     }
 
-    button,
-    input {
-      font-family: inherit;
-    }
-
-    .wrap {
+    .container {
       width: 100%;
       max-width: 430px;
     }
 
-    .logo {
-      margin-bottom: 25px;
+    .logo-area {
       text-align: center;
+      margin-bottom: 24px;
     }
 
-    .logo-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 55px;
-      height: 55px;
-      margin: 0 auto 13px;
-      border-radius: 18px;
-      background: var(--green-light);
-      font-size: 27px;
+    .logo {
+      font-size: 32px;
+      margin-bottom: 8px;
     }
 
-    .logo h1 {
+    .logo-area h1 {
       margin: 0;
-      font-family: "Gowun Dodum", sans-serif;
       font-size: 26px;
-      font-weight: 400;
+      color: #315c45;
     }
 
-    .logo p {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 12px;
+    .logo-area p {
+      margin: 8px 0 0;
+      font-size: 14px;
+      color: #7b857e;
     }
 
     .card {
+      background: #ffffff;
+      border-radius: 24px;
       padding: 28px;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      box-shadow: 0 14px 40px rgba(64, 75, 65, 0.08);
+      box-shadow:
+        0 8px 30px rgba(42, 68, 52, 0.08);
     }
 
     .tabs {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 5px;
-      margin-bottom: 25px;
+      display: flex;
+      background: #f1f3ed;
       padding: 5px;
-      border-radius: 13px;
-      background: #f1f3ef;
+      border-radius: 14px;
+      margin-bottom: 26px;
     }
 
     .tab {
-      height: 42px;
-      border: 0;
-      border-radius: 10px;
+      flex: 1;
+      border: none;
       background: transparent;
-      color: #8a908a;
-      font-size: 13px;
-      font-weight: 700;
+      padding: 11px;
+      border-radius: 10px;
       cursor: pointer;
+
+      font-size: 15px;
+      font-weight: 700;
+      color: #7b857e;
     }
 
     .tab.active {
-      background: #fff;
-      color: var(--green-dark);
-      box-shadow: 0 3px 12px rgba(55, 70, 58, 0.07);
+      background: #ffffff;
+      color: #315c45;
+      box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.06);
     }
 
     .form {
@@ -123,104 +103,110 @@
       display: block;
     }
 
-    .form-title {
-      margin-bottom: 22px;
-    }
-
-    .form-title h2 {
-      margin: 0 0 5px;
-      font-size: 18px;
-    }
-
-    .form-title p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 11px;
-    }
-
     .field {
-      margin-bottom: 15px;
+      margin-bottom: 18px;
     }
 
-    .field label {
+    label {
       display: block;
       margin-bottom: 7px;
-      color: #606760;
-      font-size: 11px;
+
+      font-size: 14px;
       font-weight: 700;
+      color: #405248;
     }
 
-    .field input {
+    input {
       width: 100%;
       height: 48px;
-      padding: 0 14px;
-      border: 1px solid #dfe4de;
+
+      border: 1px solid #d9ded8;
       border-radius: 12px;
+
+      padding: 0 14px;
+
+      font-size: 15px;
+      color: #26372d;
+      background: #ffffff;
+
       outline: none;
-      background: #fff;
-      color: var(--text);
-      font-size: 13px;
     }
 
-    .field input:focus {
-      border-color: #91af98;
-      box-shadow: 0 0 0 3px rgba(95, 146, 112, 0.09);
+    input:focus {
+      border-color: #63866f;
+      box-shadow:
+        0 0 0 3px rgba(99, 134, 111, 0.12);
     }
 
-    .field input::placeholder {
-      color: #b4b9b4;
+    input::placeholder {
+      color: #adb4af;
     }
 
-    .submit {
+    .hint {
+      margin-top: 6px;
+      font-size: 12px;
+      line-height: 1.5;
+      color: #939b95;
+    }
+
+    .main-button {
       width: 100%;
       height: 50px;
-      margin-top: 6px;
-      border: 0;
-      border-radius: 12px;
-      background: var(--green);
-      color: #fff;
-      font-size: 13px;
+
+      border: none;
+      border-radius: 13px;
+
+      background: #315c45;
+      color: #ffffff;
+
+      font-size: 16px;
       font-weight: 700;
+
       cursor: pointer;
+
+      margin-top: 4px;
     }
 
-    .submit:hover {
-      background: #4d805e;
+    .main-button:hover {
+      background: #294d3a;
     }
 
-    .submit:disabled {
-      cursor: wait;
+    .main-button:disabled {
       opacity: 0.6;
+      cursor: default;
     }
 
     .message {
       display: none;
-      margin-top: 14px;
-      padding: 11px 12px;
-      border-radius: 10px;
-      font-size: 11px;
-      line-height: 1.6;
+
+      margin-top: 18px;
+      padding: 12px 14px;
+
+      border-radius: 12px;
+
+      font-size: 14px;
+      line-height: 1.5;
       text-align: center;
     }
 
     .message.error {
       display: block;
-      background: #fff0ee;
-      color: #b15c54;
+      background: #fff1f0;
+      color: #a8433d;
     }
 
     .message.success {
       display: block;
-      background: #edf6ee;
-      color: #467653;
+      background: #eef7f0;
+      color: #315c45;
     }
 
-    .help {
-      margin-top: 18px;
-      color: #a0a5a0;
-      font-size: 10px;
-      line-height: 1.7;
+    .footer-text {
       text-align: center;
+      margin-top: 20px;
+
+      font-size: 12px;
+      color: #9aa19c;
     }
 
     @media (max-width: 480px) {
@@ -229,7 +215,12 @@
       }
 
       .card {
-        padding: 23px 19px;
+        padding: 22px;
+        border-radius: 20px;
+      }
+
+      .logo-area h1 {
+        font-size: 23px;
       }
     }
   </style>
@@ -237,30 +228,30 @@
 
 <body>
 
-  <div class="wrap">
+  <main class="container">
 
-    <div class="logo">
-      <div class="logo-icon">🌿</div>
+    <div class="logo-area">
+      <div class="logo">🌿</div>
       <h1>나의 가계부</h1>
-      <p>오늘의 돈 이야기를 차곡차곡 기록해요.</p>
+      <p>소소한 소비도 차곡차곡 기록해요.</p>
     </div>
 
-    <div class="card">
+    <section class="card">
 
       <div class="tabs">
         <button
-          type="button"
-          class="tab active"
           id="loginTab"
+          class="tab active"
+          type="button"
           onclick="showTab('login')"
         >
           로그인
         </button>
 
         <button
-          type="button"
-          class="tab"
           id="signupTab"
+          class="tab"
+          type="button"
           onclick="showTab('signup')"
         >
           회원가입
@@ -269,92 +260,109 @@
 
 
       <!-- 로그인 -->
-      <div class="form active" id="loginForm">
 
-        <div class="form-title">
-          <h2>다시 만나서 반가워요 👋</h2>
-          <p>아이디와 비밀번호를 입력해주세요.</p>
-        </div>
+      <div
+        id="loginForm"
+        class="form active"
+      >
 
         <div class="field">
-          <label for="loginId">아이디</label>
+          <label for="loginId">
+            아이디
+          </label>
+
           <input
             id="loginId"
             type="text"
             autocomplete="username"
-            placeholder="아이디"
-          >
+            placeholder="아이디를 입력해주세요"
+          />
         </div>
 
+
         <div class="field">
-          <label for="loginPassword">비밀번호</label>
+          <label for="loginPassword">
+            비밀번호
+          </label>
+
           <input
             id="loginPassword"
             type="password"
             autocomplete="current-password"
-            placeholder="비밀번호"
-          >
+            placeholder="비밀번호를 입력해주세요"
+          />
         </div>
 
+
         <button
-          type="button"
-          class="submit"
           id="loginButton"
+          class="main-button"
+          type="button"
           onclick="login()"
         >
           로그인
         </button>
 
-        <div
-          class="message"
-          id="loginMessage"
-        ></div>
-
-        <div class="help">
-          처음이라면 위의 ‘회원가입’을 눌러 계정을 만들어주세요.
-        </div>
-
       </div>
 
 
       <!-- 회원가입 -->
-      <div class="form" id="signupForm">
 
-        <div class="form-title">
-          <h2>가계부를 시작해볼까요? 🌱</h2>
-          <p>사용할 계정을 만들어주세요.</p>
-        </div>
+      <div
+        id="signupForm"
+        class="form"
+      >
 
         <div class="field">
-          <label for="nickname">닉네임</label>
+          <label for="nickname">
+            닉네임
+          </label>
+
           <input
             id="nickname"
             type="text"
             maxlength="20"
-            placeholder="예: 밍보"
-          >
+            placeholder="사용할 닉네임을 입력해주세요"
+          />
         </div>
 
+
         <div class="field">
-          <label for="signupId">아이디</label>
+          <label for="signupId">
+            아이디
+          </label>
+
           <input
             id="signupId"
             type="text"
             maxlength="20"
             autocomplete="username"
-            placeholder="영문, 숫자, _, - / 4~20자"
-          >
+            placeholder="아이디를 입력해주세요"
+          />
+
+          <div class="hint">
+            영문, 숫자, _, -를 사용해 4~20자로 입력해주세요.
+          </div>
         </div>
 
+
         <div class="field">
-          <label for="signupPassword">비밀번호</label>
+          <label for="signupPassword">
+            비밀번호
+          </label>
+
           <input
             id="signupPassword"
             type="password"
             autocomplete="new-password"
-            placeholder="8자 이상"
-          >
+            placeholder="비밀번호를 입력해주세요"
+          />
+
+          <div class="hint">
+            비밀번호는 8자 이상 입력해주세요.
+          </div>
         </div>
+
 
         <div class="field">
           <label for="signupPasswordConfirm">
@@ -366,460 +374,494 @@
             type="password"
             autocomplete="new-password"
             placeholder="비밀번호를 한 번 더 입력해주세요"
-          >
+          />
         </div>
 
+
         <button
-          type="button"
-          class="submit"
           id="signupButton"
+          class="main-button"
+          type="button"
           onclick="signup()"
         >
           회원가입
         </button>
 
-        <div
-          class="message"
-          id="signupMessage"
-        ></div>
-
       </div>
 
+
+      <div
+        id="message"
+        class="message"
+      ></div>
+
+    </section>
+
+
+    <div class="footer-text">
+      나만의 작은 가계부 🌱
     </div>
-  </div>
 
+  </main>
 
-<script>
-  const API_URL =
-    "https://script.google.com/macros/s/AKfycbzcqCxsm1F4uEKaF5V8TcNtAXw4p1kf2GC8rZYxE__wiQVPiWXHFGEjUlAgs-2I74JGQA/exec"
 
+  <script>
 
-  function showTab(type) {
-    const loginTab =
-      document.getElementById("loginTab");
+    /* =========================================
+       API 주소
+    ========================================= */
 
-    const signupTab =
-      document.getElementById("signupTab");
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbxtLbgJ80BlSABX7utMyeeGQZ5C6Pt8xItzE6p12Xa6AcRPIAawmpMC4eh3M6V-uLcWqA/exec";
 
-    const loginForm =
-      document.getElementById("loginForm");
 
-    const signupForm =
-      document.getElementById("signupForm");
+    /* =========================================
+       탭 전환
+    ========================================= */
 
+    function showTab(type) {
+      clearMessage();
 
-    const isLogin =
-      type === "login";
+      const loginTab =
+        document.getElementById("loginTab");
 
+      const signupTab =
+        document.getElementById("signupTab");
 
-    loginTab.classList.toggle(
-      "active",
-      isLogin
-    );
+      const loginForm =
+        document.getElementById("loginForm");
 
-    signupTab.classList.toggle(
-      "active",
-      !isLogin
-    );
+      const signupForm =
+        document.getElementById("signupForm");
 
-    loginForm.classList.toggle(
-      "active",
-      isLogin
-    );
 
-    signupForm.classList.toggle(
-      "active",
-      !isLogin
-    );
+      if (type === "login") {
+        loginTab.classList.add("active");
+        signupTab.classList.remove("active");
 
-
-    clearMessage("loginMessage");
-    clearMessage("signupMessage");
-  }
-
-
-  function clearMessage(id) {
-    const box =
-      document.getElementById(id);
-
-    box.textContent = "";
-    box.className = "message";
-  }
-
-
-  function showMessage(
-    id,
-    text,
-    type = "error"
-  ) {
-    const box =
-      document.getElementById(id);
-
-    box.textContent = text;
-    box.className =
-      "message " + type;
-  }
-
-
-  async function apiRequest(data) {
-    const response =
-      await fetch(API_URL, {
-        method: "POST",
-
-        headers: {
-          "Content-Type":
-            "text/plain;charset=UTF-8"
-        },
-
-        body:
-          JSON.stringify(data)
-      });
-
-
-    const text =
-      await response.text();
-
-
-    try {
-      return JSON.parse(text);
-
-    } catch (error) {
-      console.error(text);
-
-      throw new Error(
-        "서버 응답을 확인할 수 없습니다."
-      );
-    }
-  }
-
-
-  async function login() {
-    clearMessage("loginMessage");
-
-
-    const userId =
-      document
-        .getElementById("loginId")
-        .value
-        .trim();
-
-
-    const password =
-      document
-        .getElementById("loginPassword")
-        .value;
-
-
-    if (!userId || !password) {
-      showMessage(
-        "loginMessage",
-        "아이디와 비밀번호를 입력해주세요."
-      );
-
-      return;
-    }
-
-
-    const button =
-      document.getElementById("loginButton");
-
-
-    button.disabled = true;
-    button.textContent =
-      "로그인 중...";
-
-
-    try {
-      const result =
-        await apiRequest({
-          action: "login",
-          userId: userId,
-          password: password
-        });
-
-
-      if (!result.success) {
-        showMessage(
-          "loginMessage",
-          result.message ||
-          "아이디 또는 비밀번호를 확인해주세요."
-        );
-
-        return;
-      }
-
-
-      sessionStorage.setItem(
-        "ledgerToken",
-        result.token
-      );
-
-
-      sessionStorage.setItem(
-        "userId",
-        userId
-      );
-
-
-      sessionStorage.setItem(
-        "nickname",
-        result.nickname || userId
-      );
-
-
-      showMessage(
-        "loginMessage",
-        "로그인되었습니다 🌿",
-        "success"
-      );
-
-
-      setTimeout(
-        function () {
-          window.location.href =
-            "./index.html";
-        },
-        350
-      );
-
-
-    } catch (error) {
-      console.error(error);
-
-      showMessage(
-        "loginMessage",
-        "로그인 중 오류가 발생했습니다."
-      );
-
-
-    } finally {
-      button.disabled = false;
-      button.textContent =
-        "로그인";
-    }
-  }
-
-
-  async function signup() {
-    clearMessage("signupMessage");
-
-
-    const nickname =
-      document
-        .getElementById("nickname")
-        .value
-        .trim();
-
-
-    const userId =
-      document
-        .getElementById("signupId")
-        .value
-        .trim();
-
-
-    const password =
-      document
-        .getElementById("signupPassword")
-        .value;
-
-
-    const passwordConfirm =
-      document
-        .getElementById(
-          "signupPasswordConfirm"
-        )
-        .value;
-
-
-    if (!nickname) {
-      showMessage(
-        "signupMessage",
-        "닉네임을 입력해주세요."
-      );
-
-      return;
-    }
-
-
-    if (
-      !/^[a-zA-Z0-9_-]{4,20}$/.test(userId)
-    ) {
-      showMessage(
-        "signupMessage",
-        "아이디는 영문, 숫자, _, -를 사용해 4~20자로 입력해주세요."
-      );
-
-      return;
-    }
-
-
-    if (password.length < 8) {
-      showMessage(
-        "signupMessage",
-        "비밀번호는 8자 이상 입력해주세요."
-      );
-
-      return;
-    }
-
-
-    if (password !== passwordConfirm) {
-      showMessage(
-        "signupMessage",
-        "비밀번호가 서로 다릅니다."
-      );
-
-      return;
-    }
-
-
-    const button =
-      document.getElementById(
-        "signupButton"
-      );
-
-
-    button.disabled = true;
-    button.textContent =
-      "가입 중...";
-
-
-    try {
-      const result =
-        await apiRequest({
-          action: "signup",
-          nickname: nickname,
-          userId: userId,
-          password: password
-        });
-
-
-      if (!result.success) {
-        showMessage(
-          "signupMessage",
-          result.message ||
-          "회원가입에 실패했습니다."
-        );
-
-        return;
-      }
-
-
-      showMessage(
-        "signupMessage",
-        "회원가입 완료! 로그인해주세요 🌱",
-        "success"
-      );
-
-
-      document.getElementById(
-        "loginId"
-      ).value = userId;
-
-
-      document.getElementById(
-        "signupPassword"
-      ).value = "";
-
-
-      document.getElementById(
-        "signupPasswordConfirm"
-      ).value = "";
-
-
-      setTimeout(
-        function () {
-          showTab("login");
-
-          document.getElementById(
-            "loginPassword"
-          ).focus();
-        },
-        700
-      );
-
-
-    } catch (error) {
-      console.error(error);
-
-      showMessage(
-        "signupMessage",
-        "회원가입 중 오류가 발생했습니다."
-      );
-
-
-    } finally {
-      button.disabled = false;
-      button.textContent =
-        "회원가입";
-    }
-  }
-
-
-  document
-    .getElementById("loginPassword")
-    .addEventListener(
-      "keydown",
-      function (event) {
-        if (event.key === "Enter") {
-          login();
-        }
-      }
-    );
-
-
-  document
-    .getElementById(
-      "signupPasswordConfirm"
-    )
-    .addEventListener(
-      "keydown",
-      function (event) {
-        if (event.key === "Enter") {
-          signup();
-        }
-      }
-    );
-
-
-  async function checkExistingLogin() {
-    const token =
-      sessionStorage.getItem(
-        "ledgerToken"
-      );
-
-
-    if (!token) {
-      return;
-    }
-
-
-    try {
-      const result =
-        await apiRequest({
-          action: "verify",
-          token: token
-        });
-
-
-      if (result.success) {
-        window.location.href =
-          "./index.html";
+        loginForm.classList.add("active");
+        signupForm.classList.remove("active");
 
       } else {
-        sessionStorage.clear();
+        signupTab.classList.add("active");
+        loginTab.classList.remove("active");
+
+        signupForm.classList.add("active");
+        loginForm.classList.remove("active");
+      }
+    }
+
+
+    /* =========================================
+       메시지
+    ========================================= */
+
+    function clearMessage() {
+      const box =
+        document.getElementById("message");
+
+      box.textContent = "";
+      box.className = "message";
+    }
+
+
+    function showMessage(
+      text,
+      type = "error"
+    ) {
+      const box =
+        document.getElementById("message");
+
+      box.textContent = text;
+      box.className =
+        "message " + type;
+    }
+
+
+    /* =========================================
+       API 요청
+    ========================================= */
+
+    async function apiRequest(data) {
+      const response =
+        await fetch(
+          API_URL,
+          {
+            method: "POST",
+
+            headers: {
+              "Content-Type":
+                "text/plain;charset=UTF-8"
+            },
+
+            body:
+              JSON.stringify(data)
+          }
+        );
+
+      const text =
+        await response.text();
+
+      try {
+        return JSON.parse(text);
+
+      } catch (error) {
+        console.error(text);
+
+        throw new Error(
+          "서버 응답을 확인할 수 없습니다."
+        );
+      }
+    }
+
+
+    /* =========================================
+       로그인
+    ========================================= */
+
+    async function login() {
+      clearMessage();
+
+      const userId =
+        document
+          .getElementById("loginId")
+          .value
+          .trim();
+
+      const password =
+        document
+          .getElementById("loginPassword")
+          .value;
+
+
+      if (!userId || !password) {
+        showMessage(
+          "아이디와 비밀번호를 입력해주세요."
+        );
+
+        return;
       }
 
 
-    } catch (error) {
-      console.error(error);
+      const button =
+        document.getElementById(
+          "loginButton"
+        );
+
+      button.disabled = true;
+      button.textContent =
+        "로그인 중...";
+
+
+      try {
+        const result =
+          await apiRequest({
+            action: "login",
+            userId: userId,
+            password: password
+          });
+
+
+        if (!result.success) {
+          showMessage(
+            result.message ||
+            "로그인에 실패했습니다."
+          );
+
+          return;
+        }
+
+
+        localStorage.setItem(
+          "budgetToken",
+          result.token
+        );
+
+        localStorage.setItem(
+          "budgetUserId",
+          result.userId
+        );
+
+        localStorage.setItem(
+          "budgetNickname",
+          result.nickname || ""
+        );
+
+
+        window.location.href =
+          "index.html";
+
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          "서버 연결에 실패했습니다."
+        );
+
+      } finally {
+        button.disabled = false;
+        button.textContent =
+          "로그인";
+      }
     }
-  }
 
 
-  checkExistingLogin();
-</script>
+    /* =========================================
+       회원가입
+    ========================================= */
+
+    async function signup() {
+      clearMessage();
+
+
+      const nickname =
+        document
+          .getElementById("nickname")
+          .value
+          .trim();
+
+
+      const userId =
+        document
+          .getElementById("signupId")
+          .value
+          .trim();
+
+
+      const password =
+        document
+          .getElementById("signupPassword")
+          .value;
+
+
+      const passwordConfirm =
+        document
+          .getElementById(
+            "signupPasswordConfirm"
+          )
+          .value;
+
+
+      if (!nickname) {
+        showMessage(
+          "닉네임을 입력해주세요."
+        );
+
+        return;
+      }
+
+
+      if (
+        !/^[a-zA-Z0-9_-]{4,20}$/
+          .test(userId)
+      ) {
+        showMessage(
+          "아이디는 영문, 숫자, _, -를 사용해 4~20자로 만들어주세요."
+        );
+
+        return;
+      }
+
+
+      if (password.length < 8) {
+        showMessage(
+          "비밀번호는 8자 이상으로 만들어주세요."
+        );
+
+        return;
+      }
+
+
+      if (
+        password !==
+        passwordConfirm
+      ) {
+        showMessage(
+          "비밀번호가 서로 일치하지 않습니다."
+        );
+
+        return;
+      }
+
+
+      const button =
+        document.getElementById(
+          "signupButton"
+        );
+
+      button.disabled = true;
+      button.textContent =
+        "가입 중...";
+
+
+      try {
+        const result =
+          await apiRequest({
+            action: "signup",
+            nickname: nickname,
+            userId: userId,
+            password: password
+          });
+
+
+        if (!result.success) {
+          showMessage(
+            result.message ||
+            "회원가입에 실패했습니다."
+          );
+
+          return;
+        }
+
+
+        showMessage(
+          "회원가입이 완료되었습니다. 이제 로그인해주세요.",
+          "success"
+        );
+
+
+        document
+          .getElementById("loginId")
+          .value = userId;
+
+
+        document
+          .getElementById("nickname")
+          .value = "";
+
+        document
+          .getElementById("signupId")
+          .value = "";
+
+        document
+          .getElementById(
+            "signupPassword"
+          )
+          .value = "";
+
+        document
+          .getElementById(
+            "signupPasswordConfirm"
+          )
+          .value = "";
+
+
+        setTimeout(function() {
+          showTab("login");
+
+          document
+            .getElementById(
+              "loginId"
+            )
+            .value = userId;
+
+          showMessage(
+            "회원가입이 완료되었습니다. 로그인해주세요.",
+            "success"
+          );
+
+        }, 700);
+
+
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          "서버 연결에 실패했습니다."
+        );
+
+      } finally {
+        button.disabled = false;
+        button.textContent =
+          "회원가입";
+      }
+    }
+
+
+    /* =========================================
+       기존 로그인 확인
+    ========================================= */
+
+    async function checkExistingLogin() {
+      const token =
+        localStorage.getItem(
+          "budgetToken"
+        );
+
+      if (!token) {
+        return;
+      }
+
+
+      try {
+        const result =
+          await apiRequest({
+            action: "verify",
+            token: token
+          });
+
+
+        if (result.success) {
+          window.location.href =
+            "index.html";
+
+          return;
+        }
+
+
+        localStorage.removeItem(
+          "budgetToken"
+        );
+
+        localStorage.removeItem(
+          "budgetUserId"
+        );
+
+        localStorage.removeItem(
+          "budgetNickname"
+        );
+
+      } catch (error) {
+        console.error(error);
+      }
+    }
+
+
+    /* =========================================
+       엔터키
+    ========================================= */
+
+    document
+      .getElementById(
+        "loginPassword"
+      )
+      .addEventListener(
+        "keydown",
+        function(event) {
+          if (event.key === "Enter") {
+            login();
+          }
+        }
+      );
+
+
+    document
+      .getElementById(
+        "signupPasswordConfirm"
+      )
+      .addEventListener(
+        "keydown",
+        function(event) {
+          if (event.key === "Enter") {
+            signup();
+          }
+        }
+      );
+
+
+    checkExistingLogin();
+
+  </script>
 
 </body>
 </html>
