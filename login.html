@@ -3,11 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>로그인 | 나의 가계부</title>
 
@@ -100,9 +96,7 @@
 
     label {
       display: block;
-
       margin-bottom: 7px;
-
       font-size: 11px;
       font-weight: 600;
     }
@@ -277,8 +271,9 @@
 
 <script>
 
+/* 새로 배포한 Apps Script 주소 */
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbzJrc641rIQ0R14IigoO6YdeflFJLn0w6iFCgOdnrtfjNwcbrKIhGAe6UIkXCo-X2k4YA/exec";
+  "https://script.google.com/macros/s/AKfycbwERhUl3c_U-jlNCVGPE4y-uOyiq1fW8z4cRjLuvn2AeZhBXMv3JRlwZdg-O1ZQI2M9NQ/exec";
 
 
 const loginForm =
@@ -291,6 +286,14 @@ const loginButton =
 
 const message =
   document.getElementById("message");
+
+
+/*
+  이미 로그인 토큰이 있더라도
+  로그인 페이지에서는 자동 이동시키지 않음.
+
+  실제 토큰 확인은 index.html에서 진행.
+*/
 
 
 loginForm.addEventListener(
@@ -313,10 +316,21 @@ loginForm.addEventListener(
         .value;
 
 
+    if (!id || !password) {
+
+      message.textContent =
+        "아이디와 비밀번호를 입력해주세요.";
+
+      return;
+    }
+
+
     message.textContent = "";
 
     loginButton.disabled = true;
-    loginButton.textContent = "확인 중...";
+
+    loginButton.textContent =
+      "로그인 중...";
 
 
     try {
@@ -332,31 +346,53 @@ loginForm.addEventListener(
                 "text/plain;charset=UTF-8"
             },
 
-            body: JSON.stringify({
-              action: "login",
-              id: id,
-              password: password
-            })
+            body:
+              JSON.stringify({
+                action: "login",
+                id: id,
+                password: password
+              })
           }
         );
+
+
+      if (!response.ok) {
+
+        throw new Error(
+          "서버 응답 오류"
+        );
+
+      }
 
 
       const result =
         await response.json();
 
 
-      if (result.success && result.token) {
+      if (
+        result.success === true &&
+        result.token
+      ) {
 
         /*
-          실제 비밀번호는 저장하지 않음.
+          비밀번호는 브라우저에 저장하지 않음.
 
-          서버에서 받은
-          임시 로그인 토큰만 저장.
+          서버가 발급한 임시 토큰만 저장.
         */
 
         sessionStorage.setItem(
           "ledgerToken",
           result.token
+        );
+
+
+        /*
+          혹시 예전 로그인 방식의 값이
+          남아 있다면 삭제
+        */
+
+        sessionStorage.removeItem(
+          "ledgerLoggedIn"
         );
 
 
@@ -375,16 +411,22 @@ loginForm.addEventListener(
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "로그인 오류:",
+        error
+      );
+
 
       message.textContent =
-        "로그인 중 오류가 발생했어요.";
+        "서버 연결 중 오류가 발생했어요.";
 
     }
 
 
     loginButton.disabled = false;
-    loginButton.textContent = "로그인";
+
+    loginButton.textContent =
+      "로그인";
 
   }
 );
