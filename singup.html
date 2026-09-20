@@ -1,1152 +1,410 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>회원가입 | 나의 가계부</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
-
-  <title>로그인 | 나의 가계부</title>
-
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
+    href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
     rel="stylesheet"
-    href="style.css"
   >
 
   <style>
+    * {
+      box-sizing: border-box;
+    }
 
     body {
+      margin: 0;
       min-height: 100vh;
-
       display: flex;
       align-items: center;
       justify-content: center;
-
-      padding: 25px;
-
+      padding: 24px;
       background:
-        radial-gradient(
-          circle at 15% 15%,
-          #edf4ea 0,
-          transparent 28%
-        ),
-        radial-gradient(
-          circle at 85% 85%,
-          #f7f1df 0,
-          transparent 30%
-        ),
-        #f7f8f3;
+        radial-gradient(circle at top left, #eef5ec 0, transparent 35%),
+        linear-gradient(135deg, #f8f8f3 0%, #f2f5ef 100%);
+      color: #252a26;
+      font-family: "Noto Sans KR", sans-serif;
     }
 
-
-    .auth-layout {
-      display: grid;
-
-      grid-template-columns:
-        1fr 430px;
-
+    .signup-wrap {
       width: 100%;
-      max-width: 1050px;
-
-      min-height: 620px;
-
-      overflow: hidden;
-
-      border:
-        1px solid #e5e9e2;
-
-      border-radius: 26px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.96
-        );
-
-      box-shadow:
-        0 25px 70px
-        rgba(
-          64,
-          75,
-          65,
-          0.10
-        );
-    }
-
-
-    /* =========================
-       왼쪽 소개 영역
-    ========================= */
-
-    .auth-visual {
-      position: relative;
-
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-
-      padding: 55px;
-
-      overflow: hidden;
-
-      background:
-        linear-gradient(
-          145deg,
-          #e7f0e4,
-          #f4f2df
-        );
-    }
-
-
-    .visual-logo {
-      display: flex;
-      align-items: center;
-
-      gap: 11px;
-    }
-
-
-    .visual-logo-icon {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      width: 46px;
-      height: 46px;
-
-      border-radius: 14px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.7
-        );
-
-      font-size: 25px;
-    }
-
-
-    .visual-logo strong {
-      font-size: 17px;
-
-      letter-spacing:
-        -0.5px;
-    }
-
-
-    .visual-copy {
-      position: relative;
-
-      z-index: 2;
-
       max-width: 430px;
     }
 
-
-    .visual-copy span {
-      display: inline-block;
-
-      margin-bottom: 16px;
-
-      padding:
-        7px 11px;
-
-      border-radius: 99px;
-
-      background:
-        rgba(
-          255,
-          255,
-          255,
-          0.65
-        );
-
-      color:
-        #557461;
-
-      font-size: 10px;
-      font-weight: 600;
-    }
-
-
-    .visual-copy h1 {
-      margin:
-        0 0 17px;
-
-      color:
-        #29352d;
-
-      font-size:
-        clamp(
-          30px,
-          4vw,
-          46px
-        );
-
-      line-height: 1.35;
-
-      letter-spacing:
-        -2px;
-    }
-
-
-    .visual-copy p {
-      margin: 0;
-
-      color:
-        #708075;
-
-      font-family:
-        "Gowun Dodum",
-        sans-serif;
-
-      font-size: 14px;
-
-      line-height: 1.9;
-    }
-
-
-    .visual-decoration {
-      position: absolute;
-
-      right: 35px;
-      bottom: 20px;
-
-      font-size: 125px;
-
-      opacity: 0.15;
-
-      transform:
-        rotate(-8deg);
-    }
-
-
-    .visual-bottom {
-      color:
-        #78857b;
-
-      font-family:
-        "Gowun Dodum",
-        sans-serif;
-
-      font-size: 11px;
-    }
-
-
-    /* =========================
-       로그인 영역
-    ========================= */
-
-    .auth-panel {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-
-      padding:
-        55px 48px;
-    }
-
-
-    .mobile-logo {
-      display: none;
-
-      margin-bottom: 35px;
-
+    .brand {
+      margin-bottom: 22px;
       text-align: center;
     }
 
-
-    .mobile-logo-icon {
-      display: block;
-
-      margin-bottom: 8px;
-
-      font-size: 35px;
-    }
-
-
-    .mobile-logo strong {
-      font-size: 19px;
-    }
-
-
-    .auth-heading {
-      margin-bottom: 32px;
-    }
-
-
-    .auth-heading span {
-      display: block;
-
-      margin-bottom: 7px;
-
-      color:
-        #789080;
-
-      font-size: 10px;
-      font-weight: 700;
-
-      letter-spacing:
-        1.4px;
-    }
-
-
-    .auth-heading h2 {
-      margin:
-        0 0 8px;
-
-      font-size: 26px;
-
-      letter-spacing:
-        -1px;
-    }
-
-
-    .auth-heading p {
-      margin: 0;
-
-      color:
-        #9aa19a;
-
-      font-size: 11px;
-    }
-
-
-    .auth-form
-    .form-group {
-      margin-bottom: 18px;
-    }
-
-
-    .auth-form label {
-      display: block;
-
-      margin-bottom: 8px;
-
-      color:
-        #555d56;
-
-      font-size: 11px;
-      font-weight: 600;
-    }
-
-
-    .auth-input {
-      width: 100%;
-      height: 49px;
-
-      padding:
-        0 15px;
-
-      border:
-        1px solid #dfe3dc;
-
-      border-radius: 10px;
-
-      background:
-        #fcfdfb;
-
-      color:
-        #252a26;
-
-      font-family: inherit;
-      font-size: 13px;
-
-      outline: none;
-
-      transition:
-        0.2s ease;
-    }
-
-
-    .auth-input:focus {
-      border-color:
-        #8fb49a;
-
-      background:
-        white;
-
-      box-shadow:
-        0 0 0 4px
-        rgba(
-          95,
-          146,
-          112,
-          0.08
-        );
-    }
-
-
-    .password-wrap {
-      position: relative;
-    }
-
-
-    .password-wrap
-    .auth-input {
-      padding-right: 55px;
-    }
-
-
-    .password-toggle {
-      position: absolute;
-
-      top: 50%;
-      right: 12px;
-
-      transform:
-        translateY(-50%);
-
-      padding: 5px;
-
-      border: 0;
-
-      background:
-        transparent;
-
-      color:
-        #899089;
-
-      font-size: 10px;
-    }
-
-
-    .login-button {
-      width: 100%;
-      height: 50px;
-
-      margin-top: 7px;
-
-      border: 0;
-
-      border-radius: 10px;
-
-      background:
-        #527f61;
-
-      color:
-        white;
-
-      font-family: inherit;
-      font-size: 13px;
-      font-weight: 600;
-
-      box-shadow:
-        0 8px 18px
-        rgba(
-          82,
-          127,
-          97,
-          0.18
-        );
-
-      transition:
-        0.2s ease;
-    }
-
-
-    .login-button:hover {
-      transform:
-        translateY(-1px);
-
-      background:
-        #416d51;
-    }
-
-
-    .login-button:disabled {
-      transform: none;
-
-      opacity: 0.55;
-
-      cursor: wait;
-    }
-
-
-    .auth-message {
-      min-height: 21px;
-
-      margin-top: 13px;
-
-      color:
-        #cc6666;
-
-      font-size: 10px;
-
-      text-align: center;
-    }
-
-
-    .signup-box {
-      margin-top: 20px;
-
-      padding-top: 20px;
-
-      border-top:
-        1px solid #eceee9;
-
-      text-align: center;
-    }
-
-
-    .signup-box p {
-      margin:
-        0 0 11px;
-
-      color:
-        #969c96;
-
-      font-size: 10px;
-    }
-
-
-    .signup-link {
+    .brand-icon {
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 14px;
+      border-radius: 18px;
+      background: #e9f2ea;
+      font-size: 29px;
+    }
 
-      width: 100%;
-      height: 45px;
+    .brand h1 {
+      margin: 0;
+      font-family: "Gowun Dodum", sans-serif;
+      font-size: 27px;
+      font-weight: 400;
+    }
 
-      border:
-        1px solid #a8c2ae;
+    .brand p {
+      margin: 8px 0 0;
+      color: #737a74;
+      font-size: 13px;
+    }
 
-      border-radius: 10px;
+    .signup-card {
+      padding: 34px;
+      border: 1px solid #e6e9e3;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 14px 40px rgba(64, 75, 65, 0.08);
+    }
 
-      background:
-        #f9fbf8;
+    .signup-card h2 {
+      margin: 0 0 6px;
+      font-size: 21px;
+    }
 
-      color:
-        #4f7a5e;
+    .description {
+      margin: 0 0 27px;
+      color: #737a74;
+      font-size: 13px;
+    }
 
-      font-size: 11px;
+    .field {
+      margin-bottom: 17px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 13px;
       font-weight: 600;
-
-      transition:
-        0.2s ease;
     }
 
-
-    .signup-link:hover {
-      background:
-        #edf4eb;
+    .field input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid #dfe5dd;
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+      color: #252a26;
+      font-family: inherit;
+      font-size: 14px;
+      transition: 0.2s;
     }
 
+    .field input:focus {
+      border-color: #8bae8a;
+      box-shadow: 0 0 0 3px rgba(139, 174, 138, 0.13);
+    }
 
-    .auth-footer {
-      margin-top: 30px;
+    .hint {
+      margin-top: 6px;
+      color: #929892;
+      font-size: 11px;
+      line-height: 1.5;
+    }
 
-      color:
-        #b0b4af;
+    .signup-button {
+      width: 100%;
+      height: 50px;
+      margin-top: 5px;
+      border: 0;
+      border-radius: 13px;
+      background: #5f9270;
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-      font-family:
-        "Gowun Dodum",
-        sans-serif;
+    .signup-button:hover {
+      background: #4f805f;
+    }
 
-      font-size: 10px;
+    .signup-button:disabled {
+      cursor: wait;
+      opacity: 0.65;
+    }
 
+    .message {
+      display: none;
+      margin-top: 16px;
+      padding: 11px 13px;
+      border-radius: 10px;
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0ee;
+      color: #b44f48;
+    }
+
+    .message.success {
+      display: block;
+      background: #edf6ee;
+      color: #467653;
+    }
+
+    .login-link {
+      margin-top: 22px;
       text-align: center;
+      color: #737a74;
+      font-size: 13px;
     }
 
+    .login-link a {
+      color: #3f7455;
+      font-weight: 700;
+      text-decoration: none;
+    }
 
-    /* =========================
-       모바일
-    ========================= */
+    .login-link a:hover {
+      text-decoration: underline;
+    }
 
-    @media (
-      max-width: 780px
-    ) {
-
+    @media (max-width: 500px) {
       body {
-        align-items:
-          flex-start;
-
-        padding:
-          30px 17px;
-
-        background:
-          #f7f8f3;
+        align-items: flex-start;
+        padding: 40px 18px 30px;
       }
 
-
-      .auth-layout {
-        display: block;
-
-        max-width: 440px;
-
-        min-height: 0;
-
-        border-radius: 20px;
+      .signup-card {
+        padding: 27px 22px;
       }
-
-
-      .auth-visual {
-        display: none;
-      }
-
-
-      .auth-panel {
-        padding:
-          38px 27px;
-      }
-
-
-      .mobile-logo {
-        display: block;
-      }
-
-
-      .auth-heading {
-        margin-bottom: 27px;
-
-        text-align: center;
-      }
-
-
-      .auth-heading h2 {
-        font-size: 23px;
-      }
-
     }
-
   </style>
 </head>
 
-
 <body>
 
-<div class="auth-layout">
+  <main class="signup-wrap">
 
-
-  <!-- =====================================
-       왼쪽 소개
-  ====================================== -->
-
-  <section class="auth-visual">
-
-    <div class="visual-logo">
-
-      <div class="visual-logo-icon">
-        🌿
-      </div>
-
-      <strong>
-        나의 가계부
-      </strong>
-
+    <div class="brand">
+      <div class="brand-icon">🌿</div>
+      <h1>나의 가계부</h1>
+      <p>나만의 가계부를 시작해보세요.</p>
     </div>
 
+    <section class="signup-card">
 
-    <div class="visual-copy">
-
-      <span>
-        MY LITTLE BUDGET
-      </span>
-
-      <h1>
-        돈의 흐름을<br>
-        가볍게 기록해요.
-      </h1>
-
-      <p>
-        오늘의 작은 기록이 모이면<br>
-        나의 소비 습관이 자연스럽게 보여요.
+      <h2>회원가입</h2>
+      <p class="description">
+        사용할 계정 정보를 입력해주세요.
       </p>
 
-    </div>
+      <form id="signupForm">
 
-
-    <div class="visual-decoration">
-      🌱
-    </div>
-
-
-    <div class="visual-bottom">
-      차근차근 기록하는 나만의 작은 가계부
-    </div>
-
-  </section>
-
-
-  <!-- =====================================
-       로그인
-  ====================================== -->
-
-  <section class="auth-panel">
-
-
-    <div class="mobile-logo">
-
-      <span class="mobile-logo-icon">
-        🌿
-      </span>
-
-      <strong>
-        나의 가계부
-      </strong>
-
-    </div>
-
-
-    <div class="auth-heading">
-
-      <span>
-        WELCOME BACK
-      </span>
-
-      <h2>
-        다시 만나서 반가워요!
-      </h2>
-
-      <p>
-        내 가계부에 로그인해주세요.
-      </p>
-
-    </div>
-
-
-    <form
-      id="loginForm"
-      class="auth-form"
-    >
-
-
-      <div class="form-group">
-
-        <label for="loginId">
-          아이디
-        </label>
-
-        <input
-          id="loginId"
-          class="auth-input"
-          type="text"
-          autocomplete="username"
-          placeholder="아이디를 입력해주세요"
-          required
-        >
-
-      </div>
-
-
-      <div class="form-group">
-
-        <label for="loginPassword">
-          비밀번호
-        </label>
-
-
-        <div class="password-wrap">
-
+        <div class="field">
+          <label for="nickname">닉네임</label>
           <input
-            id="loginPassword"
-            class="auth-input"
+            type="text"
+            id="nickname"
+            maxlength="20"
+            placeholder="예: 밍보"
+            required
+          >
+        </div>
+
+        <div class="field">
+          <label for="userId">아이디</label>
+          <input
+            type="text"
+            id="userId"
+            minlength="4"
+            maxlength="20"
+            autocomplete="username"
+            placeholder="아이디를 입력해주세요"
+            required
+          >
+          <div class="hint">
+            영문, 숫자, _, - 를 사용할 수 있어요. (4~20자)
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="password">비밀번호</label>
+          <input
             type="password"
-            autocomplete="current-password"
+            id="password"
+            minlength="8"
+            autocomplete="new-password"
             placeholder="비밀번호를 입력해주세요"
             required
           >
-
-
-          <button
-            id="passwordToggle"
-            class="password-toggle"
-            type="button"
-          >
-            보기
-          </button>
-
+          <div class="hint">
+            8자 이상 입력해주세요.
+          </div>
         </div>
 
+        <div class="field">
+          <label for="passwordConfirm">비밀번호 확인</label>
+          <input
+            type="password"
+            id="passwordConfirm"
+            minlength="8"
+            autocomplete="new-password"
+            placeholder="비밀번호를 한 번 더 입력해주세요"
+            required
+          >
+        </div>
+
+        <button
+          type="submit"
+          class="signup-button"
+          id="signupButton"
+        >
+          회원가입
+        </button>
+
+        <div id="message" class="message"></div>
+
+      </form>
+
+      <div class="login-link">
+        이미 계정이 있나요?
+        <a href="./login.html">로그인</a>
       </div>
 
+    </section>
 
-      <button
-        id="loginButton"
-        class="login-button"
-        type="submit"
-      >
-        로그인
-      </button>
+  </main>
 
+  <script>
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbzedrpedwYtEaVvtdojzfoovU9SIRqhcn9rqz2lLH50w-1HOyetfJfLOkT-mMIq7G3PrQ/exec";
 
-      <div
-        id="message"
-        class="auth-message"
-      ></div>
+    const signupForm = document.getElementById("signupForm");
+    const signupButton = document.getElementById("signupButton");
+    const messageBox = document.getElementById("message");
 
-    </form>
+    function showMessage(text, type = "error") {
+      messageBox.textContent = text;
+      messageBox.className = "message " + type;
+    }
 
+    function clearMessage() {
+      messageBox.textContent = "";
+      messageBox.className = "message";
+    }
 
-    <div class="signup-box">
-
-      <p>
-        아직 계정이 없나요?
-      </p>
-
-      <a
-        href="signup.html"
-        class="signup-link"
-      >
-        🌱 새 가계부 만들기
-      </a>
-
-    </div>
-
-
-    <div class="auth-footer">
-      🌿 나만의 기록은 나만 볼 수 있어요
-    </div>
-
-  </section>
-
-</div>
-
-
-<script>
-
-/* =========================================
-   API
-========================================= */
-
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbzedrpedwYtEaVvtdojzfoovU9SIRqhcn9rqz2lLH50w-1HOyetfJfLOkT-mMIq7G3PrQ/exec";
-
-
-/* =========================================
-   이미 로그인되어 있다면
-   로그인 상태 확인 후 메인으로 이동
-========================================= */
-
-const existingToken =
-  sessionStorage.getItem(
-    "ledgerToken"
-  );
-
-
-if (existingToken) {
-  checkExistingLogin();
-}
-
-
-async function checkExistingLogin() {
-
-  try {
-
-    const result =
-      await apiRequest({
-        action: "verify",
-        token: existingToken
+    async function apiRequest(data) {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=UTF-8"
+        },
+        body: JSON.stringify(data)
       });
 
+      const text = await response.text();
 
-    if (result.success) {
-
-      sessionStorage.setItem(
-        "ledgerNickname",
-        result.nickname || ""
-      );
-
-
-      sessionStorage.setItem(
-        "ledgerUserId",
-        result.userId || ""
-      );
-
-
-      window.location.replace(
-        "index.html"
-      );
-
-
-      return;
+      try {
+        return JSON.parse(text);
+      } catch (error) {
+        throw new Error("서버 응답을 확인할 수 없습니다.");
+      }
     }
 
+    signupForm.addEventListener("submit", async function (event) {
+      event.preventDefault();
+      clearMessage();
 
-    clearLogin();
+      const nickname =
+        document.getElementById("nickname").value.trim();
 
-  } catch (error) {
+      const userId =
+        document.getElementById("userId").value.trim();
 
-    /*
-      서버 연결 오류라면
-      로그인 화면은 그대로 보여줌
-    */
+      const password =
+        document.getElementById("password").value;
 
-    console.error(
-      "로그인 확인 오류:",
-      error
-    );
+      const passwordConfirm =
+        document.getElementById("passwordConfirm").value;
 
-  }
+      if (!nickname || !userId || !password || !passwordConfirm) {
+        showMessage("모든 항목을 입력해주세요.");
+        return;
+      }
 
-}
+      if (!/^[a-zA-Z0-9_-]{4,20}$/.test(userId)) {
+        showMessage(
+          "아이디는 영문, 숫자, _, - 만 사용하여 4~20자로 입력해주세요."
+        );
+        return;
+      }
 
+      if (password.length < 8) {
+        showMessage("비밀번호는 8자 이상 입력해주세요.");
+        return;
+      }
 
-/* =========================================
-   요소
-========================================= */
+      if (password !== passwordConfirm) {
+        showMessage("비밀번호가 서로 일치하지 않습니다.");
+        return;
+      }
 
-const loginForm =
-  document.getElementById(
-    "loginForm"
-  );
+      signupButton.disabled = true;
+      signupButton.textContent = "가입 중...";
 
-
-const loginButton =
-  document.getElementById(
-    "loginButton"
-  );
-
-
-const message =
-  document.getElementById(
-    "message"
-  );
-
-
-const passwordInput =
-  document.getElementById(
-    "loginPassword"
-  );
-
-
-const passwordToggle =
-  document.getElementById(
-    "passwordToggle"
-  );
-
-
-/* =========================================
-   비밀번호 보기
-========================================= */
-
-passwordToggle.addEventListener(
-  "click",
-  function() {
-
-    if (
-      passwordInput.type ===
-      "password"
-    ) {
-
-      passwordInput.type =
-        "text";
-
-
-      passwordToggle.textContent =
-        "숨기기";
-
-    } else {
-
-      passwordInput.type =
-        "password";
-
-
-      passwordToggle.textContent =
-        "보기";
-
-    }
-
-  }
-);
-
-
-/* =========================================
-   로그인
-========================================= */
-
-loginForm.addEventListener(
-  "submit",
-  async function(event) {
-
-    event.preventDefault();
-
-
-    const id =
-      document
-        .getElementById(
-          "loginId"
-        )
-        .value
-        .trim();
-
-
-    const password =
-      passwordInput.value;
-
-
-    if (!id || !password) {
-
-      message.textContent =
-        "아이디와 비밀번호를 입력해주세요.";
-
-      return;
-    }
-
-
-    loginButton.disabled =
-      true;
-
-
-    loginButton.textContent =
-      "로그인 중...";
-
-
-    message.textContent =
-      "";
-
-
-    try {
-
-      const result =
-        await apiRequest({
-
-          action: "login",
-
-          id: id,
-
+      try {
+        const result = await apiRequest({
+          action: "signup",
+          nickname: nickname,
+          userId: userId,
           password: password
-
         });
 
+        if (!result.success) {
+          showMessage(
+            result.message || "회원가입에 실패했습니다."
+          );
+          return;
+        }
 
-      if (
-        result.success &&
-        result.token
-      ) {
-
-        /*
-          비밀번호는 저장하지 않음
-        */
-
-        sessionStorage.setItem(
-          "ledgerToken",
-          result.token
+        showMessage(
+          "회원가입이 완료되었습니다! 로그인 화면으로 이동합니다.",
+          "success"
         );
 
+        setTimeout(function () {
+          window.location.href = "./login.html";
+        }, 900);
 
-        sessionStorage.setItem(
-          "ledgerNickname",
-          result.nickname || id
+      } catch (error) {
+        console.error(error);
+
+        showMessage(
+          "서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요."
         );
 
-
-        sessionStorage.setItem(
-          "ledgerUserId",
-          result.userId || id
-        );
-
-
-        window.location.replace(
-          "index.html"
-        );
-
-
-        return;
-
+      } finally {
+        signupButton.disabled = false;
+        signupButton.textContent = "회원가입";
       }
-
-
-      message.textContent =
-        result.message ||
-        "로그인에 실패했어요.";
-
-
-    } catch (error) {
-
-      console.error(
-        "로그인 오류:",
-        error
-      );
-
-
-      message.textContent =
-        "서버 연결 중 오류가 발생했어요.";
-
-    }
-
-
-    loginButton.disabled =
-      false;
-
-
-    loginButton.textContent =
-      "로그인";
-
-  }
-);
-
-
-/* =========================================
-   서버 요청
-========================================= */
-
-async function apiRequest(data) {
-
-  const response =
-    await fetch(
-      API_URL,
-      {
-
-        method: "POST",
-
-        headers: {
-          "Content-Type":
-            "text/plain;charset=UTF-8"
-        },
-
-        body:
-          JSON.stringify(data)
-
-      }
-    );
-
-
-  if (!response.ok) {
-
-    throw new Error(
-      "서버 응답 오류"
-    );
-
-  }
-
-
-  return await response.json();
-
-}
-
-
-/* =========================================
-   로그인 정보 제거
-========================================= */
-
-function clearLogin() {
-
-  sessionStorage.removeItem(
-    "ledgerToken"
-  );
-
-
-  sessionStorage.removeItem(
-    "ledgerNickname"
-  );
-
-
-  sessionStorage.removeItem(
-    "ledgerUserId"
-  );
-
-}
-
-</script>
+    });
+  </script>
 
 </body>
-
 </html>

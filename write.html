@@ -1,2742 +1,1042 @@
 <!DOCTYPE html>
 <html lang="ko">
-
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내역 작성 | 나의 가계부</title>
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1.0"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
-  <title>나의 가계부</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-  <link
-    rel="stylesheet"
-    href="style.css"
-  >
+    :root {
+      --green: #5f9270;
+      --green-dark: #426b50;
+      --green-light: #eaf3eb;
+      --bg: #f6f7f2;
+      --card: #fff;
+      --text: #252a26;
+      --muted: #858c86;
+      --line: #e7ebe5;
+      --peach: #f7e2d8;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Noto Sans KR", sans-serif;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 850px;
+      margin: 0 auto;
+      padding: 35px 20px 70px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 25px;
+    }
+
+    .back {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #626962;
+      font-size: 13px;
+      text-decoration: none;
+    }
+
+    .brand {
+      color: var(--green-dark);
+      font-family: "Gowun Dodum", sans-serif;
+      font-size: 14px;
+    }
+
+    .title {
+      margin-bottom: 25px;
+    }
+
+    .title h1 {
+      margin: 0;
+      font-family: "Gowun Dodum", sans-serif;
+      font-size: 27px;
+      font-weight: 400;
+    }
+
+    .title p {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .card {
+      margin-bottom: 16px;
+      padding: 25px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--card);
+      box-shadow: 0 8px 25px rgba(55, 65, 56, .035);
+    }
+
+    /* 수입/지출 */
+
+    .type-toggle {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      padding: 5px;
+      border-radius: 14px;
+      background: #f2f4f0;
+    }
+
+    .type-btn {
+      height: 44px;
+      border: 0;
+      border-radius: 11px;
+      background: transparent;
+      color: #838983;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .type-btn.active {
+      background: #fff;
+      color: var(--green-dark);
+      box-shadow: 0 3px 12px rgba(50, 65, 52, .07);
+    }
+
+    .type-btn.expense.active {
+      color: #b85f55;
+    }
+
+    /* 입력 */
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 17px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 8px;
+      color: #5f665f;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .field input {
+      width: 100%;
+      height: 48px;
+      padding: 0 14px;
+      border: 1px solid #dde3dc;
+      border-radius: 12px;
+      outline: none;
+      background: #fff;
+      color: var(--text);
+      font-size: 14px;
+    }
+
+    .field input:focus {
+      border-color: #8ead94;
+      box-shadow: 0 0 0 3px rgba(95, 146, 112, .09);
+    }
+
+    .amount-wrap {
+      position: relative;
+    }
+
+    .amount-wrap input {
+      padding-right: 43px;
+    }
+
+    .won {
+      position: absolute;
+      top: 14px;
+      right: 15px;
+      color: #8a908a;
+      font-size: 13px;
+    }
+
+    /* 카테고리 */
+
+    .section-title {
+      margin: 0 0 6px;
+      font-size: 15px;
+    }
+
+    .section-desc {
+      margin: 0 0 19px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+    }
+
+    .category-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 84px;
+      padding: 8px 5px;
+      border: 1px solid #ebeeea;
+      border-radius: 14px;
+      background: #fafbf9;
+      color: #5e655f;
+      transition: .18s;
+    }
+
+    .category-btn:hover {
+      transform: translateY(-2px);
+      border-color: #cbd9cd;
+    }
+
+    .category-btn.active {
+      border-color: #9cbaa2;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    .category-icon {
+      margin-bottom: 7px;
+      font-size: 22px;
+    }
+
+    .category-name {
+      font-size: 10px;
+      line-height: 1.35;
+      text-align: center;
+    }
+
+    /* 수입 카테고리 */
+
+    .income-grid {
+      display: none;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+    }
+
+    .income-grid.show {
+      display: grid;
+    }
+
+    .expense-grid.hide {
+      display: none;
+    }
+
+    /* 세부 카테고리 */
+
+    .sub-section {
+      display: none;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid #eef0ed;
+    }
+
+    .sub-section.show {
+      display: block;
+    }
+
+    .sub-label {
+      margin-bottom: 11px;
+      color: #676e68;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .sub-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .sub-btn {
+      padding: 8px 13px;
+      border: 1px solid #e1e5df;
+      border-radius: 99px;
+      background: #fff;
+      color: #707670;
+      font-size: 11px;
+    }
+
+    .sub-btn.active {
+      border-color: #92b09a;
+      background: var(--green-light);
+      color: var(--green-dark);
+      font-weight: 700;
+    }
+
+    /* 선택 결과 */
+
+    .selected-box {
+      display: none;
+      margin-top: 18px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f6f8f4;
+      color: #5e675f;
+      font-size: 12px;
+    }
+
+    .selected-box.show {
+      display: block;
+    }
+
+    .selected-box strong {
+      color: var(--green-dark);
+    }
+
+    /* 저장 */
+
+    .save-btn {
+      width: 100%;
+      height: 54px;
+      margin-top: 5px;
+      border: 0;
+      border-radius: 14px;
+      background: var(--green);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .save-btn:hover {
+      background: #4e805e;
+    }
+
+    .save-btn:disabled {
+      cursor: wait;
+      opacity: .6;
+    }
+
+    .message {
+      display: none;
+      margin-top: 13px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 11px;
+      text-align: center;
+    }
+
+    .message.error {
+      display: block;
+      background: #fff0ed;
+      color: #b1544c;
+    }
+
+    .message.success {
+      display: block;
+      background: #edf6ee;
+      color: #467653;
+    }
+
+    @media (max-width: 650px) {
+      .page {
+        padding: 24px 15px 50px;
+      }
+
+      .card {
+        padding: 20px 17px;
+      }
+
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field.full {
+        grid-column: auto;
+      }
+
+      .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .income-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .title h1 {
+        font-size: 23px;
+      }
+    }
+  </style>
 </head>
-
 
 <body>
 
-<div class="app">
-
-  <!-- ==============================
-       사이드바
-  =============================== -->
-
-  <aside class="sidebar">
-
-    <div class="logo">
-
-      <div class="logo-icon">
-        🌿
-      </div>
-
-      <div class="logo-text">
-        <strong id="sideTitle">
-          나의 가계부
-        </strong>
-
-        <span>
-          MY LITTLE BUDGET
-        </span>
-      </div>
-
-    </div>
-
-
-    <nav class="sidebar-menu">
-
-      <a
-        href="index.html"
-        class="active"
-      >
-        <span class="menu-icon">⌂</span>
-        홈
-      </a>
-
-      <a href="write.html">
-        <span class="menu-icon">＋</span>
-        기록하기
-      </a>
-
-      <a
-        href="#analysis"
-        onclick="scrollToSection('analysis')"
-      >
-        <span class="menu-icon">◔</span>
-        소비 분석
-      </a>
-
-      <a
-        href="#recent"
-        onclick="scrollToSection('recent')"
-      >
-        <span class="menu-icon">☷</span>
-        최근 내역
-      </a>
-
-    </nav>
-
-
-    <div class="sidebar-divider"></div>
-
-
-    <div class="sidebar-note">
-
-      <span class="sidebar-note-icon">
-        🌱
-      </span>
-
-      작은 기록이 모이면<br>
-      나의 소비 습관이 보여요.
-
-    </div>
-
-  </aside>
-
-
-  <!-- ==============================
-       메인
-  =============================== -->
-
-  <main class="main">
-
-    <div class="main-inner">
-
-
-      <!-- 상단 -->
-
-      <header class="top-header">
-
-        <div class="month-navigation">
-
-          <button
-            class="circle-button"
-            type="button"
-            onclick="changeMonth(-1)"
-            aria-label="이전 달"
-          >
-            ‹
-          </button>
-
-          <h1 id="monthTitle">
-            -
-          </h1>
-
-          <button
-            class="circle-button"
-            type="button"
-            onclick="changeMonth(1)"
-            aria-label="다음 달"
-          >
-            ›
-          </button>
-
-        </div>
-
-
-        <div class="header-user">
-
-          <div
-            id="userAvatar"
-            class="user-avatar"
-          >
-            🌿
-          </div>
-
-          <div class="user-text">
-
-            <strong id="userNickname">
-              -
-            </strong>
-
-            <span>
-              MY ACCOUNT
-            </span>
-
-          </div>
-
-          <button
-            class="logout-button"
-            type="button"
-            onclick="logout()"
-          >
-            로그아웃
-          </button>
-
-        </div>
-
-      </header>
-
-
-      <!-- ==============================
-           인사 + 예산
-      =============================== -->
-
-      <section class="dashboard-top">
-
-        <article class="card hero-card">
-
-          <div class="hero-eyebrow">
-            이번 달 나의 소비 기록
-          </div>
-
-          <h2 id="mainGreeting">
-            나의 가계부 🌿
-          </h2>
-
-          <p id="monthlyInsight">
-            기록을 불러오고 있어요.
-          </p>
-
-          <div class="hero-decoration">
-            🌱
-          </div>
-
-        </article>
-
-
-        <article class="card budget-card">
-
-          <div class="budget-header">
-
-            <h3>
-              이번 달 예산
-            </h3>
-
-            <button
-              class="budget-edit-button"
-              type="button"
-              onclick="openBudgetModal()"
-              title="예산 수정"
-            >
-              ✎
-            </button>
-
-          </div>
-
-
-          <div class="budget-progress">
-
-            <span id="budgetProgress"></span>
-
-          </div>
-
-
-          <div class="budget-numbers">
-
-            <strong id="budgetSpent">
-              0원
-            </strong>
-
-            <span id="budgetTotal">
-              / 예산 미설정
-            </span>
-
-          </div>
-
-
-          <div
-            id="budgetMessage"
-            class="budget-message"
-          >
-            예산을 정해보세요 🌿
-          </div>
-
-        </article>
-
-      </section>
-
-
-      <!-- ==============================
-           요약
-      =============================== -->
-
-      <section class="summary-grid">
-
-        <article class="card summary-card">
-
-          <div class="summary-icon income">
-            ↗
-          </div>
-
-          <div class="summary-content">
-
-            <span>
-              이번 달 수입
-            </span>
-
-            <strong id="incomeAmount">
-              0원
-            </strong>
-
-            <small id="incomeCompare">
-              지난달과 비교 중
-            </small>
-
-          </div>
-
-        </article>
-
-
-        <article class="card summary-card">
-
-          <div class="summary-icon expense">
-            ↘
-          </div>
-
-          <div class="summary-content">
-
-            <span>
-              이번 달 지출
-            </span>
-
-            <strong id="expenseAmount">
-              0원
-            </strong>
-
-            <small id="expenseCompare">
-              지난달과 비교 중
-            </small>
-
-          </div>
-
-        </article>
-
-
-        <article class="card summary-card">
-
-          <div class="summary-icon balance">
-            ₩
-          </div>
-
-          <div class="summary-content">
-
-            <span>
-              이번 달 잔액
-            </span>
-
-            <strong id="balanceAmount">
-              0원
-            </strong>
-
-            <small>
-              수입 - 지출
-            </small>
-
-          </div>
-
-        </article>
-
-      </section>
-
-
-      <!-- ==============================
-           분석
-      =============================== -->
-
-      <section
-        id="analysis"
-        class="analysis-grid"
-      >
-
-        <!-- 6개월 추이 -->
-
-        <article class="card chart-card">
-
-          <div class="card-title">
-
-            <div>
-              <h2>
-                월별 지출 추이
-              </h2>
-
-              <span>
-                최근 6개월
-              </span>
-            </div>
-
-          </div>
-
-
-          <div
-            id="monthlyChart"
-            class="line-chart"
-          ></div>
-
-        </article>
-
-
-        <!-- 카테고리 -->
-
-        <article class="card chart-card">
-
-          <div class="card-title">
-
-            <div>
-              <h2>
-                어디에 많이 썼을까?
-              </h2>
-
-              <span>
-                이번 달 카테고리별 지출
-              </span>
-            </div>
-
-          </div>
-
-
-          <div
-            id="categoryAnalysis"
-            class="category-list"
-          ></div>
-
-        </article>
-
-      </section>
-
-
-      <!-- ==============================
-           최근 내역 + TOP5
-      =============================== -->
-
-      <section
-        id="recent"
-        class="bottom-grid"
-      >
-
-        <!-- 최근 내역 -->
-
-        <article class="card list-card">
-
-          <div class="card-title">
-
-            <div>
-              <h2>
-                최근 내역
-              </h2>
-
-              <span>
-                선택한 달의 최근 기록
-              </span>
-            </div>
-
-            <a
-              href="write.html"
-              style="
-                color:#527f61;
-                font-size:11px;
-                font-weight:600;
-              "
-            >
-              + 기록하기
-            </a>
-
-          </div>
-
-
-          <div
-            id="recentList"
-            class="transaction-list"
-          ></div>
-
-        </article>
-
-
-        <!-- TOP5 -->
-
-        <article class="card list-card">
-
-          <div class="card-title">
-
-            <div>
-              <h2>
-                지출 TOP 5
-              </h2>
-
-              <span>
-                이번 달 많이 쓴 항목
-              </span>
-            </div>
-
-          </div>
-
-
-          <div
-            id="topCategoryList"
-            class="top-category-list"
-          ></div>
-
-        </article>
-
-      </section>
-
-
-      <!-- ==============================
-           카테고리 바로가기
-      =============================== -->
-
-      <section class="card category-shortcuts">
-
-        <div class="shortcut-heading">
-
-          <h3>
-            어디에 썼나요?
-          </h3>
-
-          <p>
-            카테고리를 누르면 바로 기록할 수 있어요.
-          </p>
-
-        </div>
-
-
-        <div
-          id="shortcutGrid"
-          class="shortcut-grid"
-        ></div>
-
-      </section>
-
-    </div>
-
-  </main>
-
-</div>
-
-
-<!-- ==============================
-     기록 추가 버튼
-=============================== -->
-
-<a
-  href="write.html"
-  class="floating-add"
-  aria-label="새 기록 추가"
->
-  +
-</a>
-
-
-<!-- ==============================
-     모바일 메뉴
-=============================== -->
-
-<nav class="mobile-nav">
-
-  <a
-    href="index.html"
-    class="active"
-  >
-    <span>⌂</span>
-    <span>홈</span>
-  </a>
-
-  <a href="write.html">
-    <span>＋</span>
-    <span>기록</span>
-  </a>
-
-  <a
-    href="#analysis"
-    onclick="scrollToSection('analysis')"
-  >
-    <span>◔</span>
-    <span>분석</span>
-  </a>
-
-  <a
-    href="#recent"
-    onclick="scrollToSection('recent')"
-  >
-    <span>☷</span>
-    <span>내역</span>
-  </a>
-
-</nav>
-
-
-<!-- ==============================
-     예산 모달
-=============================== -->
-
-<div
-  id="budgetModal"
-  class="modal-backdrop"
->
-
-  <div class="modal">
-
-    <h3 id="budgetModalTitle">
-      이번 달 예산
-    </h3>
-
-
-    <div class="form-group">
-
-      <label for="budgetInput">
-        예산 금액
-      </label>
-
-      <input
-        id="budgetInput"
-        class="form-control"
-        type="number"
-        min="0"
-        step="1000"
-        placeholder="예: 1000000"
-      >
-
-    </div>
-
-
-    <div class="modal-actions">
-
-      <button
-        class="cancel-button"
-        type="button"
-        onclick="closeBudgetModal()"
-      >
-        취소
-      </button>
-
-      <button
-        id="budgetSaveButton"
-        class="confirm-button"
-        type="button"
-        onclick="saveBudget()"
-      >
-        저장
-      </button>
-
-    </div>
-
+<main class="page">
+
+  <header class="top">
+    <a href="./index.html" class="back">← 대시보드</a>
+    <div class="brand">🌿 나의 가계부</div>
+  </header>
+
+  <div class="title">
+    <h1>오늘의 기록 ✏️</h1>
+    <p>작은 소비도 차곡차곡 기록해봐요.</p>
   </div>
 
-</div>
-
-
-<!-- ==============================
-     수정 모달
-=============================== -->
-
-<div
-  id="editModal"
-  class="modal-backdrop"
->
-
-  <div class="modal">
-
-    <h3>
-      기록 수정
-    </h3>
-
-
-    <input
-      id="editRecordId"
-      type="hidden"
-    >
-
-
-    <div class="form-group">
-
-      <label for="editDate">
-        날짜
-      </label>
-
-      <input
-        id="editDate"
-        class="form-control"
-        type="date"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="editName">
-        내용
-      </label>
-
-      <input
-        id="editName"
-        class="form-control"
-        type="text"
-        maxlength="50"
-        placeholder="예: 친구랑 점심"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="editCategory">
-        카테고리
-      </label>
-
-      <select
-        id="editCategory"
-        class="form-control"
-      ></select>
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label for="editAmount">
-        금액
-      </label>
-
-      <input
-        id="editAmount"
-        class="form-control"
-        type="number"
-        min="1"
-        step="1"
-      >
-
-    </div>
-
-
-    <div class="form-group">
-
-      <label>
-        구분
-      </label>
-
-      <select
-        id="editType"
-        class="form-control"
-      >
-        <option value="expense">
-          지출
-        </option>
-
-        <option value="income">
-          수입
-        </option>
-      </select>
-
-    </div>
-
-
-    <div class="modal-actions">
-
+  <section class="card">
+    <div class="type-toggle">
       <button
-        class="cancel-button"
         type="button"
-        onclick="closeEditModal()"
+        class="type-btn expense active"
+        id="expenseBtn"
+        onclick="setType('expense')"
       >
-        취소
+        지출
       </button>
 
       <button
-        id="editSaveButton"
-        class="confirm-button"
         type="button"
-        onclick="saveEdit()"
+        class="type-btn"
+        id="incomeBtn"
+        onclick="setType('income')"
       >
-        수정하기
+        수입
       </button>
+    </div>
+  </section>
+
+  <section class="card">
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="date">날짜</label>
+        <input type="date" id="date">
+      </div>
+
+      <div class="field">
+        <label for="amount">금액</label>
+
+        <div class="amount-wrap">
+          <input
+            type="number"
+            id="amount"
+            min="0"
+            step="1"
+            placeholder="0"
+            inputmode="numeric"
+          >
+          <span class="won">원</span>
+        </div>
+      </div>
+
+      <div class="field full">
+        <label for="name">내용</label>
+        <input
+          type="text"
+          id="name"
+          maxlength="50"
+          placeholder="예: 점심 김치찌개"
+        >
+      </div>
 
     </div>
+  </section>
 
-  </div>
+  <section class="card">
 
-</div>
+    <h2 class="section-title">카테고리</h2>
+    <p class="section-desc">
+      어떤 곳에 사용한 돈인지 선택해주세요.
+    </p>
+
+    <div
+      class="category-grid expense-grid"
+      id="expenseCategoryGrid"
+    ></div>
+
+    <div
+      class="income-grid"
+      id="incomeCategoryGrid"
+    ></div>
+
+    <div class="sub-section" id="subSection">
+      <div class="sub-label">세부 카테고리</div>
+      <div class="sub-grid" id="subGrid"></div>
+    </div>
+
+    <div class="selected-box" id="selectedBox">
+      선택한 카테고리:
+      <strong id="selectedText"></strong>
+    </div>
+
+  </section>
+
+  <button
+    type="button"
+    class="save-btn"
+    id="saveBtn"
+    onclick="saveRecord()"
+  >
+    기록 저장하기
+  </button>
+
+  <div id="message" class="message"></div>
+
+</main>
 
 
 <script>
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbzedrpedwYtEaVvtdojzfoovU9SIRqhcn9rqz2lLH50w-1HOyetfJfLOkT-mMIq7G3PrQ/exec";
 
-/* =========================================
-   API
-========================================= */
+  const token = sessionStorage.getItem("ledgerToken");
 
-const API_URL =
-  "https://script.google.com/macros/s/AKfycbzedrpedwYtEaVvtdojzfoovU9SIRqhcn9rqz2lLH50w-1HOyetfJfLOkT-mMIq7G3PrQ/exec";
-
-
-/* =========================================
-   로그인
-========================================= */
-
-const token =
-  sessionStorage.getItem(
-    "ledgerToken"
-  );
-
-
-if (!token) {
-
-  window.location.replace(
-    "login.html"
-  );
-
-}
-
-
-/* =========================================
-   카테고리
-========================================= */
-
-const CATEGORY_INFO = {
-
-  "쇼핑": {
-    icon: "🛍️"
-  },
-
-  "뷰티 및 미용": {
-    icon: "💄"
-  },
-
-  "식비": {
-    icon: "🍚"
-  },
-
-  "카페": {
-    icon: "☕"
-  },
-
-  "사교모임": {
-    icon: "🥂"
-  },
-
-  "생활": {
-    icon: "🧺"
-  },
-
-  "문화 및 여가": {
-    icon: "🎬"
-  },
-
-  "교통": {
-    icon: "🚌"
-  },
-
-  "주거": {
-    icon: "🏠"
-  },
-
-  "통신": {
-    icon: "📱"
-  },
-
-  "의료": {
-    icon: "💊"
-  },
-
-  "여행": {
-    icon: "✈️"
-  },
-
-  "교육": {
-    icon: "📚"
-  },
-
-  "경조 및 선물": {
-    icon: "🎁"
-  },
-
-  "고양이": {
-    icon: "🐾"
-  },
-
-  "수입": {
-    icon: "💰"
+  if (!token) {
+    window.location.href = "./login.html";
   }
 
-};
-
-
-/* =========================================
-   상태
-========================================= */
-
-const today =
-  new Date();
-
-
-let selectedYear =
-  today.getFullYear();
-
-
-let selectedMonth =
-  today.getMonth() + 1;
-
-
-let allData = [];
-
-let currentBudget = 0;
-
-let nickname = "";
-
-let userId = "";
-
-
-/* =========================================
-   시작
-========================================= */
-
-document.addEventListener(
-  "DOMContentLoaded",
-  init
-);
-
-
-async function init() {
-
-  renderShortcuts();
-
-  fillEditCategories();
-
-  updateMonthTitle();
-
-
-  const verified =
-    await verifyLogin();
-
-
-  if (!verified) {
-    return;
-  }
-
-
-  await loadAll();
-
-}
-
-
-/* =========================================
-   로그인 확인
-========================================= */
-
-async function verifyLogin() {
-
-  try {
-
-    const result =
-      await apiRequest({
-        action: "verify",
-        token: token
-      });
-
-
-    if (!result.success) {
-
-      clearLogin();
-
-      window.location.replace(
-        "login.html"
-      );
-
-      return false;
-
-    }
-
-
-    nickname =
-      result.nickname ||
-      result.userId ||
-      "나";
-
-
-    userId =
-      result.userId || "";
-
-
-    sessionStorage.setItem(
-      "ledgerNickname",
-      nickname
-    );
-
-
-    sessionStorage.setItem(
-      "ledgerUserId",
-      userId
-    );
-
-
-    renderUser();
-
-
-    return true;
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-
-    alert(
-      "서버 연결 중 오류가 발생했어요."
-    );
-
-
-    return false;
-
-  }
-
-}
-
-
-/* =========================================
-   사용자 표시
-========================================= */
-
-function renderUser() {
-
-  document.getElementById(
-    "mainGreeting"
-  ).textContent =
-    nickname +
-    "의 가계부 🌿";
-
-
-  document.getElementById(
-    "sideTitle"
-  ).textContent =
-    nickname +
-    "의 가계부";
-
-
-  document.getElementById(
-    "userNickname"
-  ).textContent =
-    nickname;
-
-
-  const firstLetter =
-    nickname
-      .trim()
-      .charAt(0);
-
-
-  document.getElementById(
-    "userAvatar"
-  ).textContent =
-    firstLetter || "🌿";
-
-
-  document.title =
-    nickname +
-    "의 가계부";
-
-}
-
-
-/* =========================================
-   전체 불러오기
-========================================= */
-
-async function loadAll() {
-
-  try {
-
-    const [
-      dataResult,
-      budgetResult
-    ] =
-      await Promise.all([
-
-        apiRequest({
-          action: "data",
-          token: token
-        }),
-
-        apiRequest({
-          action: "getBudget",
-          token: token,
-          year: selectedYear,
-          month: selectedMonth
-        })
-
-      ]);
-
-
-    if (
-      dataResult.loginRequired ||
-      budgetResult.loginRequired
-    ) {
-
-      clearLogin();
-
-      window.location.replace(
-        "login.html"
-      );
-
-      return;
-
-    }
-
-
-    if (!dataResult.success) {
-
-      throw new Error(
-        dataResult.message ||
-        "데이터를 불러오지 못했습니다."
-      );
-
-    }
-
-
-    allData =
-      Array.isArray(
-        dataResult.data
-      )
-        ? dataResult.data
-        : [];
-
-
-    currentBudget =
-      budgetResult.success
-        ? Number(
-            budgetResult.budget
-          ) || 0
-        : 0;
-
-
-    renderDashboard();
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-
-    alert(
-      "가계부를 불러오는 중 오류가 발생했어요."
-    );
-
-  }
-
-}
-
-
-/* =========================================
-   월 이동
-========================================= */
-
-async function changeMonth(amount) {
-
-  selectedMonth += amount;
-
-
-  if (selectedMonth > 12) {
-
-    selectedMonth = 1;
-
-    selectedYear += 1;
-
-  }
-
-
-  if (selectedMonth < 1) {
-
-    selectedMonth = 12;
-
-    selectedYear -= 1;
-
-  }
-
-
-  updateMonthTitle();
-
-  await loadBudgetOnly();
-
-  renderDashboard();
-
-}
-
-
-function updateMonthTitle() {
-
-  document.getElementById(
-    "monthTitle"
-  ).textContent =
-    selectedYear +
-    "년 " +
-    selectedMonth +
-    "월";
-
-}
-
-
-async function loadBudgetOnly() {
-
-  try {
-
-    const result =
-      await apiRequest({
-
-        action: "getBudget",
-
-        token: token,
-
-        year: selectedYear,
-
-        month: selectedMonth
-
-      });
-
-
-    currentBudget =
-      result.success
-        ? Number(
-            result.budget
-          ) || 0
-        : 0;
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-    currentBudget = 0;
-
-  }
-
-}
-
-
-/* =========================================
-   대시보드
-========================================= */
-
-function renderDashboard() {
-
-  const current =
-    getMonthData(
-      selectedYear,
-      selectedMonth
-    );
-
-
-  const previousDate =
-    new Date(
-      selectedYear,
-      selectedMonth - 2,
-      1
-    );
-
-
-  const previous =
-    getMonthData(
-      previousDate.getFullYear(),
-      previousDate.getMonth() + 1
-    );
-
-
-  const currentIncome =
-    sumIncome(current);
-
-
-  const currentExpense =
-    sumExpense(current);
-
-
-  const previousIncome =
-    sumIncome(previous);
-
-
-  const previousExpense =
-    sumExpense(previous);
-
-
-  document.getElementById(
-    "incomeAmount"
-  ).textContent =
-    money(currentIncome);
-
-
-  document.getElementById(
-    "expenseAmount"
-  ).textContent =
-    money(currentExpense);
-
-
-  document.getElementById(
-    "balanceAmount"
-  ).textContent =
-    money(
-      currentIncome -
-      currentExpense
-    );
-
-
-  document.getElementById(
-    "incomeCompare"
-  ).textContent =
-    comparisonText(
-      currentIncome,
-      previousIncome,
-      "수입"
-    );
-
-
-  document.getElementById(
-    "expenseCompare"
-  ).textContent =
-    comparisonText(
-      currentExpense,
-      previousExpense,
-      "지출"
-    );
-
-
-  renderBudget(
-    currentExpense
-  );
-
-
-  renderInsight(
-    current,
-    currentExpense,
-    previousExpense
-  );
-
-
-  renderSixMonthChart();
-
-  renderCategoryAnalysis(
-    current
-  );
-
-
-  renderRecent(
-    current
-  );
-
-
-  renderTopCategories(
-    current
-  );
-
-}
-
-
-/* =========================================
-   월 데이터
-========================================= */
-
-function getMonthData(
-  year,
-  month
-) {
-
-  return allData.filter(
-    function(item) {
-
-      const parts =
-        String(
-          item.date || ""
-        ).split("-");
-
-
-      if (parts.length < 2) {
-        return false;
-      }
-
-
-      return (
-        Number(parts[0]) === year &&
-        Number(parts[1]) === month
-      );
-
-    }
-  );
-
-}
-
-
-/* =========================================
-   수입 / 지출
-========================================= */
-
-function sumIncome(data) {
-
-  return data.reduce(
-    function(sum, item) {
-
-      const amount =
-        Number(item.amount) || 0;
-
-
-      return amount > 0
-        ? sum + amount
-        : sum;
-
+  const expenseCategories = {
+    "쇼핑": {
+      icon: "🛍️",
+      subs: [
+        "의류",
+        "신발",
+        "가방",
+        "액세서리",
+        "온라인 쇼핑",
+        "잡화",
+        "기타"
+      ]
     },
-    0
-  );
 
-}
-
-
-function sumExpense(data) {
-
-  return data.reduce(
-    function(sum, item) {
-
-      const amount =
-        Number(item.amount) || 0;
-
-
-      return amount < 0
-        ? sum + Math.abs(amount)
-        : sum;
-
+    "뷰티 및 미용": {
+      icon: "💄",
+      subs: [
+        "화장품",
+        "스킨케어",
+        "미용실",
+        "네일",
+        "피부관리",
+        "미용용품",
+        "기타"
+      ]
     },
-    0
-  );
 
-}
-
-
-/* =========================================
-   비교 문구
-========================================= */
-
-function comparisonText(
-  current,
-  previous,
-  type
-) {
-
-  if (
-    current === 0 &&
-    previous === 0
-  ) {
-
-    return "아직 기록이 없어요";
-
-  }
-
-
-  const difference =
-    current - previous;
-
-
-  if (difference === 0) {
-
-    return "지난달과 같아요";
-
-  }
-
-
-  if (difference > 0) {
-
-    return (
-      "지난달보다 " +
-      money(difference) +
-      " 많아요"
-    );
-
-  }
-
-
-  return (
-    "지난달보다 " +
-    money(
-      Math.abs(difference)
-    ) +
-    " 적어요"
-  );
-
-}
-
-
-/* =========================================
-   한 줄 분석
-========================================= */
-
-function renderInsight(
-  current,
-  currentExpense,
-  previousExpense
-) {
-
-  const element =
-    document.getElementById(
-      "monthlyInsight"
-    );
-
-
-  if (current.length === 0) {
-
-    element.textContent =
-      "아직 이번 달 기록이 없어요. 첫 기록을 남겨볼까요? 🌱";
-
-    return;
-
-  }
-
-
-  const categories =
-    getCategoryTotals(
-      current
-    );
-
-
-  const sorted =
-    Object.entries(
-      categories
-    ).sort(
-      function(a, b) {
-        return b[1] - a[1];
-      }
-    );
-
-
-  let text = "";
-
-
-  if (sorted.length > 0) {
-
-    text =
-      "이번 달 " +
-      sorted[0][0] +
-      "에 " +
-      money(sorted[0][1]) +
-      " 썼어요.";
-
-  } else {
-
-    text =
-      "이번 달 지출은 " +
-      money(currentExpense) +
-      "이에요.";
-
-  }
-
-
-  const difference =
-    currentExpense -
-    previousExpense;
-
-
-  if (difference < 0) {
-
-    text +=
-      " 지난달보다 " +
-      money(
-        Math.abs(difference)
-      ) +
-      " 적게 썼어요 🌱";
-
-  } else if (difference > 0) {
-
-    text +=
-      " 지난달보다 " +
-      money(difference) +
-      " 더 썼어요.";
-
-  } else {
-
-    text +=
-      " 지난달과 비슷한 흐름이에요.";
-
-  }
-
-
-  element.textContent =
-    text;
-
-}
-
-
-/* =========================================
-   예산
-========================================= */
-
-function renderBudget(
-  expense
-) {
-
-  const progress =
-    document.getElementById(
-      "budgetProgress"
-    );
-
-
-  const spent =
-    document.getElementById(
-      "budgetSpent"
-    );
-
-
-  const total =
-    document.getElementById(
-      "budgetTotal"
-    );
-
-
-  const message =
-    document.getElementById(
-      "budgetMessage"
-    );
-
-
-  spent.textContent =
-    money(expense);
-
-
-  if (currentBudget <= 0) {
-
-    total.textContent =
-      "/ 예산 미설정";
-
-
-    progress.style.width =
-      "0%";
-
-
-    message.textContent =
-      "예산을 정해보세요 🌿";
-
-
-    return;
-
-  }
-
-
-  total.textContent =
-    "/ " +
-    money(currentBudget);
-
-
-  const percent =
-    Math.min(
-      100,
-      expense /
-      currentBudget *
-      100
-    );
-
-
-  progress.style.width =
-    percent + "%";
-
-
-  const remaining =
-    currentBudget -
-    expense;
-
-
-  if (remaining >= 0) {
-
-    message.textContent =
-      money(remaining) +
-      " 남았어요 🌿";
-
-  } else {
-
-    message.textContent =
-      "예산을 " +
-      money(
-        Math.abs(remaining)
-      ) +
-      " 초과했어요.";
-
-  }
-
-}
-
-
-/* =========================================
-   예산 모달
-========================================= */
-
-function openBudgetModal() {
-
-  document.getElementById(
-    "budgetModalTitle"
-  ).textContent =
-    selectedMonth +
-    "월 예산";
-
-
-  document.getElementById(
-    "budgetInput"
-  ).value =
-    currentBudget > 0
-      ? currentBudget
-      : "";
-
-
-  document.getElementById(
-    "budgetModal"
-  ).classList.add(
-    "show"
-  );
-
-}
-
-
-function closeBudgetModal() {
-
-  document.getElementById(
-    "budgetModal"
-  ).classList.remove(
-    "show"
-  );
-
-}
-
-
-async function saveBudget() {
-
-  const input =
-    document.getElementById(
-      "budgetInput"
-    );
-
-
-  const button =
-    document.getElementById(
-      "budgetSaveButton"
-    );
-
-
-  const budget =
-    Number(
-      input.value
-    );
-
-
-  if (
-    !Number.isFinite(budget) ||
-    budget < 0
-  ) {
-
-    alert(
-      "예산 금액을 확인해주세요."
-    );
-
-    return;
-
-  }
-
-
-  button.disabled =
-    true;
-
-
-  button.textContent =
-    "저장 중...";
-
-
-  try {
-
-    const result =
-      await apiRequest({
-
-        action: "saveBudget",
-
-        token: token,
-
-        year: selectedYear,
-
-        month: selectedMonth,
-
-        budget: budget
-
-      });
-
-
-    if (!result.success) {
-
-      alert(
-        result.message ||
-        "예산 저장에 실패했어요."
-      );
-
-      return;
-
+    "식비": {
+      icon: "🍚",
+      subs: [
+        "장보기",
+        "외식",
+        "배달",
+        "간식",
+        "편의점",
+        "야식",
+        "기타"
+      ]
+    },
+
+    "카페": {
+      icon: "☕",
+      subs: [
+        "커피",
+        "음료",
+        "디저트",
+        "베이커리",
+        "기타"
+      ]
+    },
+
+    "사교모임": {
+      icon: "🥂",
+      subs: [
+        "친구모임",
+        "회식",
+        "데이트",
+        "술자리",
+        "동호회",
+        "모임회비",
+        "기타"
+      ]
+    },
+
+    "생활": {
+      icon: "🧺",
+      subs: [
+        "생활용품",
+        "마트",
+        "세탁",
+        "가구",
+        "가전",
+        "소모품",
+        "기타"
+      ]
+    },
+
+    "문화 및 여가": {
+      icon: "🎬",
+      subs: [
+        "영화",
+        "공연",
+        "전시",
+        "책",
+        "취미",
+        "게임",
+        "운동",
+        "기타"
+      ]
+    },
+
+    "교통": {
+      icon: "🚌",
+      subs: [
+        "대중교통",
+        "택시",
+        "주유",
+        "주차",
+        "통행료",
+        "자동차",
+        "기타"
+      ]
+    },
+
+    "주거": {
+      icon: "🏠",
+      subs: [
+        "월세",
+        "관리비",
+        "전기",
+        "가스",
+        "수도",
+        "집수리",
+        "주거용품",
+        "기타"
+      ]
+    },
+
+    "통신": {
+      icon: "📱",
+      subs: [
+        "휴대폰",
+        "인터넷",
+        "구독서비스",
+        "OTT",
+        "앱 결제",
+        "기타"
+      ]
+    },
+
+    "의료": {
+      icon: "💊",
+      subs: [
+        "병원",
+        "약국",
+        "치과",
+        "검진",
+        "영양제",
+        "치료",
+        "기타"
+      ]
+    },
+
+    "여행": {
+      icon: "✈️",
+      subs: [
+        "숙박",
+        "교통",
+        "항공",
+        "여행식비",
+        "관광",
+        "쇼핑",
+        "여행준비",
+        "기타"
+      ]
+    },
+
+    "교육": {
+      icon: "📚",
+      subs: [
+        "책",
+        "강의",
+        "학원",
+        "자격증",
+        "교육비",
+        "문구",
+        "기타"
+      ]
+    },
+
+    "경조 및 선물": {
+      icon: "🎁",
+      subs: [
+        "축의금",
+        "부의금",
+        "생일선물",
+        "기념일",
+        "부모님",
+        "선물",
+        "기타"
+      ]
+    },
+
+    "고양이": {
+      icon: "🐱",
+      subs: [
+        "사료",
+        "간식",
+        "모래",
+        "병원",
+        "약",
+        "장난감",
+        "용품",
+        "미용",
+        "기타"
+      ]
     }
+  };
 
 
-    currentBudget =
-      budget;
+  const incomeCategories = [
+    {
+      name: "급여",
+      icon: "💼"
+    },
+    {
+      name: "부수입",
+      icon: "💰"
+    },
+    {
+      name: "용돈",
+      icon: "🪙"
+    },
+    {
+      name: "환급",
+      icon: "↩️"
+    },
+    {
+      name: "이자",
+      icon: "🏦"
+    },
+    {
+      name: "중고판매",
+      icon: "📦"
+    },
+    {
+      name: "기타",
+      icon: "✨"
+    }
+  ];
 
 
-    closeBudgetModal();
-
-    renderDashboard();
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
+  let recordType = "expense";
+  let selectedMain = "";
+  let selectedSub = "";
 
 
-    alert(
-      "예산 저장 중 오류가 발생했어요."
-    );
+  const expenseGrid =
+    document.getElementById("expenseCategoryGrid");
 
-  } finally {
+  const incomeGrid =
+    document.getElementById("incomeCategoryGrid");
 
-    button.disabled =
-      false;
+  const subSection =
+    document.getElementById("subSection");
 
+  const subGrid =
+    document.getElementById("subGrid");
 
-    button.textContent =
-      "저장";
+  const selectedBox =
+    document.getElementById("selectedBox");
 
-  }
-
-}
-
-
-/* =========================================
-   6개월 그래프
-========================================= */
-
-function renderSixMonthChart() {
-
-  const container =
-    document.getElementById(
-      "monthlyChart"
-    );
+  const selectedText =
+    document.getElementById("selectedText");
 
 
-  const months = [];
-
-
-  for (
-    let i = 5;
-    i >= 0;
-    i--
-  ) {
-
-    const date =
-      new Date(
-        selectedYear,
-        selectedMonth - 1 - i,
-        1
-      );
-
+  function todayString() {
+    const today = new Date();
 
     const year =
-      date.getFullYear();
-
+      today.getFullYear();
 
     const month =
-      date.getMonth() + 1;
+      String(today.getMonth() + 1).padStart(2, "0");
 
+    const day =
+      String(today.getDate()).padStart(2, "0");
 
-    const data =
-      getMonthData(
-        year,
-        month
-      );
-
-
-    months.push({
-
-      year: year,
-
-      month: month,
-
-      expense:
-        sumExpense(data)
-
-    });
-
+    return `${year}-${month}-${day}`;
   }
 
 
-  const max =
-    Math.max(
-      ...months.map(
-        item =>
-          item.expense
-      ),
-      1
-    );
+  document.getElementById("date").value =
+    todayString();
 
 
-  container.innerHTML =
-    months.map(
-      function(item) {
+  function renderExpenseCategories() {
+    expenseGrid.innerHTML = "";
 
-        const height =
-          item.expense === 0
-            ? 3
-            : Math.max(
-                10,
-                item.expense /
-                max *
-                100
-              );
+    Object.entries(expenseCategories)
+      .forEach(([name, data]) => {
 
+        const button =
+          document.createElement("button");
 
-        return `
-          <div
-            class="chart-column"
-            title="${money(item.expense)}"
-          >
+        button.type = "button";
+        button.className = "category-btn";
+        button.dataset.category = name;
 
-            <div
-              class="chart-bar"
-              style="height:${height}%"
-            ></div>
+        button.innerHTML = `
+          <span class="category-icon">
+            ${data.icon}
+          </span>
 
-            <small>
-              ${item.month}월
-            </small>
-
-          </div>
+          <span class="category-name">
+            ${name}
+          </span>
         `;
 
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   카테고리 금액
-========================================= */
-
-function getMainCategory(
-  category
-) {
-
-  return String(
-    category || "기타"
-  )
-    .split(">")[0]
-    .trim();
-
-}
-
-
-function getCategoryTotals(
-  data
-) {
-
-  const result = {};
-
-
-  data.forEach(
-    function(item) {
-
-      const amount =
-        Number(
-          item.amount
-        ) || 0;
-
-
-      if (amount >= 0) {
-        return;
-      }
-
-
-      const category =
-        getMainCategory(
-          item.category
+        button.addEventListener(
+          "click",
+          function () {
+            selectExpenseCategory(name);
+          }
         );
 
-
-      result[category] =
-        (
-          result[category] ||
-          0
-        ) +
-        Math.abs(amount);
-
-    }
-  );
-
-
-  return result;
-
-}
-
-
-/* =========================================
-   카테고리 분석
-========================================= */
-
-function renderCategoryAnalysis(
-  data
-) {
-
-  const container =
-    document.getElementById(
-      "categoryAnalysis"
-    );
-
-
-  const totals =
-    getCategoryTotals(
-      data
-    );
-
-
-  const sorted =
-    Object.entries(
-      totals
-    )
-      .sort(
-        function(a, b) {
-          return b[1] - a[1];
-        }
-      )
-      .slice(0, 7);
-
-
-  if (sorted.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        이번 달 지출 기록이 없어요 🌱
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  const max =
-    sorted[0][1];
-
-
-  container.innerHTML =
-    sorted.map(
-      function(item) {
-
-        const percent =
-          item[1] /
-          max *
-          100;
-
-
-        return `
-          <div class="category-item">
-
-            <div class="category-name">
-              ${categoryIcon(item[0])}
-              ${escapeHtml(item[0])}
-            </div>
-
-            <div class="category-track">
-              <span
-                style="width:${percent}%"
-              ></span>
-            </div>
-
-            <div class="category-amount">
-              ${money(item[1])}
-            </div>
-
-          </div>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   최근 내역
-========================================= */
-
-function renderRecent(
-  data
-) {
-
-  const container =
-    document.getElementById(
-      "recentList"
-    );
-
-
-  const sorted =
-    [...data]
-      .sort(
-        function(a, b) {
-
-          const dateCompare =
-            String(b.date)
-              .localeCompare(
-                String(a.date)
-              );
-
-
-          if (dateCompare !== 0) {
-            return dateCompare;
-          }
-
-
-          return String(
-            b.createdAt || ""
-          ).localeCompare(
-            String(
-              a.createdAt || ""
-            )
-          );
-
-        }
-      )
-      .slice(0, 7);
-
-
-  if (sorted.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        아직 기록이 없어요.<br>
-        + 버튼을 눌러 첫 기록을 남겨보세요 🌿
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    sorted.map(
-      function(item) {
-
-        const amount =
-          Number(
-            item.amount
-          ) || 0;
-
-
-        const mainCategory =
-          getMainCategory(
-            item.category
-          );
-
-
-        return `
-          <div class="transaction">
-
-            <div class="transaction-date">
-              ${shortDate(item.date)}
-            </div>
-
-
-            <div class="transaction-info">
-
-              <div class="transaction-icon">
-                ${categoryIcon(mainCategory)}
-              </div>
-
-              <div>
-
-                <strong>
-                  ${escapeHtml(item.name)}
-                </strong>
-
-                <span class="transaction-category">
-                  ${escapeHtml(item.category)}
-                </span>
-
-              </div>
-
-            </div>
-
-
-            <div
-              class="
-                transaction-amount
-                ${amount > 0 ? "income" : ""}
-              "
-            >
-              ${amount > 0 ? "+" : "-"}
-              ${money(Math.abs(amount))}
-            </div>
-
-
-            <div class="transaction-actions">
-
-              <button
-                class="mini-button"
-                type="button"
-                onclick='openEditModal(${JSON.stringify(item.id)})'
-              >
-                수정
-              </button>
-
-              <button
-                class="mini-button delete"
-                type="button"
-                onclick='deleteRecord(${JSON.stringify(item.id)})'
-              >
-                삭제
-              </button>
-
-            </div>
-
-          </div>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   TOP 5
-========================================= */
-
-function renderTopCategories(
-  data
-) {
-
-  const container =
-    document.getElementById(
-      "topCategoryList"
-    );
-
-
-  const totals =
-    getCategoryTotals(
-      data
-    );
-
-
-  const sorted =
-    Object.entries(
-      totals
-    )
-      .sort(
-        function(a, b) {
-          return b[1] - a[1];
-        }
-      )
-      .slice(0, 5);
-
-
-  if (sorted.length === 0) {
-
-    container.innerHTML = `
-      <div class="empty-state">
-        지출 기록이 생기면<br>
-        TOP 5를 보여드릴게요.
-      </div>
-    `;
-
-    return;
-
-  }
-
-
-  container.innerHTML =
-    sorted.map(
-      function(item, index) {
-
-        return `
-          <div class="top-category">
-
-            <div class="rank">
-              ${index + 1}
-            </div>
-
-            <div class="top-category-icon">
-              ${categoryIcon(item[0])}
-            </div>
-
-            <div class="top-category-name">
-              ${escapeHtml(item[0])}
-            </div>
-
-            <div class="top-category-amount">
-              ${money(item[1])}
-            </div>
-
-          </div>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   카테고리 바로가기
-========================================= */
-
-function renderShortcuts() {
-
-  const container =
-    document.getElementById(
-      "shortcutGrid"
-    );
-
-
-  const categories =
-    Object.keys(
-      CATEGORY_INFO
-    ).filter(
-      category =>
-        category !== "수입"
-    );
-
-
-  container.innerHTML =
-    categories.map(
-      function(category) {
-
-        const url =
-          "write.html?category=" +
-          encodeURIComponent(
-            category
-          );
-
-
-        return `
-          <a
-            class="shortcut"
-            href="${url}"
-          >
-
-            <span class="shortcut-icon">
-              ${CATEGORY_INFO[category].icon}
-            </span>
-
-            <span>
-              ${escapeHtml(category)}
-            </span>
-
-          </a>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   수정 카테고리
-========================================= */
-
-function fillEditCategories() {
-
-  const select =
-    document.getElementById(
-      "editCategory"
-    );
-
-
-  select.innerHTML =
-    Object.keys(
-      CATEGORY_INFO
-    ).map(
-      function(category) {
-
-        return `
-          <option value="${escapeHtml(category)}">
-            ${CATEGORY_INFO[category].icon}
-            ${escapeHtml(category)}
-          </option>
-        `;
-
-      }
-    ).join("");
-
-}
-
-
-/* =========================================
-   수정
-========================================= */
-
-function openEditModal(
-  id
-) {
-
-  const item =
-    allData.find(
-      record =>
-        record.id === id
-    );
-
-
-  if (!item) {
-
-    alert(
-      "기록을 찾을 수 없어요."
-    );
-
-    return;
-
-  }
-
-
-  const amount =
-    Number(
-      item.amount
-    ) || 0;
-
-
-  document.getElementById(
-    "editRecordId"
-  ).value =
-    item.id;
-
-
-  document.getElementById(
-    "editDate"
-  ).value =
-    item.date;
-
-
-  document.getElementById(
-    "editName"
-  ).value =
-    item.name;
-
-
-  document.getElementById(
-    "editCategory"
-  ).value =
-    getMainCategory(
-      item.category
-    );
-
-
-  document.getElementById(
-    "editAmount"
-  ).value =
-    Math.abs(amount);
-
-
-  document.getElementById(
-    "editType"
-  ).value =
-    amount >= 0
-      ? "income"
-      : "expense";
-
-
-  document.getElementById(
-    "editModal"
-  ).classList.add(
-    "show"
-  );
-
-}
-
-
-function closeEditModal() {
-
-  document.getElementById(
-    "editModal"
-  ).classList.remove(
-    "show"
-  );
-
-}
-
-
-async function saveEdit() {
-
-  const button =
-    document.getElementById(
-      "editSaveButton"
-    );
-
-
-  const id =
-    document.getElementById(
-      "editRecordId"
-    ).value;
-
-
-  const date =
-    document.getElementById(
-      "editDate"
-    ).value;
-
-
-  const name =
-    document.getElementById(
-      "editName"
-    ).value.trim();
-
-
-  const category =
-    document.getElementById(
-      "editCategory"
-    ).value;
-
-
-  const type =
-    document.getElementById(
-      "editType"
-    ).value;
-
-
-  let amount =
-    Number(
-      document.getElementById(
-        "editAmount"
-      ).value
-    );
-
-
-  if (
-    !id ||
-    !date ||
-    !name ||
-    !category ||
-    !Number.isFinite(amount) ||
-    amount <= 0
-  ) {
-
-    alert(
-      "입력 내용을 확인해주세요."
-    );
-
-    return;
-
-  }
-
-
-  amount =
-    type === "expense"
-      ? -Math.abs(amount)
-      : Math.abs(amount);
-
-
-  button.disabled =
-    true;
-
-
-  button.textContent =
-    "수정 중...";
-
-
-  try {
-
-    const result =
-      await apiRequest({
-
-        action: "update",
-
-        token: token,
-
-        id: id,
-
-        date: date,
-
-        name: name,
-
-        category: category,
-
-        amount: amount
-
+        expenseGrid.appendChild(button);
       });
+  }
 
 
-    if (!result.success) {
+  function renderIncomeCategories() {
+    incomeGrid.innerHTML = "";
 
-      alert(
-        result.message ||
-        "수정하지 못했어요."
+    incomeCategories.forEach(item => {
+
+      const button =
+        document.createElement("button");
+
+      button.type = "button";
+      button.className = "category-btn";
+      button.dataset.category = item.name;
+
+      button.innerHTML = `
+        <span class="category-icon">
+          ${item.icon}
+        </span>
+
+        <span class="category-name">
+          ${item.name}
+        </span>
+      `;
+
+      button.addEventListener(
+        "click",
+        function () {
+          selectIncomeCategory(item.name);
+        }
       );
 
-      return;
-
-    }
-
-
-    closeEditModal();
-
-    await loadAll();
-
-
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
-
-    alert(
-      "수정 중 오류가 발생했어요."
-    );
-
-  } finally {
-
-    button.disabled =
-      false;
-
-
-    button.textContent =
-      "수정하기";
-
-  }
-
-}
-
-
-/* =========================================
-   삭제
-========================================= */
-
-async function deleteRecord(
-  id
-) {
-
-  const item =
-    allData.find(
-      record =>
-        record.id === id
-    );
-
-
-  if (!item) {
-    return;
+      incomeGrid.appendChild(button);
+    });
   }
 
 
-  const okay =
-    confirm(
-      "'" +
-      item.name +
-      "' 기록을 삭제할까요?"
-    );
+  function setType(type) {
+    recordType = type;
 
+    selectedMain = "";
+    selectedSub = "";
 
-  if (!okay) {
-    return;
-  }
-
-
-  try {
-
-    const result =
-      await apiRequest({
-
-        action: "delete",
-
-        token: token,
-
-        id: id
-
-      });
-
-
-    if (!result.success) {
-
-      alert(
-        result.message ||
-        "삭제하지 못했어요."
+    document
+      .getElementById("expenseBtn")
+      .classList.toggle(
+        "active",
+        type === "expense"
       );
 
-      return;
+    document
+      .getElementById("incomeBtn")
+      .classList.toggle(
+        "active",
+        type === "income"
+      );
 
-    }
-
-
-    await loadAll();
-
-
-  } catch (error) {
-
-    console.error(
-      error
+    expenseGrid.classList.toggle(
+      "hide",
+      type !== "expense"
     );
 
-
-    alert(
-      "삭제 중 오류가 발생했어요."
+    incomeGrid.classList.toggle(
+      "show",
+      type === "income"
     );
 
+    subSection.classList.remove("show");
+    selectedBox.classList.remove("show");
+
+    clearCategoryActive();
   }
 
-}
+
+  function clearCategoryActive() {
+    document
+      .querySelectorAll(".category-btn")
+      .forEach(button => {
+        button.classList.remove("active");
+      });
+  }
 
 
-/* =========================================
-   로그아웃
-========================================= */
+  function selectExpenseCategory(name) {
+    recordType = "expense";
+    selectedMain = name;
+    selectedSub = "";
 
-async function logout() {
+    clearCategoryActive();
 
-  try {
+    const target =
+      expenseGrid.querySelector(
+        `[data-category="${CSS.escape(name)}"]`
+      );
 
-    await apiRequest({
-      action: "logout",
-      token: token
+    if (target) {
+      target.classList.add("active");
+    }
+
+    renderSubCategories(name);
+    updateSelected();
+  }
+
+
+  function renderSubCategories(name) {
+    const data =
+      expenseCategories[name];
+
+    subGrid.innerHTML = "";
+
+    if (!data || !data.subs.length) {
+      subSection.classList.remove("show");
+      return;
+    }
+
+    data.subs.forEach(sub => {
+
+      const button =
+        document.createElement("button");
+
+      button.type = "button";
+      button.className = "sub-btn";
+      button.textContent = sub;
+
+      button.addEventListener(
+        "click",
+        function () {
+
+          selectedSub = sub;
+
+          document
+            .querySelectorAll(".sub-btn")
+            .forEach(item => {
+              item.classList.remove("active");
+            });
+
+          button.classList.add("active");
+
+          updateSelected();
+        }
+      );
+
+      subGrid.appendChild(button);
     });
 
-  } catch (error) {
-
-    console.error(
-      error
-    );
-
+    subSection.classList.add("show");
   }
 
 
-  clearLogin();
+  function selectIncomeCategory(name) {
+    recordType = "income";
+    selectedMain = name;
+    selectedSub = "";
+
+    clearCategoryActive();
+
+    const target =
+      incomeGrid.querySelector(
+        `[data-category="${CSS.escape(name)}"]`
+      );
+
+    if (target) {
+      target.classList.add("active");
+    }
+
+    subSection.classList.remove("show");
+
+    updateSelected();
+  }
 
 
-  window.location.replace(
-    "login.html"
-  );
+  function updateSelected() {
+    if (!selectedMain) {
+      selectedBox.classList.remove("show");
+      return;
+    }
 
-}
+    selectedText.textContent =
+      selectedSub
+        ? `${selectedMain} > ${selectedSub}`
+        : selectedMain;
 
-
-function clearLogin() {
-
-  sessionStorage.removeItem(
-    "ledgerToken"
-  );
-
-
-  sessionStorage.removeItem(
-    "ledgerNickname"
-  );
+    selectedBox.classList.add("show");
+  }
 
 
-  sessionStorage.removeItem(
-    "ledgerUserId"
-  );
+  function showMessage(
+    text,
+    type = "error"
+  ) {
+    const box =
+      document.getElementById("message");
 
-}
+    box.textContent = text;
+    box.className =
+      "message " + type;
+  }
 
 
-/* =========================================
-   API
-========================================= */
+  function clearMessage() {
+    const box =
+      document.getElementById("message");
 
-async function apiRequest(
-  data
-) {
+    box.textContent = "";
+    box.className = "message";
+  }
 
-  const response =
-    await fetch(
-      API_URL,
-      {
 
+  async function apiRequest(data) {
+    const response =
+      await fetch(API_URL, {
         method: "POST",
 
         headers: {
@@ -2746,160 +1046,215 @@ async function apiRequest(
 
         body:
           JSON.stringify(data)
+      });
 
+    const text =
+      await response.text();
+
+    try {
+      return JSON.parse(text);
+
+    } catch (error) {
+      throw new Error(
+        "서버 응답을 확인할 수 없습니다."
+      );
+    }
+  }
+
+
+  async function saveRecord() {
+    clearMessage();
+
+    const date =
+      document
+        .getElementById("date")
+        .value;
+
+    const name =
+      document
+        .getElementById("name")
+        .value
+        .trim();
+
+    const rawAmount =
+      Number(
+        document
+          .getElementById("amount")
+          .value
+      );
+
+
+    if (!date) {
+      showMessage(
+        "날짜를 선택해주세요."
+      );
+      return;
+    }
+
+
+    if (!name) {
+      showMessage(
+        "내용을 입력해주세요."
+      );
+      return;
+    }
+
+
+    if (
+      !rawAmount ||
+      rawAmount <= 0
+    ) {
+      showMessage(
+        "금액을 입력해주세요."
+      );
+      return;
+    }
+
+
+    if (!selectedMain) {
+      showMessage(
+        "카테고리를 선택해주세요."
+      );
+      return;
+    }
+
+
+    if (
+      recordType === "expense" &&
+      !selectedSub
+    ) {
+      showMessage(
+        "세부 카테고리를 선택해주세요."
+      );
+      return;
+    }
+
+
+    const category =
+      recordType === "expense"
+        ? `${selectedMain} > ${selectedSub}`
+        : selectedMain;
+
+
+    const amount =
+      recordType === "expense"
+        ? -Math.abs(rawAmount)
+        : Math.abs(rawAmount);
+
+
+    const saveButton =
+      document.getElementById("saveBtn");
+
+
+    saveButton.disabled = true;
+    saveButton.textContent =
+      "저장 중...";
+
+
+    try {
+      const result =
+        await apiRequest({
+          action: "add",
+          token: token,
+          date: date,
+          name: name,
+          category: category,
+          amount: amount
+        });
+
+
+      if (!result.success) {
+        showMessage(
+          result.message ||
+          "저장에 실패했습니다."
+        );
+
+        return;
       }
-    );
 
 
-  if (!response.ok) {
+      showMessage(
+        "기록이 저장되었습니다 🌿",
+        "success"
+      );
 
-    throw new Error(
-      "서버 응답 오류"
-    );
 
+      setTimeout(
+        function () {
+          window.location.href =
+            "./index.html";
+        },
+        500
+      );
+
+
+    } catch (error) {
+      console.error(error);
+
+      showMessage(
+        "저장 중 오류가 발생했습니다."
+      );
+
+
+    } finally {
+      saveButton.disabled = false;
+      saveButton.textContent =
+        "기록 저장하기";
+    }
   }
 
 
-  return await response.json();
+  function applyUrlCategory() {
+    const params =
+      new URLSearchParams(
+        window.location.search
+      );
 
-}
-
-
-/* =========================================
-   기타
-========================================= */
-
-function money(
-  value
-) {
-
-  return (
-    Math.round(
-      Number(value) || 0
-    ).toLocaleString(
-      "ko-KR"
-    ) +
-    "원"
-  );
-
-}
-
-
-function shortDate(
-  value
-) {
-
-  const parts =
-    String(value)
-      .split("-");
-
-
-  if (parts.length < 3) {
-    return value;
-  }
-
-
-  return (
-    Number(parts[1]) +
-    "/" +
-    Number(parts[2])
-  );
-
-}
-
-
-function categoryIcon(
-  category
-) {
-
-  return CATEGORY_INFO[
-    category
-  ]?.icon || "🧾";
-
-}
-
-
-function escapeHtml(
-  value
-) {
-
-  const div =
-    document.createElement(
-      "div"
-    );
-
-
-  div.textContent =
-    String(
-      value ?? ""
-    );
-
-
-  return div.innerHTML;
-
-}
-
-
-function scrollToSection(
-  id
-) {
-
-  const element =
-    document.getElementById(
-      id
-    );
-
-
-  if (element) {
-
-    element.scrollIntoView({
-      behavior: "smooth"
-    });
-
-  }
-
-}
-
-
-/* 모달 바깥쪽 누르면 닫기 */
-
-document.getElementById(
-  "budgetModal"
-).addEventListener(
-  "click",
-  function(event) {
+    const category =
+      params.get("category");
 
     if (
-      event.target === this
+      category &&
+      expenseCategories[category]
     ) {
+      setType("expense");
 
-      closeBudgetModal();
-
+      selectExpenseCategory(
+        category
+      );
     }
-
   }
-);
 
 
-document.getElementById(
-  "editModal"
-).addEventListener(
-  "click",
-  function(event) {
+  async function verifyLogin() {
+    try {
+      const result =
+        await apiRequest({
+          action: "verify",
+          token: token
+        });
 
-    if (
-      event.target === this
-    ) {
+      if (!result.success) {
+        sessionStorage.clear();
 
-      closeEditModal();
+        window.location.href =
+          "./login.html";
+      }
 
+    } catch (error) {
+      console.error(
+        "로그인 확인 실패:",
+        error
+      );
     }
-
   }
-);
 
+
+  renderExpenseCategories();
+  renderIncomeCategories();
+  applyUrlCategory();
+  verifyLogin();
 </script>
 
 </body>
-
 </html>
