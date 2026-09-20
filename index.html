@@ -79,7 +79,7 @@
       font-size: 21px;
     }
 
-    .login-card .description {
+    .description {
       margin: 0 0 27px;
       color: #737a74;
       font-size: 13px;
@@ -107,7 +107,6 @@
       color: #252a26;
       font-family: inherit;
       font-size: 14px;
-      transition: 0.2s;
     }
 
     .field input:focus {
@@ -127,7 +126,6 @@
       font-size: 14px;
       font-weight: 700;
       cursor: pointer;
-      transition: 0.2s;
     }
 
     .login-button:hover {
@@ -173,10 +171,6 @@
       text-decoration: none;
     }
 
-    .signup a:hover {
-      text-decoration: underline;
-    }
-
     .small-note {
       margin-top: 18px;
       text-align: center;
@@ -211,6 +205,7 @@
     <section class="login-card">
 
       <h2>로그인</h2>
+
       <p class="description">
         내 가계부를 확인하려면 로그인해주세요.
       </p>
@@ -219,6 +214,7 @@
 
         <div class="field">
           <label for="userId">아이디</label>
+
           <input
             type="text"
             id="userId"
@@ -230,6 +226,7 @@
 
         <div class="field">
           <label for="password">비밀번호</label>
+
           <input
             type="password"
             id="password"
@@ -253,7 +250,7 @@
 
       <div class="signup">
         아직 계정이 없나요?
-        <a href="./signup.html">회원가입</a>
+        <a href="./login.html">회원가입</a>
       </div>
 
     </section>
@@ -265,116 +262,288 @@
   </main>
 
   <script>
-    const API_URL =
-      "https://script.google.com/macros/s/AKfycbzedrpedwYtEaVvtdojzfoovU9SIRqhcn9rqz2lLH50w-1HOyetfJfLOkT-mMIq7G3PrQ/exec";
 
-    const loginForm = document.getElementById("loginForm");
-    const loginButton = document.getElementById("loginButton");
-    const messageBox = document.getElementById("message");
+    const API_URL =
+      "https://script.google.com/macros/s/AKfycbxtLbgJ80BlSABX7utMyeeGQZ5C6Pt8xItzE6p12Xa6AcRPIAawmpMC4eh3M6V-uLcWqA/exec";
+
+    const loginForm =
+      document.getElementById("loginForm");
+
+    const loginButton =
+      document.getElementById("loginButton");
+
+    const messageBox =
+      document.getElementById("message");
+
 
     function showMessage(text, type = "error") {
       messageBox.textContent = text;
-      messageBox.className = "message " + type;
+      messageBox.className =
+        "message " + type;
     }
+
 
     function clearMessage() {
       messageBox.textContent = "";
       messageBox.className = "message";
     }
 
-    async function apiRequest(data) {
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: {
-          "Content-Type": "text/plain;charset=UTF-8"
-        },
-        body: JSON.stringify(data)
-      });
 
-      const text = await response.text();
+    async function apiRequest(data) {
+
+      const response =
+        await fetch(API_URL, {
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "text/plain;charset=UTF-8"
+          },
+
+          body:
+            JSON.stringify(data)
+        });
+
+
+      const text =
+        await response.text();
+
 
       try {
         return JSON.parse(text);
+
       } catch (error) {
-        throw new Error("서버 응답을 확인할 수 없습니다.");
+        console.error(text);
+
+        throw new Error(
+          "서버 응답을 확인할 수 없습니다."
+        );
       }
     }
 
+
+    loginForm.addEventListener(
+      "submit",
+      async function(event) {
+
+        event.preventDefault();
+
+        clearMessage();
+
+
+        const userId =
+          document
+            .getElementById("userId")
+            .value
+            .trim();
+
+
+        const password =
+          document
+            .getElementById("password")
+            .value;
+
+
+        if (!userId || !password) {
+          showMessage(
+            "아이디와 비밀번호를 입력해주세요."
+          );
+
+          return;
+        }
+
+
+        loginButton.disabled = true;
+        loginButton.textContent =
+          "로그인 중...";
+
+
+        try {
+
+          const result =
+            await apiRequest({
+              action: "login",
+              userId: userId,
+              password: password
+            });
+
+
+          if (!result.success) {
+            showMessage(
+              result.message ||
+              "로그인에 실패했습니다."
+            );
+
+            return;
+          }
+
+
+          /*
+            login.html과 같은 저장 방식 사용
+          */
+
+          localStorage.setItem(
+            "budgetToken",
+            result.token
+          );
+
+          localStorage.setItem(
+            "budgetUserId",
+            result.userId || userId
+          );
+
+          localStorage.setItem(
+            "budgetNickname",
+            result.nickname || ""
+          );
+
+
+          /*
+            기존 코드와의 호환용
+          */
+
+          sessionStorage.setItem(
+            "ledgerToken",
+            result.token
+          );
+
+          sessionStorage.setItem(
+            "userId",
+            result.userId || userId
+          );
+
+          sessionStorage.setItem(
+            "nickname",
+            result.nickname || ""
+          );
+
+
+          showMessage(
+            "로그인되었습니다.",
+            "success"
+          );
+
+
+          /*
+            로그인 성공 후
+            기록 페이지로 이동
+          */
+
+          setTimeout(function() {
+            window.location.href =
+              "./write.html";
+          }, 300);
+
+
+        } catch (error) {
+
+          console.error(error);
+
+          showMessage(
+            "서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요."
+          );
+
+
+        } finally {
+
+          loginButton.disabled = false;
+          loginButton.textContent =
+            "로그인";
+        }
+      }
+    );
+
+
+    /*
+      이미 로그인되어 있으면
+      기록 페이지로 이동
+    */
+
     async function verifyExistingLogin() {
-      const token = sessionStorage.getItem("ledgerToken");
+
+      const token =
+        localStorage.getItem(
+          "budgetToken"
+        ) ||
+        sessionStorage.getItem(
+          "ledgerToken"
+        );
+
 
       if (!token) {
         return;
       }
 
+
       try {
-        const result = await apiRequest({
-          action: "verify",
-          token: token
-        });
+
+        const result =
+          await apiRequest({
+            action: "verify",
+            token: token
+          });
+
 
         if (result.success) {
-          window.location.href = "./index.html";
+
+          localStorage.setItem(
+            "budgetToken",
+            token
+          );
+
+          localStorage.setItem(
+            "budgetUserId",
+            result.userId || ""
+          );
+
+          localStorage.setItem(
+            "budgetNickname",
+            result.nickname || ""
+          );
+
+          window.location.href =
+            "./write.html";
+
           return;
         }
 
-        sessionStorage.removeItem("ledgerToken");
-        sessionStorage.removeItem("nickname");
-        sessionStorage.removeItem("userId");
+
+        localStorage.removeItem(
+          "budgetToken"
+        );
+
+        localStorage.removeItem(
+          "budgetUserId"
+        );
+
+        localStorage.removeItem(
+          "budgetNickname"
+        );
+
+        sessionStorage.removeItem(
+          "ledgerToken"
+        );
+
+        sessionStorage.removeItem(
+          "userId"
+        );
+
+        sessionStorage.removeItem(
+          "nickname"
+        );
+
 
       } catch (error) {
-        console.log("자동 로그인 확인 실패:", error);
+        console.error(
+          "자동 로그인 확인 실패:",
+          error
+        );
       }
     }
 
-    loginForm.addEventListener("submit", async function (event) {
-      event.preventDefault();
-      clearMessage();
-
-      const userId = document.getElementById("userId").value.trim();
-      const password = document.getElementById("password").value;
-
-      if (!userId || !password) {
-        showMessage("아이디와 비밀번호를 입력해주세요.");
-        return;
-      }
-
-      loginButton.disabled = true;
-      loginButton.textContent = "로그인 중...";
-
-      try {
-        const result = await apiRequest({
-          action: "login",
-          userId: userId,
-          password: password
-        });
-
-        if (!result.success) {
-          showMessage(result.message || "로그인에 실패했습니다.");
-          return;
-        }
-
-        sessionStorage.setItem("ledgerToken", result.token);
-        sessionStorage.setItem("nickname", result.nickname || "");
-        sessionStorage.setItem("userId", result.userId || userId);
-
-        showMessage("로그인되었습니다.", "success");
-
-        setTimeout(function () {
-          window.location.href = "./index.html";
-        }, 300);
-
-      } catch (error) {
-        console.error(error);
-        showMessage("서버 연결에 실패했습니다. 잠시 후 다시 시도해주세요.");
-
-      } finally {
-        loginButton.disabled = false;
-        loginButton.textContent = "로그인";
-      }
-    });
 
     verifyExistingLogin();
+
   </script>
 
 </body>
