@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>나의 가계부</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <header class="header">
+    <div class="logo">
+      <span class="logo-icon">🌿</span>
+      <span>나의 가계부</span>
+    </div>
+
+    <nav>
+      <a href="index.html" class="active">홈</a>
+      <a href="#history">내역</a>
+      <a href="#budget">예산</a>
+      <a href="#analysis">분석</a>
+    </nav>
+  </header>
+
+
+  <main class="container">
+
+    <!-- 상단 -->
+    <section class="welcome">
+      <div>
+        <p class="small-title">9월 가계부</p>
+        <h1>이번 달도 차근차근 💛</h1>
+        <p class="sub-text">
+          이번 달의 수입과 지출을 한눈에 확인해보세요.
+        </p>
+      </div>
+
+      <a href="write.html" class="add-button">
+        + 내역 추가
+      </a>
+    </section>
+
+
+    <!-- 요약 카드 -->
+    <section class="summary-grid">
+
+      <div class="summary-card">
+        <p>이번 달 수입</p>
+        <h2>3,200,000원</h2>
+        <span class="income-text">이번 달 들어온 돈</span>
+      </div>
+
+      <div class="summary-card">
+        <p>이번 달 지출</p>
+        <h2>782,500원</h2>
+        <span class="expense-text">지난달보다 8% 적어요</span>
+      </div>
+
+      <div class="summary-card highlight-card">
+        <p>남은 금액</p>
+        <h2>2,417,500원</h2>
+        <span>수입 - 지출</span>
+      </div>
+
+    </section>
+
+
+    <!-- 예산 -->
+    <section class="section" id="budget">
+
+      <div class="section-title">
+        <div>
+          <p class="small-title">BUDGET</p>
+          <h2>이번 달 예산</h2>
+        </div>
+
+        <span class="budget-number">
+          782,500 / 1,200,000원
+        </span>
+      </div>
+
+      <div class="budget-box">
+
+        <div class="progress-info">
+          <span>전체 예산</span>
+          <strong>65% 사용</strong>
+        </div>
+
+        <div class="progress">
+          <div class="progress-bar" style="width:65%;"></div>
+        </div>
+
+        <p class="budget-message">
+          아직 417,500원의 예산이 남아 있어요.
+        </p>
+
+      </div>
+
+    </section>
+
+
+    <!-- 소비 분석 -->
+    <section class="section" id="analysis">
+
+      <div class="section-title">
+        <div>
+          <p class="small-title">ANALYSIS</p>
+          <h2>어디에 많이 썼을까요?</h2>
+        </div>
+      </div>
+
+      <div class="analysis-grid">
+
+        <div class="chart-card">
+
+          <div class="chart-row">
+            <span>🍚 식비</span>
+            <div class="chart-line">
+              <div style="width:80%;"></div>
+            </div>
+            <strong>320,000원</strong>
+          </div>
+
+          <div class="chart-row">
+            <span>🛍️ 쇼핑</span>
+            <div class="chart-line">
+              <div style="width:48%;"></div>
+            </div>
+            <strong>190,000원</strong>
+          </div>
+
+          <div class="chart-row">
+            <span>🏠 고정지출</span>
+            <div class="chart-line">
+              <div style="width:40%;"></div>
+            </div>
+            <strong>160,000원</strong>
+          </div>
+
+          <div class="chart-row">
+            <span>🚌 교통비</span>
+            <div class="chart-line">
+              <div style="width:28%;"></div>
+            </div>
+            <strong>112,500원</strong>
+          </div>
+
+        </div>
+
+
+        <div class="pattern-card">
+
+          <p class="small-title">이번 달 소비 패턴</p>
+
+          <h3>🍚 식비 지출이 가장 많아요</h3>
+
+          <p>
+            전체 지출 중 약 41%를 식비에 사용했어요.
+            그중 카페와 외식 지출의 비중이 높은 편이에요.
+          </p>
+
+          <div class="pattern-tags">
+            <span>#식비 1위</span>
+            <span>#카페</span>
+            <span>#외식</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- 최근 내역 -->
+    <section class="section" id="history">
+
+      <div class="section-title">
+
+        <div>
+          <p class="small-title">RECENT</p>
+          <h2>최근 내역</h2>
+        </div>
+
+        <span class="more">전체보기 →</span>
+
+      </div>
+
+
+      <div class="history-card">
+
+        <div class="history-item">
+
+          <div class="history-left">
+            <div class="category-icon">☕</div>
+
+            <div>
+              <strong>스타벅스</strong>
+              <p>9월 20일 · 식비 &gt; 카페 · 체크카드</p>
+            </div>
+          </div>
+
+          <strong class="minus">- 5,500원</strong>
+
+        </div>
+
+
+        <div class="history-item">
+
+          <div class="history-left">
+            <div class="category-icon">🛒</div>
+
+            <div>
+              <strong>이마트 장보기</strong>
+              <p>9월 19일 · 식비 &gt; 장보기 · 체크카드</p>
+            </div>
+          </div>
+
+          <strong class="minus">- 48,200원</strong>
+
+        </div>
+
+
+        <div class="history-item">
+
+          <div class="history-left">
+            <div class="category-icon">💰</div>
+
+            <div>
+              <strong>월급</strong>
+              <p>9월 15일 · 수입 &gt; 급여 · 계좌이체</p>
+            </div>
+          </div>
+
+          <strong class="plus">+ 3,200,000원</strong>
+
+        </div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <footer>
+    <p>나의 가계부 · 오늘의 기록이 내일의 여유가 되도록 🌿</p>
+  </footer>
+
+</body>
+</html>
