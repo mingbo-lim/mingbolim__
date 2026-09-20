@@ -1,58 +1,23 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>나의 가계부</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    .budget-setting {
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .budget-setting input {
-      width: 130px;
-      height: 32px;
-      padding: 0 10px;
-      border: 1px solid #d9ddd7;
-      border-radius: 7px;
-      background: #fff;
-      font-size: 11px;
-      text-align: right;
-    }
-
-    .budget-setting button {
-      height: 32px;
-      padding: 0 13px;
-      border: 0;
-      border-radius: 7px;
-      background: #5f9270;
-      color: white;
-      font-size: 10px;
-      cursor: pointer;
-    }
-
-    .budget-setting button:hover {
-      background: #477b5a;
-    }
-
-    @media (max-width: 600px) {
-      .section-head.budget-head {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 10px;
-      }
-    }
-  </style>
 </head>
+
 
 <body>
 
@@ -71,9 +36,9 @@
       <a href="#analysis">분석</a>
     </nav>
 
-    <span class="today-message">
-      오늘도 좋은 하루예요! 🙂
-    </span>
+    <div class="today-message">
+      오늘도 차근차근 기록해요
+    </div>
 
   </div>
 </header>
@@ -81,13 +46,16 @@
 
 <main class="page">
 
-  <!-- 메인 -->
+  <!-- HERO -->
   <section class="hero">
 
     <div class="hero-text">
 
-      <span class="hero-month" id="heroMonth">
-        이번 달 가계부
+      <span
+        class="hero-month"
+        id="heroMonth"
+      >
+        -
       </span>
 
       <h1>
@@ -96,11 +64,14 @@
       </h1>
 
       <p>
-        오늘의 기록이 내일의 여유가 돼요.
+        작은 기록이 모여 나의 소비 습관이 보여요.
       </p>
 
-      <a href="write.html" class="add-btn">
-        ＋ 내역 추가
+      <a
+        href="write.html"
+        class="add-btn"
+      >
+        + 내역 추가
       </a>
 
     </div>
@@ -118,17 +89,15 @@
 
       <div class="mug">
         <div class="mug-text">
-          Good<br>
-          Money<br>
-          Good Day
-          <small>:)</small>
+          MY
+          <small>BUDGET</small>
         </div>
       </div>
 
       <div class="books">
-        <div>Better Me</div>
-        <div>A Richer Tomorrow</div>
-        <div>Happy Life</div>
+        <div>MY LITTLE RECORD</div>
+        <div>MONTHLY BUDGET</div>
+        <div>SLOW & STEADY</div>
       </div>
 
       <div class="vase"></div>
@@ -138,107 +107,142 @@
   </section>
 
 
-  <!-- 이번 달 요약 -->
+  <!-- 요약 -->
   <section class="summary">
 
-    <article class="summary-card">
+    <div class="summary-card">
 
       <div class="summary-heading">
-        <span class="summary-icon income-icon">↓</span>
-        <span>이번 달 수입</span>
+        <span class="summary-icon income-icon">+</span>
+        이번 달 수입
       </div>
 
-      <strong id="totalIncome">0원</strong>
+      <strong id="incomeAmount">
+        0원
+      </strong>
 
-      <p>이번 달 들어온 돈이에요.</p>
+      <p>
+        이번 달 들어온 금액이에요.
+      </p>
 
-    </article>
+    </div>
 
 
-    <article class="summary-card">
+    <div class="summary-card">
 
       <div class="summary-heading">
-        <span class="summary-icon expense-icon">↑</span>
-        <span>이번 달 지출</span>
+        <span class="summary-icon expense-icon">−</span>
+        이번 달 지출
       </div>
 
-      <strong id="totalExpense">0원</strong>
+      <strong id="expenseAmount">
+        0원
+      </strong>
 
-      <p>이번 달 사용한 금액이에요.</p>
+      <p>
+        이번 달 사용한 금액이에요.
+      </p>
 
-    </article>
+    </div>
 
 
-    <article class="summary-card balance-card">
+    <div class="summary-card balance-card">
 
       <div class="summary-heading">
         <span class="summary-icon balance-icon">●</span>
-        <span>남은 금액</span>
+        이번 달 잔액
       </div>
 
-      <strong id="balance">0원</strong>
+      <strong id="balanceAmount">
+        0원
+      </strong>
 
-      <p>수입 - 지출</p>
+      <p>
+        수입에서 지출을 뺀 금액이에요.
+      </p>
 
-    </article>
+    </div>
 
   </section>
 
 
   <!-- 예산 -->
-  <section class="section" id="budget">
+  <section
+    class="section"
+    id="budget"
+  >
 
-    <div class="section-head budget-head">
+    <div class="section-label">
+      MONTHLY BUDGET
+    </div>
 
+    <div class="section-head">
       <h2>이번 달 예산</h2>
 
-      <div class="budget-setting">
-
-        <input
-          type="number"
-          id="budgetInput"
-          min="0"
-          step="10000"
-          placeholder="예산 입력"
-        >
-
-        <span>원</span>
-
-        <button
-          type="button"
-          id="saveBudgetButton"
-        >
-          저장
-        </button>
-
-      </div>
-
+      <span id="budgetMonth">
+        -
+      </span>
     </div>
 
 
     <div class="budget-grid">
 
-      <article class="card budget-card">
+      <div class="card budget-card">
+
+        <div
+          style="
+            display:flex;
+            gap:8px;
+            margin-bottom:20px;
+          "
+        >
+
+          <input
+            id="budgetInput"
+            type="number"
+            min="0"
+            step="10000"
+            placeholder="이번 달 예산을 입력해주세요"
+          >
+
+          <button
+            id="saveBudgetButton"
+            type="button"
+            style="
+              width:90px;
+              flex-shrink:0;
+              border:0;
+              border-radius:7px;
+              background:#4e8a68;
+              color:white;
+              cursor:pointer;
+            "
+          >
+            저장
+          </button>
+
+        </div>
+
 
         <div class="budget-numbers">
 
           <div>
-            <strong id="budgetExpense">0</strong>
+            <span>사용한 금액</span>
 
-            <span id="budgetTotalText">
-              / 예산을 입력해주세요
-            </span>
+            <strong
+              id="budgetSpent"
+              class="green-text"
+            >
+              0원
+            </strong>
           </div>
 
-          <div>
-            <strong
-              class="green-text"
-              id="budgetPercent"
-            >
-              -
-            </strong>
+          <div style="text-align:right;">
+            <span>예산</span>
 
-            <span> 사용</span>
+            <strong id="budgetTotal">
+              미설정
+            </strong>
           </div>
 
         </div>
@@ -255,41 +259,39 @@
         <div class="budget-tip">
 
           <span class="tip-leaf">
-            🌿
+            🌱
           </span>
 
           <div>
-
-            <strong id="budgetMessage">
-              이번 달 예산을 직접 입력해주세요.
+            <strong id="budgetTipTitle">
+              이번 달 예산을 정해볼까요?
             </strong>
 
-            <p>
-              매달 예산을 다르게 설정할 수 있어요!
+            <p id="budgetTipText">
+              위에 금액을 입력하고 저장해주세요.
             </p>
-
           </div>
 
         </div>
 
-      </article>
+      </div>
 
 
-      <article class="card last-month-card">
+      <div class="card last-month-card">
 
         <h3>
-          지난달 대비 지출
+          지난달과 비교하면
         </h3>
 
         <strong
           class="big-green"
-          id="comparePercent"
+          id="comparisonAmount"
         >
           -
         </strong>
 
-        <p id="compareMessage">
-          지난달 기록과 비교해드려요.
+        <p id="comparisonText">
+          지난달 기록을 확인하고 있어요.
         </p>
 
 
@@ -315,7 +317,7 @@
 
         </div>
 
-      </article>
+      </div>
 
     </div>
 
@@ -323,43 +325,47 @@
 
 
   <!-- 분석 -->
-  <section class="section" id="analysis">
+  <section
+    class="section"
+    id="analysis"
+  >
 
     <div class="section-label">
-      ANALYSIS
+      SPENDING ANALYSIS
     </div>
 
     <div class="section-head">
-      <h2>이번 달 소비 분석</h2>
+      <h2>소비 돌아보기</h2>
+      <span>이번 달 기록 기준</span>
     </div>
 
 
     <div class="analysis-grid">
 
-      <article class="card">
+      <div class="card">
 
         <div class="card-title">
-          <h3>항목별 지출</h3>
+          <h3>카테고리별 지출</h3>
+          <span>이번 달</span>
         </div>
 
         <div
           class="category-analysis"
           id="categoryAnalysis"
         >
-
           <div class="empty-message">
-            기록을 추가하면 항목별 소비가 표시돼요 🌿
+            지출 기록을 불러오고 있어요 🌿
           </div>
-
         </div>
 
-      </article>
+      </div>
 
 
-      <article class="card">
+      <div class="card">
 
         <div class="card-title">
-          <h3>최근 월별 지출</h3>
+          <h3>월별 지출</h3>
+          <span>최근 6개월</span>
         </div>
 
         <div
@@ -367,81 +373,67 @@
           id="monthlyChart"
         ></div>
 
-      </article>
+      </div>
 
     </div>
 
   </section>
 
 
-  <!-- 하단 -->
+  <!-- 아래쪽 -->
   <section class="bottom-grid">
 
-    <article class="pattern-card">
+    <div class="pattern-card">
 
       <div class="pattern-title">
-        <span>💡</span>
-        <strong>이번 달 소비 패턴</strong>
+        🌼 소비 패턴
       </div>
 
       <h3 id="patternTitle">
-        기록을 기다리고 있어요
+        기록을 살펴보고 있어요
       </h3>
 
-      <p id="patternDescription">
-        지출 내역을 추가하면 가장 많이 사용한 항목을 알려드릴게요.
+      <p id="patternText">
+        이번 달 지출 기록을 바탕으로
+        간단한 소비 패턴을 알려드릴게요.
       </p>
 
       <div
         class="tags"
         id="patternTags"
       >
-        <span>#나의가계부</span>
+        <span>#나의기록</span>
       </div>
 
-    </article>
+    </div>
 
 
-    <article
+    <div
       class="card recent-card"
       id="recent"
     >
 
       <div class="card-title">
-
-        <h3>
-          최근 내역
-        </h3>
-
-        <span id="recordCount">
-          0건
-        </span>
-
+        <h3>최근 내역</h3>
+        <span>최근 기록</span>
       </div>
 
-
-      <div id="recentList">
+      <div id="recentTransactions">
 
         <div class="empty-message">
-          아직 기록이 없어요.<br>
-          첫 내역을 추가해보세요 🌿
+          내역을 불러오고 있어요 🌿
         </div>
 
       </div>
 
-    </article>
+    </div>
 
   </section>
 
 
   <div class="encourage">
-
-    🌿
-
-    <span>
-      “ 오늘도 잘하고 있어요. 작은 기록이 큰 변화를 만들어요. ”
-    </span>
-
+    🌿 작은 기록도 충분해요.
+    오늘의 소비를 기록한 것만으로도 잘하고 있어요.
   </div>
 
 </main>
@@ -449,467 +441,352 @@
 
 <footer class="footer">
 
-  <div>
-    <span>나의 가계부</span>
-    <span>|</span>
-    <span>오늘의 기록이 내일의 여유가 되도록</span>
-  </div>
-
   <span>
-    My Ledger ♡
+    MY LITTLE BUDGET
   </span>
+
+  <div>
+    <span>차근차근</span>
+    <span>기록하기</span>
+  </div>
 
 </footer>
 
 
 <script>
 
+/* =========================================
+   기본 설정
+========================================= */
+
 const API_URL =
-"https://script.google.com/macros/s/AKfycbywXTV8GHFC9y4V16xE-438ZV45V2AWrkUDyxj34S3fnvWMfia394ucmSrOE30GGc_rIQ/exec";
+  "https://script.google.com/macros/s/AKfycbzJrc641rIQ0R14IigoO6YdeflFJLn0w6iFCgOdnrtfjNwcbrKIhGAe6UIkXCo-X2k4YA/exec";
 
 
-let currentMonthExpense = 0;
+const token =
+  sessionStorage.getItem(
+    "ledgerToken"
+  );
 
 
-/* 금액 표시 */
-function money(value) {
+/*
+  토큰 자체가 없으면
+  바로 로그인 화면으로 이동
+*/
 
-  return Number(value || 0)
-    .toLocaleString("ko-KR") + "원";
+if (!token) {
 
-}
-
-
-/* 날짜 읽기 */
-function parseDate(value) {
-
-  if (!value) {
-    return null;
-  }
-
-  const text =
-    String(value);
-
-  const parts =
-    text.split("-");
-
-
-  if (parts.length === 3) {
-
-    return new Date(
-      Number(parts[0]),
-      Number(parts[1]) - 1,
-      Number(parts[2])
-    );
-
-  }
-
-
-  const date =
-    new Date(value);
-
-
-  return isNaN(date.getTime())
-    ? null
-    : date;
+  window.location.replace(
+    "login.html"
+  );
 
 }
 
 
-/* =========================
+/* =========================================
+   날짜
+========================================= */
+
+const now =
+  new Date();
+
+
+const currentYear =
+  now.getFullYear();
+
+
+const currentMonth =
+  now.getMonth();
+
+
+const currentMonthNumber =
+  currentMonth + 1;
+
+
+document.getElementById(
+  "heroMonth"
+).textContent =
+  currentYear +
+  "년 " +
+  currentMonthNumber +
+  "월";
+
+
+document.getElementById(
+  "budgetMonth"
+).textContent =
+  currentYear +
+  "." +
+  String(
+    currentMonthNumber
+  ).padStart(2, "0");
+
+
+/* =========================================
    예산
-========================= */
+========================================= */
+
+const budgetKey =
+  "budget-" +
+  currentYear +
+  "-" +
+  currentMonthNumber;
 
 
-/* 월마다 다른 저장 이름 사용 */
-function getBudgetKey() {
-
-  const now =
-    new Date();
-
-  return (
-    "budget-" +
-    now.getFullYear() +
-    "-" +
-    (now.getMonth() + 1)
-  );
-
-}
-
-
-/* 저장된 예산 불러오기 */
-function getMonthlyBudget() {
-
-  const saved =
+let monthlyBudget =
+  Number(
     localStorage.getItem(
-      getBudgetKey()
-    );
+      budgetKey
+    )
+  ) || 0;
 
 
-  if (!saved) {
-    return 0;
-  }
-
-
-  return Number(saved);
-
-}
-
-
-/* 처음 화면에 예산 표시 */
-function loadBudget() {
-
-  const budget =
-    getMonthlyBudget();
-
-
-  const input =
-    document.getElementById(
-      "budgetInput"
-    );
-
-
-  if (budget > 0) {
-
-    input.value =
-      budget;
-
-  }
-
-
-  updateBudget(
-    currentMonthExpense
-  );
-
-}
-
-
-/* 예산 저장 */
-function saveBudget() {
-
-  const input =
-    document.getElementById(
-      "budgetInput"
-    );
-
-
-  const budget =
-    Number(
-      input.value
-    );
-
-
-  if (
-    !budget ||
-    budget <= 0
-  ) {
-
-    alert(
-      "예산 금액을 입력해주세요."
-    );
-
-    return;
-
-  }
-
-
-  localStorage.setItem(
-    getBudgetKey(),
-    budget
+const budgetInput =
+  document.getElementById(
+    "budgetInput"
   );
 
 
-  updateBudget(
-    currentMonthExpense
-  );
-
-
-  const button =
-    document.getElementById(
-      "saveBudgetButton"
-    );
-
-
-  button.textContent =
-    "저장됨 ✓";
-
-
-  setTimeout(
-    function() {
-
-      button.textContent =
-        "저장";
-
-    },
-    1200
-  );
-
-}
-
-
-document
-  .getElementById(
+const saveBudgetButton =
+  document.getElementById(
     "saveBudgetButton"
-  )
-  .addEventListener(
-    "click",
-    saveBudget
   );
 
 
-/* 예산 화면 업데이트 */
-function updateBudget(expense) {
+if (monthlyBudget > 0) {
 
-  const budget =
-    getMonthlyBudget();
+  budgetInput.value =
+    monthlyBudget;
+
+}
 
 
-  document
-    .getElementById(
-      "budgetExpense"
-    )
-    .textContent =
-    expense.toLocaleString(
-      "ko-KR"
+saveBudgetButton.addEventListener(
+  "click",
+  function() {
+
+    const newBudget =
+      Number(
+        budgetInput.value
+      );
+
+
+    if (
+      !Number.isFinite(newBudget) ||
+      newBudget <= 0
+    ) {
+
+      alert(
+        "예산 금액을 입력해주세요."
+      );
+
+      return;
+
+    }
+
+
+    monthlyBudget =
+      newBudget;
+
+
+    localStorage.setItem(
+      budgetKey,
+      String(newBudget)
     );
 
 
-  if (!budget) {
-
-    document
-      .getElementById(
-        "budgetTotalText"
-      )
-      .textContent =
-      "/ 예산을 입력해주세요";
-
-
-    document
-      .getElementById(
-        "budgetPercent"
-      )
-      .textContent =
-      "-";
-
-
-    document
-      .getElementById(
-        "budgetProgress"
-      )
-      .style.width =
-      "0%";
-
-
-    document
-      .getElementById(
-        "budgetMessage"
-      )
-      .textContent =
-      "이번 달 예산을 직접 입력해주세요.";
-
-
-    return;
+    updateBudget(
+      currentExpense
+    );
 
   }
+);
 
 
-  document
-    .getElementById(
-      "budgetTotalText"
-    )
-    .textContent =
-    "/ " +
-    budget.toLocaleString("ko-KR") +
-    "원";
+/* =========================================
+   숫자 표시
+========================================= */
+
+function formatWon(number) {
+
+  return Math.round(
+    number
+  ).toLocaleString(
+    "ko-KR"
+  ) + "원";
+
+}
 
 
-  const percent =
-    Math.round(
-      expense /
-      budget *
-      100
+/* =========================================
+   서버에 POST 요청
+========================================= */
+
+async function apiRequest(data) {
+
+  const response =
+    await fetch(
+      API_URL,
+      {
+        method: "POST",
+
+        headers: {
+          "Content-Type":
+            "text/plain;charset=UTF-8"
+        },
+
+        body:
+          JSON.stringify(data)
+      }
     );
 
 
-  document
-    .getElementById(
-      "budgetPercent"
-    )
-    .textContent =
-    percent + "%";
+  return await response.json();
+
+}
 
 
-  document
-    .getElementById(
-      "budgetProgress"
-    )
-    .style.width =
-    Math.min(percent, 100) +
-    "%";
+/* =========================================
+   로그인 만료 처리
+========================================= */
+
+function goToLogin() {
+
+  sessionStorage.removeItem(
+    "ledgerToken"
+  );
 
 
-  const remaining =
-    budget - expense;
+  window.location.replace(
+    "login.html"
+  );
+
+}
 
 
-  if (remaining >= 0) {
+/* =========================================
+   로그인 상태 확인
+========================================= */
 
-    document
-      .getElementById(
-        "budgetMessage"
-      )
-      .textContent =
-      "아직 " +
-      money(remaining) +
-      "의 예산이 남아 있어요.";
+async function verifyLogin() {
 
-  } else {
+  try {
 
-    document
-      .getElementById(
-        "budgetMessage"
-      )
-      .textContent =
-      "예산을 " +
-      money(
-        Math.abs(remaining)
-      ) +
-      " 초과했어요.";
+    const result =
+      await apiRequest({
+        action: "verify",
+        token: token
+      });
+
+
+    if (!result.success) {
+
+      goToLogin();
+
+      return false;
+
+    }
+
+
+    return true;
+
+
+  } catch (error) {
+
+    console.error(
+      "로그인 확인 오류:",
+      error
+    );
+
+
+    showLoadError(
+      "서버에 연결하지 못했어요."
+    );
+
+
+    return false;
 
   }
 
 }
 
 
-/* =========================
-   구글시트 데이터
-========================= */
+/* =========================================
+   데이터
+========================================= */
+
+let allData = [];
+
+let currentExpense = 0;
+
+
+/* =========================================
+   가계부 데이터 불러오기
+========================================= */
 
 async function loadData() {
 
   try {
 
-    const response =
-      await fetch(
-        API_URL
-      );
+    const result =
+      await apiRequest({
+        action: "data",
+        token: token
+      });
 
 
-    if (!response.ok) {
+    if (
+      result.loginRequired
+    ) {
 
-      throw new Error(
-        "데이터 불러오기 실패"
-      );
+      goToLogin();
+
+      return;
 
     }
-
-
-    const result =
-      await response.json();
 
 
     if (!result.success) {
 
       throw new Error(
         result.message ||
-        "불러오기 실패"
+        "데이터를 불러오지 못했습니다."
       );
 
     }
 
 
-    updateDashboard(
-      Array.isArray(
-        result.data
-      )
+    allData =
+      Array.isArray(result.data)
         ? result.data
-        : []
+        : [];
+
+
+    renderDashboard();
+
+
+  } catch (error) {
+
+    console.error(error);
+
+
+    showLoadError(
+      "가계부 내역을 불러오지 못했어요."
     );
-
-
-  } catch(error) {
-
-    console.error(
-      error
-    );
-
-
-    document
-      .getElementById(
-        "recentList"
-      )
-      .innerHTML = `
-
-        <div class="empty-message error-message">
-
-          데이터를 불러오지 못했어요.<br>
-          Google 스프레드시트 연결을 확인해주세요.
-
-        </div>
-
-      `;
 
   }
 
 }
 
 
-/* 전체 대시보드 계산 */
-function updateDashboard(data) {
+/* =========================================
+   대시보드 전체 그리기
+========================================= */
 
-  const now =
-    new Date();
+function renderDashboard() {
 
-
-  const year =
-    now.getFullYear();
-
-
-  const month =
-    now.getMonth();
-
-
-  document
-    .getElementById(
-      "heroMonth"
-    )
-    .textContent =
-    (month + 1) +
-    "월 가계부";
-
-
-  /* 이번 달 */
   const currentData =
-    data.filter(
-      function(item) {
-
-        const date =
-          parseDate(
-            item.date
-          );
-
-
-        return (
-          date &&
-          date.getFullYear() === year &&
-          date.getMonth() === month
-        );
-
-      }
-    );
-
-
-  /* 지난달 */
-  const previousDate =
-    new Date(
-      year,
-      month - 1,
-      1
-    );
-
-
-  const previousData =
-    data.filter(
+    allData.filter(
       function(item) {
 
         const date =
@@ -921,132 +798,64 @@ function updateDashboard(data) {
         return (
           date &&
           date.getFullYear() ===
-            previousDate.getFullYear() &&
+            currentYear &&
           date.getMonth() ===
-            previousDate.getMonth()
+            currentMonth
         );
 
       }
     );
 
 
-  /* 수입 */
-  const income =
-    currentData
-      .filter(
-        function(item) {
+  let income = 0;
 
-          return (
-            Number(
-              item.amount
-            ) > 0
-          );
-
-        }
-      )
-      .reduce(
-        function(sum, item) {
-
-          return (
-            sum +
-            Number(
-              item.amount
-            )
-          );
-
-        },
-        0
-      );
+  let expense = 0;
 
 
-  /* 지출 */
-  const expense =
-    currentData
-      .filter(
-        function(item) {
+  currentData.forEach(
+    function(item) {
 
-          return (
-            Number(
-              item.amount
-            ) < 0
-          );
-
-        }
-      )
-      .reduce(
-        function(sum, item) {
-
-          return (
-            sum +
-            Math.abs(
-              Number(
-                item.amount
-              )
-            )
-          );
-
-        },
-        0
-      );
+      const amount =
+        Number(
+          item.amount
+        ) || 0;
 
 
-  /* 지난달 지출 */
-  const previousExpense =
-    previousData
-      .filter(
-        function(item) {
+      if (amount > 0) {
 
-          return (
-            Number(
-              item.amount
-            ) < 0
-          );
+        income += amount;
 
-        }
-      )
-      .reduce(
-        function(sum, item) {
+      } else {
 
-          return (
-            sum +
-            Math.abs(
-              Number(
-                item.amount
-              )
-            )
-          );
+        expense +=
+          Math.abs(amount);
 
-        },
-        0
-      );
+      }
+
+    }
+  );
 
 
-  currentMonthExpense =
+  currentExpense =
     expense;
 
 
-  document
-    .getElementById(
-      "totalIncome"
-    )
-    .textContent =
-    money(income);
+  document.getElementById(
+    "incomeAmount"
+  ).textContent =
+    formatWon(income);
 
 
-  document
-    .getElementById(
-      "totalExpense"
-    )
-    .textContent =
-    money(expense);
+  document.getElementById(
+    "expenseAmount"
+  ).textContent =
+    formatWon(expense);
 
 
-  document
-    .getElementById(
-      "balance"
-    )
-    .textContent =
-    money(
+  document.getElementById(
+    "balanceAmount"
+  ).textContent =
+    formatWon(
       income - expense
     );
 
@@ -1056,124 +865,256 @@ function updateDashboard(data) {
   );
 
 
-  updateComparison(
-    expense,
-    previousExpense
-  );
-
+  updateComparison();
 
   updateCategories(
     currentData
   );
 
-
-  updateMonthlyChart(
-    data
-  );
-
+  updateMonthlyChart();
 
   updatePattern(
     currentData
   );
 
-
-  updateRecent(
-    data
-  );
+  updateRecent();
 
 }
 
 
-/* =========================
-   지난달 비교
-========================= */
+/* =========================================
+   예산 표시
+========================================= */
 
-function updateComparison(
-  current,
-  previous
-) {
+function updateBudget(expense) {
+
+  const budgetTotal =
+    document.getElementById(
+      "budgetTotal"
+    );
+
+
+  const budgetSpent =
+    document.getElementById(
+      "budgetSpent"
+    );
+
+
+  const progress =
+    document.getElementById(
+      "budgetProgress"
+    );
+
 
   const title =
     document.getElementById(
-      "comparePercent"
+      "budgetTipTitle"
     );
 
 
-  const message =
+  const text =
     document.getElementById(
-      "compareMessage"
+      "budgetTipText"
     );
 
 
-  if (previous === 0) {
+  budgetSpent.textContent =
+    formatWon(expense);
+
+
+  if (monthlyBudget <= 0) {
+
+    budgetTotal.textContent =
+      "미설정";
+
+
+    progress.style.width =
+      "0%";
+
 
     title.textContent =
+      "이번 달 예산을 정해볼까요?";
+
+
+    text.textContent =
+      "위에 금액을 입력하고 저장해주세요.";
+
+
+    return;
+
+  }
+
+
+  budgetTotal.textContent =
+    formatWon(monthlyBudget);
+
+
+  const percentage =
+    expense /
+    monthlyBudget *
+    100;
+
+
+  progress.style.width =
+    Math.min(
+      percentage,
+      100
+    ) + "%";
+
+
+  const remaining =
+    monthlyBudget -
+    expense;
+
+
+  if (remaining >= 0) {
+
+    title.textContent =
+      "예산 안에서 잘 기록하고 있어요 🌿";
+
+
+    text.textContent =
+      "이번 달 남은 예산은 " +
+      formatWon(remaining) +
+      "이에요.";
+
+  } else {
+
+    title.textContent =
+      "예산을 조금 넘었어요";
+
+
+    text.textContent =
+      formatWon(
+        Math.abs(remaining)
+      ) +
+      "만큼 예산을 초과했어요.";
+
+  }
+
+}
+
+
+/* =========================================
+   지난달 비교
+========================================= */
+
+function updateComparison() {
+
+  const previousDate =
+    new Date(
+      currentYear,
+      currentMonth - 1,
+      1
+    );
+
+
+  const previousYear =
+    previousDate.getFullYear();
+
+
+  const previousMonth =
+    previousDate.getMonth();
+
+
+  let previousExpense = 0;
+
+
+  allData.forEach(
+    function(item) {
+
+      const date =
+        parseDate(
+          item.date
+        );
+
+
+      const amount =
+        Number(
+          item.amount
+        ) || 0;
+
+
+      if (
+        date &&
+        date.getFullYear() ===
+          previousYear &&
+        date.getMonth() ===
+          previousMonth &&
+        amount < 0
+      ) {
+
+        previousExpense +=
+          Math.abs(amount);
+
+      }
+
+    }
+  );
+
+
+  const amountElement =
+    document.getElementById(
+      "comparisonAmount"
+    );
+
+
+  const textElement =
+    document.getElementById(
+      "comparisonText"
+    );
+
+
+  if (
+    previousExpense === 0
+  ) {
+
+    amountElement.textContent =
       "-";
 
 
-    message.textContent =
+    textElement.textContent =
       "지난달 지출 기록이 아직 없어요.";
+
 
   } else {
 
     const difference =
-      current -
-      previous;
+      currentExpense -
+      previousExpense;
 
 
-    const percent =
-      Math.round(
-        Math.abs(
-          difference
-        ) /
-        previous *
-        100
-      );
+    if (difference > 0) {
+
+      amountElement.textContent =
+        "+" +
+        formatWon(difference);
 
 
-    if (
+      textElement.textContent =
+        "지난달보다 더 사용했어요.";
+
+    } else if (
       difference < 0
     ) {
 
-      title.textContent =
-        "↓ " +
-        percent +
-        "% 감소";
+      amountElement.textContent =
+        "-" +
+        formatWon(
+          Math.abs(difference)
+        );
 
 
-      message.textContent =
-        "지난달보다 " +
-        money(
-          Math.abs(
-            difference
-          )
-        ) +
-        " 적게 썼어요.";
-
-    } else if (
-      difference > 0
-    ) {
-
-      title.textContent =
-        "↑ " +
-        percent +
-        "% 증가";
-
-
-      message.textContent =
-        "지난달보다 " +
-        money(
-          difference
-        ) +
-        " 더 썼어요.";
+      textElement.textContent =
+        "지난달보다 덜 사용했어요.";
 
     } else {
 
-      title.textContent =
-        "변화 없음";
+      amountElement.textContent =
+        "같아요";
 
 
-      message.textContent =
+      textElement.textContent =
         "지난달과 지출이 같아요.";
 
     }
@@ -1181,112 +1122,51 @@ function updateComparison(
   }
 
 
-  const max =
+  const maximum =
     Math.max(
-      current,
-      previous,
+      previousExpense,
+      currentExpense,
       1
     );
 
 
-  document
-    .getElementById(
-      "previousBar"
-    )
-    .style.height =
+  const previousHeight =
     Math.max(
-      previous /
-      max *
-      55,
-      4
-    ) +
-    "px";
+      4,
+      previousExpense /
+      maximum *
+      58
+    );
 
 
-  document
-    .getElementById(
-      "currentBar"
-    )
-    .style.height =
+  const currentHeight =
     Math.max(
-      current /
-      max *
-      55,
-      4
-    ) +
-    "px";
+      4,
+      currentExpense /
+      maximum *
+      58
+    );
+
+
+  document.getElementById(
+    "previousBar"
+  ).style.height =
+    previousHeight + "px";
+
+
+  document.getElementById(
+    "currentBar"
+  ).style.height =
+    currentHeight + "px";
 
 }
 
 
-/* =========================
-   항목별 지출
-========================= */
+/* =========================================
+   카테고리 분석
+========================================= */
 
 function updateCategories(data) {
-
-  const categories = {};
-
-
-  data
-    .filter(
-      function(item) {
-
-        return (
-          Number(
-            item.amount
-          ) < 0
-        );
-
-      }
-    )
-    .forEach(
-      function(item) {
-
-        const category =
-          String(
-            item.category ||
-            "기타"
-          )
-          .split(">")[0]
-          .trim();
-
-
-        const amount =
-          Math.abs(
-            Number(
-              item.amount
-            )
-          );
-
-
-        categories[category] =
-          (
-            categories[category] ||
-            0
-          ) +
-          amount;
-
-      }
-    );
-
-
-  const sorted =
-    Object
-      .entries(
-        categories
-      )
-      .sort(
-        function(a,b) {
-
-          return (
-            b[1] -
-            a[1]
-          );
-
-        }
-      );
-
 
   const container =
     document.getElementById(
@@ -1294,76 +1174,110 @@ function updateCategories(data) {
     );
 
 
+  const totals = {};
+
+
+  data.forEach(
+    function(item) {
+
+      const amount =
+        Number(
+          item.amount
+        ) || 0;
+
+
+      if (amount >= 0) {
+        return;
+      }
+
+
+      const mainCategory =
+        String(
+          item.category ||
+          "기타"
+        )
+          .split(">")[0]
+          .trim();
+
+
+      totals[mainCategory] =
+        (
+          totals[mainCategory] ||
+          0
+        ) +
+        Math.abs(amount);
+
+    }
+  );
+
+
+  const categories =
+    Object.entries(totals)
+      .sort(
+        function(a, b) {
+          return b[1] - a[1];
+        }
+      );
+
+
   if (
-    sorted.length === 0
+    categories.length === 0
   ) {
 
-    container.innerHTML = `
-
-      <div class="empty-message">
-
-        이번 달 지출 기록이 아직 없어요 🌿
-
-      </div>
-
-    `;
+    container.innerHTML =
+      '<div class="empty-message">' +
+      '이번 달 지출 기록이 아직 없어요 🌿' +
+      '</div>';
 
     return;
 
   }
 
 
-  const max =
-    sorted[0][1];
+  const maximum =
+    categories[0][1];
 
 
   container.innerHTML =
-    sorted
-      .slice(
-        0,
-        8
-      )
+    categories
+      .slice(0, 6)
       .map(
-        function(item) {
+        function(entry) {
 
-          const category =
-            item[0];
+          const name =
+            entry[0];
 
 
-          const value =
-            item[1];
+          const amount =
+            entry[1];
 
 
           const width =
-            Math.round(
-              value /
-              max *
-              100
-            );
+            maximum > 0
+              ? amount /
+                maximum *
+                100
+              : 0;
 
 
           return `
-
             <div class="category-row">
 
               <span class="category-name">
-                ${escapeHTML(category)}
+                ${escapeHTML(name)}
               </span>
 
               <div class="category-track">
-
                 <span
                   style="width:${width}%"
                 ></span>
-
               </div>
 
               <strong>
-                ${money(value)}
+                ${formatWon(amount)}
               </strong>
 
             </div>
-
           `;
 
         }
@@ -1373,20 +1287,16 @@ function updateCategories(data) {
 }
 
 
-/* =========================
-   월별 지출
-========================= */
+/* =========================================
+   최근 6개월 차트
+========================================= */
 
-function updateMonthlyChart(data) {
+function updateMonthlyChart() {
 
-  const container =
+  const chart =
     document.getElementById(
       "monthlyChart"
     );
-
-
-  const now =
-    new Date();
 
 
   const months = [];
@@ -1398,271 +1308,260 @@ function updateMonthlyChart(data) {
     i--
   ) {
 
-    const target =
+    const date =
       new Date(
-        now.getFullYear(),
-        now.getMonth() - i,
+        currentYear,
+        currentMonth - i,
         1
       );
 
 
-    const total =
-      data
-        .filter(
-          function(item) {
-
-            const date =
-              parseDate(
-                item.date
-              );
-
-
-            return (
-              date &&
-              date.getFullYear() ===
-                target.getFullYear() &&
-              date.getMonth() ===
-                target.getMonth() &&
-              Number(
-                item.amount
-              ) < 0
-            );
-
-          }
-        )
-        .reduce(
-          function(sum,item) {
-
-            return (
-              sum +
-              Math.abs(
-                Number(
-                  item.amount
-                )
-              )
-            );
-
-          },
-          0
-        );
-
-
     months.push({
-      label:
-        (target.getMonth() + 1) +
-        "월",
+      year:
+        date.getFullYear(),
 
-      total:
-        total
+      month:
+        date.getMonth(),
+
+      label:
+        date.getMonth() +
+        1,
+
+      amount: 0
     });
 
   }
 
 
-  const max =
+  allData.forEach(
+    function(item) {
+
+      const date =
+        parseDate(
+          item.date
+        );
+
+
+      const amount =
+        Number(
+          item.amount
+        ) || 0;
+
+
+      if (
+        !date ||
+        amount >= 0
+      ) {
+        return;
+      }
+
+
+      const target =
+        months.find(
+          function(month) {
+
+            return (
+              month.year ===
+                date.getFullYear() &&
+              month.month ===
+                date.getMonth()
+            );
+
+          }
+        );
+
+
+      if (target) {
+
+        target.amount +=
+          Math.abs(amount);
+
+      }
+
+    }
+  );
+
+
+  const maximum =
     Math.max(
       ...months.map(
-        function(item) {
-
-          return item.total;
-
+        function(month) {
+          return month.amount;
         }
       ),
       1
     );
 
 
-  container.innerHTML =
-    months
-      .map(
-        function(item,index) {
+  chart.innerHTML =
+    months.map(
+      function(month, index) {
 
-          const height =
-            item.total === 0
-              ? 3
-              : Math.max(
-                  item.total /
-                  max *
-                  85,
-                  8
-                );
-
-
-          const current =
-            index ===
-            months.length - 1
-              ? "current-month"
-              : "";
+        const height =
+          month.amount === 0
+            ? 3
+            : Math.max(
+                8,
+                month.amount /
+                maximum *
+                155
+              );
 
 
-          return `
+        const currentClass =
+          index ===
+          months.length - 1
+            ? " current-month"
+            : "";
 
-            <div class="monthly-bar ${current}">
 
-              <span
-                style="height:${height}%"
-                title="${money(item.total)}"
-              ></span>
+        return `
+          <div
+            class="monthly-bar${currentClass}"
+            title="${formatWon(month.amount)}"
+          >
 
-              <small>
-                ${item.label}
-              </small>
+            <span
+              style="height:${height}px"
+            ></span>
 
-            </div>
+            <small>
+              ${month.label}월
+            </small>
 
-          `;
+          </div>
+        `;
 
-        }
-      )
-      .join("");
+      }
+    )
+    .join("");
 
 }
 
 
-/* =========================
+/* =========================================
    소비 패턴
-========================= */
+========================================= */
 
 function updatePattern(data) {
 
-  const categories = {};
-
-  let total = 0;
-
-
-  data
-    .filter(
+  const expenseData =
+    data.filter(
       function(item) {
 
         return (
-          Number(
-            item.amount
-          ) < 0
+          Number(item.amount) < 0
         );
-
-      }
-    )
-    .forEach(
-      function(item) {
-
-        const category =
-          String(
-            item.category ||
-            "기타"
-          )
-          .split(">")[0]
-          .trim();
-
-
-        const amount =
-          Math.abs(
-            Number(
-              item.amount
-            )
-          );
-
-
-        total +=
-          amount;
-
-
-        categories[category] =
-          (
-            categories[category] ||
-            0
-          ) +
-          amount;
 
       }
     );
 
 
-  const sorted =
-    Object
-      .entries(
-        categories
-      )
-      .sort(
-        function(a,b) {
+  const title =
+    document.getElementById(
+      "patternTitle"
+    );
 
-          return (
-            b[1] -
-            a[1]
-          );
 
-        }
-      );
+  const text =
+    document.getElementById(
+      "patternText"
+    );
+
+
+  const tags =
+    document.getElementById(
+      "patternTags"
+    );
 
 
   if (
-    sorted.length === 0
+    expenseData.length === 0
   ) {
+
+    title.textContent =
+      "아직 이번 달 지출이 없어요";
+
+
+    text.textContent =
+      "기록이 쌓이면 어떤 곳에 돈을 많이 쓰는지 보여드릴게요.";
+
+
+    tags.innerHTML =
+      "<span>#차근차근</span>" +
+      "<span>#기록시작</span>";
+
 
     return;
 
   }
 
 
-  const topCategory =
-    sorted[0][0];
+  const totals = {};
 
 
-  const topAmount =
-    sorted[0][1];
+  expenseData.forEach(
+    function(item) {
+
+      const category =
+        String(
+          item.category ||
+          "기타"
+        )
+          .split(">")[0]
+          .trim();
 
 
-  const percent =
-    Math.round(
-      topAmount /
-      total *
-      100
-    );
+      totals[category] =
+        (
+          totals[category] ||
+          0
+        ) +
+        Math.abs(
+          Number(
+            item.amount
+          ) || 0
+        );
+
+    }
+  );
 
 
-  document
-    .getElementById(
-      "patternTitle"
-    )
-    .textContent =
-    topCategory +
+  const sorted =
+    Object.entries(totals)
+      .sort(
+        function(a, b) {
+          return b[1] - a[1];
+        }
+      );
+
+
+  const top =
+    sorted[0];
+
+
+  title.textContent =
+    top[0] +
     " 지출이 가장 많아요";
 
 
-  document
-    .getElementById(
-      "patternDescription"
-    )
-    .textContent =
-    "전체 지출의 약 " +
-    percent +
-    "%를 " +
-    topCategory +
-    "에 사용했어요.";
+  text.textContent =
+    "이번 달에는 " +
+    top[0] +
+    "에 " +
+    formatWon(top[1]) +
+    "을 사용했어요. 소비 흐름을 가볍게 살펴보세요.";
 
 
-  document
-    .getElementById(
-      "patternTags"
-    )
-    .innerHTML =
+  tags.innerHTML =
     sorted
-      .slice(
-        0,
-        3
-      )
+      .slice(0, 3)
       .map(
-        function(item,index) {
+        function(item) {
 
           return (
             "<span>#" +
-            escapeHTML(
-              item[0]
-            ) +
-            (
-              index === 0
-                ? " 1위"
-                : ""
-            ) +
+            escapeHTML(item[0]) +
             "</span>"
           );
 
@@ -1673,75 +1572,50 @@ function updatePattern(data) {
 }
 
 
-/* =========================
+/* =========================================
    최근 내역
-========================= */
+========================================= */
 
-function updateRecent(data) {
+function updateRecent() {
 
   const container =
     document.getElementById(
-      "recentList"
+      "recentTransactions"
     );
 
 
   const sorted =
-    [...data]
+    [...allData]
       .sort(
-        function(a,b) {
+        function(a, b) {
 
-          const dateA =
-            parseDate(
-              a.date
-            );
+          const aDate =
+            parseDate(a.date);
 
 
-          const dateB =
-            parseDate(
-              b.date
-            );
+          const bDate =
+            parseDate(b.date);
 
 
           return (
-            (
-              dateB
-                ? dateB.getTime()
-                : 0
-            ) -
-            (
-              dateA
-                ? dateA.getTime()
-                : 0
-            )
+            (bDate ? bDate.getTime() : 0) -
+            (aDate ? aDate.getTime() : 0)
           );
 
         }
-      );
-
-
-  document
-    .getElementById(
-      "recordCount"
-    )
-    .textContent =
-    data.length +
-    "건";
+      )
+      .slice(0, 5);
 
 
   if (
     sorted.length === 0
   ) {
 
-    container.innerHTML = `
-
-      <div class="empty-message">
-
-        아직 기록이 없어요.<br>
-        첫 내역을 추가해보세요 🌿
-
-      </div>
-
-    `;
+    container.innerHTML =
+      '<div class="empty-message">' +
+      '아직 기록된 내역이 없어요.<br>' +
+      '첫 내역을 기록해보세요 🌿' +
+      '</div>';
 
     return;
 
@@ -1749,124 +1623,250 @@ function updateRecent(data) {
 
 
   container.innerHTML =
-    sorted
-      .slice(
-        0,
-        5
-      )
-      .map(
-        function(item) {
+    sorted.map(
+      function(item) {
 
-          const amount =
-            Number(
-              item.amount
-            );
+        const amount =
+          Number(
+            item.amount
+          ) || 0;
 
 
-          const isIncome =
-            amount > 0;
+        const isIncome =
+          amount > 0;
 
 
-          const date =
-            parseDate(
-              item.date
-            );
+        const icon =
+          isIncome
+            ? "💰"
+            : getCategoryIcon(
+                item.category
+              );
 
 
-          const dateText =
-            date
-              ? (
-                  (date.getMonth() + 1) +
-                  "월 " +
-                  date.getDate() +
-                  "일"
-                )
-              : item.date;
+        return `
+          <div class="transaction">
 
+            <div class="transaction-main">
 
-          return `
+              <div class="transaction-icon">
+                ${icon}
+              </div>
 
-            <div class="transaction">
+              <div>
 
-              <div class="transaction-main">
+                <strong>
+                  ${escapeHTML(
+                    item.name ||
+                    "기록"
+                  )}
+                </strong>
 
-                <span class="transaction-icon">
-                  ${isIncome ? "💵" : "🧾"}
-                </span>
-
-                <div>
-
-                  <strong>
-                    ${escapeHTML(item.name)}
-                  </strong>
-
-                  <p>
-                    ${escapeHTML(dateText)}
-                    ·
-                    ${escapeHTML(item.category)}
-                  </p>
-
-                </div>
+                <p>
+                  ${escapeHTML(item.date)}
+                  ·
+                  ${escapeHTML(
+                    item.category ||
+                    "기타"
+                  )}
+                </p>
 
               </div>
 
-
-              <strong
-                class="${isIncome ? "plus" : "minus"}"
-              >
-
-                ${isIncome ? "+" : "-"}
-                ${money(Math.abs(amount))}
-
-              </strong>
-
             </div>
 
-          `;
+            <strong
+              class="${isIncome ? "plus" : "minus"}"
+            >
+              ${isIncome ? "+" : "-"}
+              ${formatWon(
+                Math.abs(amount)
+              )}
+            </strong>
 
-        }
-      )
-      .join("");
+          </div>
+        `;
+
+      }
+    )
+    .join("");
 
 }
 
 
-/* 글자 안전 처리 */
-function escapeHTML(value) {
+/* =========================================
+   카테고리 아이콘
+========================================= */
 
-  return String(
-    value ?? ""
-  )
-  .replaceAll(
-    "&",
-    "&amp;"
-  )
-  .replaceAll(
-    "<",
-    "&lt;"
-  )
-  .replaceAll(
-    ">",
-    "&gt;"
-  )
-  .replaceAll(
-    '"',
-    "&quot;"
-  )
-  .replaceAll(
-    "'",
-    "&#039;"
+function getCategoryIcon(category) {
+
+  const main =
+    String(
+      category || ""
+    )
+      .split(">")[0]
+      .trim();
+
+
+  const icons = {
+    "식비": "🍚",
+    "고정지출": "🏠",
+    "커피": "☕",
+    "사교모임": "🥂",
+    "교통비": "🚌",
+    "자기계발비": "📚",
+    "경조사비": "💌",
+    "기타": "🌿"
+  };
+
+
+  return (
+    icons[main] ||
+    "🌿"
   );
 
 }
 
 
-/* 시작 */
-loadBudget();
+/* =========================================
+   날짜 문자열 변환
+========================================= */
 
-loadData();
+function parseDate(value) {
+
+  if (!value) {
+    return null;
+  }
+
+
+  const parts =
+    String(value)
+      .split("-");
+
+
+  if (
+    parts.length !== 3
+  ) {
+    return null;
+  }
+
+
+  const year =
+    Number(parts[0]);
+
+
+  const month =
+    Number(parts[1]);
+
+
+  const day =
+    Number(parts[2]);
+
+
+  if (
+    !year ||
+    !month ||
+    !day
+  ) {
+    return null;
+  }
+
+
+  return new Date(
+    year,
+    month - 1,
+    day
+  );
+
+}
+
+
+/* =========================================
+   오류 표시
+========================================= */
+
+function showLoadError(message) {
+
+  document.getElementById(
+    "categoryAnalysis"
+  ).innerHTML =
+    '<div class="empty-message error-message">' +
+    escapeHTML(message) +
+    "</div>";
+
+
+  document.getElementById(
+    "recentTransactions"
+  ).innerHTML =
+    '<div class="empty-message error-message">' +
+    escapeHTML(message) +
+    "</div>";
+
+}
+
+
+/* =========================================
+   HTML 안전 처리
+========================================= */
+
+function escapeHTML(value) {
+
+  return String(
+    value ?? ""
+  )
+    .replaceAll(
+      "&",
+      "&amp;"
+    )
+    .replaceAll(
+      "<",
+      "&lt;"
+    )
+    .replaceAll(
+      ">",
+      "&gt;"
+    )
+    .replaceAll(
+      '"',
+      "&quot;"
+    )
+    .replaceAll(
+      "'",
+      "&#039;"
+    );
+
+}
+
+
+/* =========================================
+   시작
+========================================= */
+
+async function startApp() {
+
+  if (!token) {
+    return;
+  }
+
+
+  const loggedIn =
+    await verifyLogin();
+
+
+  if (!loggedIn) {
+    return;
+  }
+
+
+  await loadData();
+
+}
+
+
+startApp();
 
 </script>
+
 
 </body>
 </html>
