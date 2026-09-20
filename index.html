@@ -5,191 +5,269 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>나의 가계부</title>
 
-  <!-- 귀엽고 부드러운 한글 폰트 -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
-  <a href="index.html" class="logo">
-    <span class="logo-mark">☘</span>
-    <span>나의 가계부</span>
-  </a>
+<header class="topbar">
+  <div class="topbar-inner">
 
-  <nav>
-    <a href="index.html" class="active">홈</a>
-    <a href="#history">내역</a>
-    <a href="#budget">예산</a>
-    <a href="#analysis">분석</a>
-  </nav>
+    <a href="index.html" class="brand">
+      <span class="brand-leaf">🌿</span>
+      <strong>나의 가계부</strong>
+    </a>
 
-  <div class="header-note">today's little record ♡</div>
+    <nav class="nav">
+      <a href="index.html" class="active">홈</a>
+      <a href="#recent">내역</a>
+      <a href="#budget">예산</a>
+      <a href="#analysis">분석</a>
+    </nav>
+
+    <span class="today-message">
+      오늘도 좋은 하루예요! 🙂
+    </span>
+
+  </div>
 </header>
 
 
-<main class="container">
+<main class="page">
 
   <!-- HERO -->
   <section class="hero">
 
-    <div class="hero-copy">
-      <span class="eyebrow">SEPTEMBER · MONEY DIARY</span>
+    <div class="hero-text">
+
+      <span class="hero-month" id="heroMonth">
+        이번 달 가계부
+      </span>
 
       <h1>
         이번 달도<br>
-        차근차근 기록해요
-        <span class="heart">♥</span>
+        차근차근 기록해요 🌿
       </h1>
 
       <p>
-        작은 기록이 모이면<br class="mobile-break">
-        내 소비 습관이 조금씩 보여요.
+        오늘의 기록이 내일의 여유가 돼요.
       </p>
 
-      <a href="write.html" class="primary-button">
-        <span>＋</span> 내역 추가
+      <a href="write.html" class="add-btn">
+        ＋ 내역 추가
       </a>
+
     </div>
 
-    <div class="hero-art">
-      <div class="sun-shape"></div>
 
-      <div class="paper-note">
-        <span>little money note</span>
-        <strong>잘 쓰고,<br>잘 모으기!</strong>
-        <small>♡</small>
+    <div class="hero-photo">
+
+      <div class="branch">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
       </div>
 
-      <div class="plant">
-        <div class="stem"></div>
-        <span class="leaf leaf1"></span>
-        <span class="leaf leaf2"></span>
-        <span class="leaf leaf3"></span>
-        <span class="leaf leaf4"></span>
-        <span class="leaf leaf5"></span>
-        <div class="pot"></div>
+      <div class="mug">
+        <div class="mug-text">
+          Good<br>
+          Money<br>
+          Good Day
+          <small>:)</small>
+        </div>
       </div>
+
+      <div class="books">
+        <div>Better Me</div>
+        <div>A Richer Tomorrow</div>
+        <div>Happy Life</div>
+      </div>
+
+      <div class="vase"></div>
+
     </div>
 
   </section>
 
 
   <!-- SUMMARY -->
-  <section class="summary-grid">
+  <section class="summary">
 
     <article class="summary-card">
-      <div class="summary-top">
-        <span class="round-icon green">↓</span>
-        <span class="card-label">이번 달 수입</span>
+
+      <div class="summary-heading">
+        <span class="summary-icon income-icon">↓</span>
+        <span>이번 달 수입</span>
       </div>
 
-      <strong class="money">3,200,000<span>원</span></strong>
-      <p>이번 달 들어온 돈이에요.</p>
+      <strong id="totalIncome">
+        0원
+      </strong>
+
+      <p>
+        이번 달 들어온 돈이에요.
+      </p>
+
     </article>
 
 
     <article class="summary-card">
-      <div class="summary-top">
-        <span class="round-icon coral">↑</span>
-        <span class="card-label">이번 달 지출</span>
+
+      <div class="summary-heading">
+        <span class="summary-icon expense-icon">↑</span>
+        <span>이번 달 지출</span>
       </div>
 
-      <strong class="money">782,500<span>원</span></strong>
-      <p class="coral-text">지난달보다 8% 적게 썼어요 ↓</p>
+      <strong id="totalExpense">
+        0원
+      </strong>
+
+      <p id="expenseCompare">
+        이번 달 사용 금액이에요.
+      </p>
+
     </article>
 
 
-    <article class="summary-card sage-card">
-      <div class="summary-top">
-        <span class="round-icon yellow">●</span>
-        <span class="card-label">남은 금액</span>
+    <article class="summary-card balance-card">
+
+      <div class="summary-heading">
+        <span class="summary-icon balance-icon">●</span>
+        <span>남은 금액</span>
       </div>
 
-      <strong class="money">2,417,500<span>원</span></strong>
-      <p>수입에서 지출을 뺀 금액이에요.</p>
+      <strong id="balance">
+        0원
+      </strong>
+
+      <p>
+        수입 - 지출
+      </p>
+
     </article>
 
   </section>
 
 
   <!-- BUDGET -->
-  <section class="content-section" id="budget">
+  <section class="section" id="budget">
 
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">BUDGET</span>
-        <h2>이번 달 예산</h2>
-      </div>
+    <div class="section-head">
+      <h2>이번 달 예산</h2>
 
-      <a href="#" class="tiny-link">예산 관리하기 →</a>
+      <span>
+        예산 1,200,000원
+      </span>
     </div>
 
 
-    <div class="budget-layout">
+    <div class="budget-grid">
 
-      <article class="budget-card">
+      <article class="card budget-card">
 
-        <div class="budget-main">
+        <div class="budget-numbers">
 
           <div>
-            <span class="muted">현재 사용 금액</span>
-            <div class="budget-price">
-              <strong>782,500</strong>
-              <span>/ 1,200,000원</span>
-            </div>
+            <strong id="budgetExpense">
+              0
+            </strong>
+
+            <span>
+              / 1,200,000원
+            </span>
           </div>
 
-          <div class="budget-percent">
-            <strong>65%</strong>
-            <span>사용</span>
+
+          <div>
+            <strong
+              class="green-text"
+              id="budgetPercent"
+            >
+              0%
+            </strong>
+
+            <span> 사용</span>
           </div>
 
         </div>
 
 
         <div class="progress">
-          <div class="progress-fill"></div>
+          <div
+            class="progress-value"
+            id="budgetProgress"
+          ></div>
         </div>
 
 
-        <div class="budget-message">
-          <span class="mini-leaf">☘</span>
+        <div class="budget-tip">
+
+          <span class="tip-leaf">
+            🌿
+          </span>
+
           <div>
-            <strong>아직 417,500원이 남아 있어요.</strong>
-            <p>지금처럼 천천히 써도 괜찮아요 :)</p>
+
+            <strong id="budgetMessage">
+              예산을 확인하고 있어요.
+            </strong>
+
+            <p>
+              계획대로 천천히 기록해봐요!
+            </p>
+
           </div>
+
         </div>
 
       </article>
 
 
-      <article class="compare-card">
+      <article class="card last-month-card">
 
-        <span class="eyebrow">LAST MONTH</span>
-        <h3>지난달보다</h3>
+        <h3>
+          지난달 대비 지출
+        </h3>
 
-        <div class="down-number">↓ 8% 감소</div>
+        <strong
+          class="big-green"
+          id="comparePercent"
+        >
+          -
+        </strong>
 
-        <p>
-          지난달보다<br>
-          <strong>68,500원</strong> 적게 썼어요.
+        <p id="compareMessage">
+          지난달 기록과 비교해드려요.
         </p>
 
-        <div class="mini-chart">
-          <div>
-            <span class="bar previous"></span>
-            <small>8월</small>
-          </div>
+
+        <div class="comparison-chart">
 
           <div>
-            <span class="bar current"></span>
-            <small>9월</small>
+            <span
+              class="august-bar"
+              id="previousBar"
+            ></span>
+
+            <small>지난달</small>
           </div>
+
+
+          <div>
+            <span
+              class="september-bar"
+              id="currentBar"
+            ></span>
+
+            <small>이번달</small>
+          </div>
+
         </div>
 
       </article>
@@ -200,144 +278,112 @@
 
 
   <!-- ANALYSIS -->
-  <section class="content-section" id="analysis">
+  <section class="section" id="analysis">
 
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">ANALYSIS</span>
-        <h2>이번 달 소비를 살펴봐요</h2>
-      </div>
+    <div class="section-label">
+      ANALYSIS
+    </div>
 
-      <span class="hand-note">where did my money go? ✎</span>
+    <div class="section-head">
+      <h2>
+        이번 달 소비 분석
+      </h2>
     </div>
 
 
     <div class="analysis-grid">
 
-      <!-- DONUT -->
-      <article class="white-card category-card">
+      <!-- CATEGORY -->
+      <article class="card">
 
-        <div class="card-title-row">
-          <h3>항목별 지출 비율</h3>
-          <span>총 지출 782,500원</span>
+        <div class="card-title">
+          <h3>항목별 지출</h3>
         </div>
 
-        <div class="donut-layout">
-
-          <div class="donut">
-            <div class="donut-center">
-              <small>가장 많은 지출</small>
-              <strong>식비</strong>
-              <span>41%</span>
-            </div>
+        <div
+          class="category-analysis"
+          id="categoryAnalysis"
+        >
+          <div class="empty-message">
+            기록을 추가하면 항목별 소비가 표시돼요 🌿
           </div>
-
-          <div class="legend">
-
-            <div>
-              <span class="legend-dot food"></span>
-              <p>식비</p>
-              <strong>320,000원</strong>
-            </div>
-
-            <div>
-              <span class="legend-dot shopping"></span>
-              <p>쇼핑</p>
-              <strong>190,000원</strong>
-            </div>
-
-            <div>
-              <span class="legend-dot fixed"></span>
-              <p>고정지출</p>
-              <strong>160,000원</strong>
-            </div>
-
-            <div>
-              <span class="legend-dot transport"></span>
-              <p>교통비</p>
-              <strong>112,500원</strong>
-            </div>
-
-          </div>
-
         </div>
 
       </article>
 
 
-      <!-- PATTERN -->
-      <article class="pattern-card">
+      <!-- MONTH -->
+      <article class="card">
 
-        <span class="eyebrow">THIS MONTH'S PATTERN</span>
-
-        <div class="bulb">☀</div>
-
-        <h3>식비 지출이 가장 많아요</h3>
-
-        <p>
-          전체 지출의 약 41%를 식비에 사용했어요.
-          그중에서도 <strong>카페와 외식</strong> 비중이 높은 편이에요.
-        </p>
-
-        <div class="tags">
-          <span>#식비 1위</span>
-          <span>#카페</span>
-          <span>#외식</span>
+        <div class="card-title">
+          <h3>최근 월별 지출</h3>
         </div>
 
-        <div class="scribble">
-          조금만 줄이면<br>
-          더 여유로워질지도 ♡
-        </div>
+        <div
+          class="monthly-chart"
+          id="monthlyChart"
+        ></div>
 
       </article>
 
     </div>
 
+  </section>
 
-    <!-- MONTH CHART -->
-    <article class="white-card monthly-card">
 
-      <div class="card-title-row">
-        <div>
-          <h3>월별 지출 흐름</h3>
-          <p>최근 6개월의 소비 변화를 확인해요.</p>
-        </div>
+  <!-- BOTTOM -->
+  <section class="bottom-grid">
 
-        <span class="tiny-link">최근 6개월</span>
+    <article class="pattern-card">
+
+      <div class="pattern-title">
+        <span>💡</span>
+        <strong>
+          이번 달 소비 패턴
+        </strong>
+      </div>
+
+      <h3 id="patternTitle">
+        기록을 기다리고 있어요
+      </h3>
+
+      <p id="patternDescription">
+        지출 내역을 추가하면 가장 많이 사용한 항목을 알려드릴게요.
+      </p>
+
+      <div
+        class="tags"
+        id="patternTags"
+      >
+        <span>#나의가계부</span>
+      </div>
+
+    </article>
+
+
+    <article
+      class="card recent-card"
+      id="recent"
+    >
+
+      <div class="card-title">
+
+        <h3>
+          최근 내역
+        </h3>
+
+        <span id="recordCount">
+          0건
+        </span>
+
       </div>
 
 
-      <div class="monthly-chart">
+      <div id="recentList">
 
-        <div class="month-item">
-          <span style="height:46%"></span>
-          <small>4월</small>
-        </div>
-
-        <div class="month-item">
-          <span style="height:66%"></span>
-          <small>5월</small>
-        </div>
-
-        <div class="month-item">
-          <span style="height:57%"></span>
-          <small>6월</small>
-        </div>
-
-        <div class="month-item">
-          <span style="height:72%"></span>
-          <small>7월</small>
-        </div>
-
-        <div class="month-item">
-          <span style="height:84%"></span>
-          <small>8월</small>
-        </div>
-
-        <div class="month-item active">
-          <span style="height:62%"></span>
-          <small>9월</small>
+        <div class="empty-message">
+          아직 기록이 없어요.<br>
+          첫 내역을 추가해보세요 🌿
         </div>
 
       </div>
@@ -347,100 +393,906 @@
   </section>
 
 
-  <!-- RECENT -->
-  <section class="content-section" id="history">
-
-    <div class="section-heading">
-      <div>
-        <span class="eyebrow">RECENT</span>
-        <h2>최근 내역</h2>
-      </div>
-
-      <a href="#" class="tiny-link">전체보기 →</a>
-    </div>
-
-
-    <div class="recent-layout">
-
-      <article class="history-card">
-
-        <div class="history-item">
-
-          <div class="history-info">
-            <span class="history-icon">☕</span>
-
-            <div>
-              <strong>스타벅스</strong>
-              <p>9월 20일 · 식비 &gt; 카페 · 체크카드</p>
-            </div>
-          </div>
-
-          <strong class="expense">- 5,500원</strong>
-
-        </div>
-
-
-        <div class="history-item">
-
-          <div class="history-info">
-            <span class="history-icon">🛒</span>
-
-            <div>
-              <strong>이마트 장보기</strong>
-              <p>9월 19일 · 식비 &gt; 장보기 · 체크카드</p>
-            </div>
-          </div>
-
-          <strong class="expense">- 48,200원</strong>
-
-        </div>
-
-
-        <div class="history-item">
-
-          <div class="history-info">
-            <span class="history-icon">💰</span>
-
-            <div>
-              <strong>월급</strong>
-              <p>9월 15일 · 수입 &gt; 급여 · 계좌이체</p>
-            </div>
-          </div>
-
-          <strong class="income">+ 3,200,000원</strong>
-
-        </div>
-
-      </article>
-
-
-      <aside class="little-message">
-        <span>☘</span>
-        <p>
-          오늘도 잘하고 있어요.<br>
-          <strong>작은 기록이 변화를 만들어요.</strong>
-        </p>
-        <div>♡</div>
-      </aside>
-
-    </div>
-
-  </section>
-
-
-  <div class="ending-note">
-    <span>☘</span>
-    오늘의 기록이 내일의 여유가 되도록
-    <span>♡</span>
+  <div class="encourage">
+    🌿
+    <span>
+      “ 오늘도 잘하고 있어요. 작은 기록이 큰 변화를 만들어요. ”
+    </span>
   </div>
 
 </main>
 
 
-<footer>
-  <span>나의 가계부</span>
-  <span>small records, better days.</span>
+<footer class="footer">
+
+  <div>
+    <span>나의 가계부</span>
+    <span>|</span>
+    <span>
+      오늘의 기록이 내일의 여유가 되도록
+    </span>
+  </div>
+
+  <span>My Ledger ♡</span>
+
 </footer>
+
+
+<script>
+
+const API_URL =
+  "https://script.google.com/macros/s/AKfycbyhjcK_5ip7OjqngwACkPqn_iroi9Y68riTT3GPKO-tlqvqpiWVfDnp2rkzIsEhg8q2/exec";
+
+const MONTHLY_BUDGET = 1200000;
+
+
+/* ---------------------------
+   숫자 → 원화
+--------------------------- */
+
+function money(value) {
+
+  return Number(value || 0)
+    .toLocaleString("ko-KR") + "원";
+
+}
+
+
+/* ---------------------------
+   날짜 파싱
+--------------------------- */
+
+function parseDate(value) {
+
+  if (!value) return null;
+
+  const date = new Date(value);
+
+  if (isNaN(date.getTime())) {
+    return null;
+  }
+
+  return date;
+
+}
+
+
+/* ---------------------------
+   시트 데이터 가져오기
+--------------------------- */
+
+async function loadData() {
+
+  try {
+
+    const response =
+      await fetch(API_URL);
+
+    if (!response.ok) {
+      throw new Error(
+        "데이터를 불러오지 못했습니다."
+      );
+    }
+
+    const result =
+      await response.json();
+
+    if (!result.success) {
+      throw new Error(
+        result.message ||
+        "데이터를 불러오지 못했습니다."
+      );
+    }
+
+    const data =
+      Array.isArray(result.data)
+        ? result.data
+        : [];
+
+    updateDashboard(data);
+
+  }
+
+  catch (error) {
+
+    console.error(error);
+
+    document.getElementById(
+      "recentList"
+    ).innerHTML = `
+      <div class="empty-message error-message">
+        데이터를 불러오지 못했어요.<br>
+        잠시 후 다시 확인해주세요.
+      </div>
+    `;
+
+  }
+
+}
+
+
+/* ---------------------------
+   전체 대시보드 업데이트
+--------------------------- */
+
+function updateDashboard(data) {
+
+  const now = new Date();
+
+  const year =
+    now.getFullYear();
+
+  const month =
+    now.getMonth();
+
+
+  document.getElementById(
+    "heroMonth"
+  ).textContent =
+    `${month + 1}월 가계부`;
+
+
+  /* 이번 달 */
+
+  const currentData =
+    data.filter(item => {
+
+      const date =
+        parseDate(item.date);
+
+      return (
+        date &&
+        date.getFullYear() === year &&
+        date.getMonth() === month
+      );
+
+    });
+
+
+  /* 지난 달 */
+
+  const previousDate =
+    new Date(
+      year,
+      month - 1,
+      1
+    );
+
+  const previousYear =
+    previousDate.getFullYear();
+
+  const previousMonth =
+    previousDate.getMonth();
+
+
+  const previousData =
+    data.filter(item => {
+
+      const date =
+        parseDate(item.date);
+
+      return (
+        date &&
+        date.getFullYear() ===
+          previousYear &&
+        date.getMonth() ===
+          previousMonth
+      );
+
+    });
+
+
+  const income =
+    currentData
+      .filter(item =>
+        Number(item.amount) > 0
+      )
+      .reduce(
+        (sum,item) =>
+          sum + Number(item.amount),
+        0
+      );
+
+
+  const expense =
+    currentData
+      .filter(item =>
+        Number(item.amount) < 0
+      )
+      .reduce(
+        (sum,item) =>
+          sum +
+          Math.abs(Number(item.amount)),
+        0
+      );
+
+
+  const previousExpense =
+    previousData
+      .filter(item =>
+        Number(item.amount) < 0
+      )
+      .reduce(
+        (sum,item) =>
+          sum +
+          Math.abs(Number(item.amount)),
+        0
+      );
+
+
+  document.getElementById(
+    "totalIncome"
+  ).textContent =
+    money(income);
+
+
+  document.getElementById(
+    "totalExpense"
+  ).textContent =
+    money(expense);
+
+
+  document.getElementById(
+    "balance"
+  ).textContent =
+    money(income - expense);
+
+
+  updateBudget(expense);
+
+  updateComparison(
+    expense,
+    previousExpense
+  );
+
+  updateCategories(
+    currentData
+  );
+
+  updateMonthlyChart(
+    data
+  );
+
+  updatePattern(
+    currentData
+  );
+
+  updateRecent(
+    data
+  );
+
+}
+
+
+/* ---------------------------
+   예산
+--------------------------- */
+
+function updateBudget(expense) {
+
+  const percent =
+    Math.round(
+      (expense / MONTHLY_BUDGET)
+      * 100
+    );
+
+  const remaining =
+    MONTHLY_BUDGET - expense;
+
+
+  document.getElementById(
+    "budgetExpense"
+  ).textContent =
+    expense.toLocaleString("ko-KR");
+
+
+  document.getElementById(
+    "budgetPercent"
+  ).textContent =
+    `${percent}%`;
+
+
+  document.getElementById(
+    "budgetProgress"
+  ).style.width =
+    `${Math.min(percent,100)}%`;
+
+
+  const message =
+    document.getElementById(
+      "budgetMessage"
+    );
+
+
+  if (remaining >= 0) {
+
+    message.textContent =
+      `아직 ${money(remaining)}의 예산이 남아 있어요.`;
+
+  }
+
+  else {
+
+    message.textContent =
+      `예산을 ${money(
+        Math.abs(remaining)
+      )} 초과했어요.`;
+
+  }
+
+}
+
+
+/* ---------------------------
+   지난달 비교
+--------------------------- */
+
+function updateComparison(
+  current,
+  previous
+) {
+
+  const percentText =
+    document.getElementById(
+      "comparePercent"
+    );
+
+  const message =
+    document.getElementById(
+      "compareMessage"
+    );
+
+
+  if (previous === 0) {
+
+    percentText.textContent =
+      "-";
+
+    message.textContent =
+      "지난달 지출 기록이 아직 없어요.";
+
+  }
+
+  else {
+
+    const difference =
+      current - previous;
+
+    const percent =
+      Math.round(
+        Math.abs(difference)
+        / previous
+        * 100
+      );
+
+
+    if (difference < 0) {
+
+      percentText.textContent =
+        `↓ ${percent}% 감소`;
+
+      message.textContent =
+        `지난달보다 ${money(
+          Math.abs(difference)
+        )} 적게 썼어요.`;
+
+    }
+
+    else if (difference > 0) {
+
+      percentText.textContent =
+        `↑ ${percent}% 증가`;
+
+      message.textContent =
+        `지난달보다 ${money(
+          difference
+        )} 더 썼어요.`;
+
+    }
+
+    else {
+
+      percentText.textContent =
+        "변화 없음";
+
+      message.textContent =
+        "지난달과 지출이 같아요.";
+
+    }
+
+  }
+
+
+  const max =
+    Math.max(
+      current,
+      previous,
+      1
+    );
+
+
+  document.getElementById(
+    "previousBar"
+  ).style.height =
+    `${Math.max(
+      previous / max * 55,
+      4
+    )}px`;
+
+
+  document.getElementById(
+    "currentBar"
+  ).style.height =
+    `${Math.max(
+      current / max * 55,
+      4
+    )}px`;
+
+}
+
+
+/* ---------------------------
+   항목별 분석
+--------------------------- */
+
+function updateCategories(data) {
+
+  const expenses =
+    data.filter(
+      item =>
+        Number(item.amount) < 0
+    );
+
+
+  const categories = {};
+
+
+  expenses.forEach(item => {
+
+    const mainCategory =
+      String(
+        item.category ||
+        "기타"
+      )
+      .split(">")[0]
+      .trim();
+
+
+    categories[mainCategory] =
+      (
+        categories[mainCategory]
+        || 0
+      )
+      +
+      Math.abs(
+        Number(item.amount)
+      );
+
+  });
+
+
+  const sorted =
+    Object.entries(categories)
+      .sort(
+        (a,b) =>
+          b[1] - a[1]
+      );
+
+
+  const container =
+    document.getElementById(
+      "categoryAnalysis"
+    );
+
+
+  if (!sorted.length) {
+
+    container.innerHTML = `
+      <div class="empty-message">
+        이번 달 지출 기록이 아직 없어요 🌿
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  const max =
+    sorted[0][1];
+
+
+  container.innerHTML =
+    sorted
+      .slice(0,5)
+      .map(
+        ([category,value]) => {
+
+          const width =
+            Math.round(
+              value / max * 100
+            );
+
+          return `
+            <div class="category-row">
+
+              <span class="category-name">
+                ${escapeHTML(category)}
+              </span>
+
+              <div class="category-track">
+                <span
+                  style="width:${width}%"
+                ></span>
+              </div>
+
+              <strong>
+                ${money(value)}
+              </strong>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* ---------------------------
+   월별 그래프
+--------------------------- */
+
+function updateMonthlyChart(data) {
+
+  const container =
+    document.getElementById(
+      "monthlyChart"
+    );
+
+  const now =
+    new Date();
+
+  const months = [];
+
+
+  for (let i = 5; i >= 0; i--) {
+
+    const target =
+      new Date(
+        now.getFullYear(),
+        now.getMonth() - i,
+        1
+      );
+
+    const year =
+      target.getFullYear();
+
+    const month =
+      target.getMonth();
+
+
+    const total =
+      data
+        .filter(item => {
+
+          const date =
+            parseDate(item.date);
+
+          return (
+            date &&
+            date.getFullYear()
+              === year &&
+            date.getMonth()
+              === month &&
+            Number(item.amount) < 0
+          );
+
+        })
+        .reduce(
+          (sum,item) =>
+            sum +
+            Math.abs(
+              Number(item.amount)
+            ),
+          0
+        );
+
+
+    months.push({
+      label:
+        `${month + 1}월`,
+      total
+    });
+
+  }
+
+
+  const max =
+    Math.max(
+      ...months.map(
+        item => item.total
+      ),
+      1
+    );
+
+
+  container.innerHTML =
+    months
+      .map(
+        (item,index) => {
+
+          const height =
+            item.total === 0
+              ? 3
+              : Math.max(
+                  item.total
+                  / max
+                  * 85,
+                  8
+                );
+
+          const current =
+            index ===
+            months.length - 1
+              ? "current-month"
+              : "";
+
+          return `
+            <div class="monthly-bar ${current}">
+
+              <span
+                style="height:${height}%"
+                title="${money(item.total)}"
+              ></span>
+
+              <small>
+                ${item.label}
+              </small>
+
+            </div>
+          `;
+
+        }
+      )
+      .join("");
+
+}
+
+
+/* ---------------------------
+   소비 패턴
+--------------------------- */
+
+function updatePattern(data) {
+
+  const expenses =
+    data.filter(
+      item =>
+        Number(item.amount) < 0
+    );
+
+
+  const categories = {};
+
+  let total = 0;
+
+
+  expenses.forEach(item => {
+
+    const category =
+      String(
+        item.category ||
+        "기타"
+      )
+      .split(">")[0]
+      .trim();
+
+
+    const amount =
+      Math.abs(
+        Number(item.amount)
+      );
+
+
+    total += amount;
+
+
+    categories[category] =
+      (
+        categories[category]
+        || 0
+      ) + amount;
+
+  });
+
+
+  const sorted =
+    Object.entries(categories)
+      .sort(
+        (a,b) =>
+          b[1] - a[1]
+      );
+
+
+  if (!sorted.length) {
+    return;
+  }
+
+
+  const [topCategory,topAmount] =
+    sorted[0];
+
+
+  const percent =
+    total
+      ? Math.round(
+          topAmount
+          / total
+          * 100
+        )
+      : 0;
+
+
+  document.getElementById(
+    "patternTitle"
+  ).textContent =
+    `${topCategory} 지출이 가장 많아요`;
+
+
+  document.getElementById(
+    "patternDescription"
+  ).textContent =
+    `전체 지출의 약 ${percent}%를 ${topCategory}에 사용했어요.`;
+
+
+  document.getElementById(
+    "patternTags"
+  ).innerHTML =
+    sorted
+      .slice(0,3)
+      .map(
+        ([category],index) =>
+          `<span>#${escapeHTML(category)}${index === 0 ? " 1위" : ""}</span>`
+      )
+      .join("");
+
+}
+
+
+/* ---------------------------
+   최근 내역
+--------------------------- */
+
+function updateRecent(data) {
+
+  const container =
+    document.getElementById(
+      "recentList"
+    );
+
+
+  const sorted =
+    [...data]
+      .sort(
+        (a,b) =>
+          (
+            parseDate(b.date)
+            || 0
+          )
+          -
+          (
+            parseDate(a.date)
+            || 0
+          )
+      );
+
+
+  document.getElementById(
+    "recordCount"
+  ).textContent =
+    `${data.length}건`;
+
+
+  if (!sorted.length) {
+
+    container.innerHTML = `
+      <div class="empty-message">
+        아직 기록이 없어요.<br>
+        첫 내역을 추가해보세요 🌿
+      </div>
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    sorted
+      .slice(0,5)
+      .map(item => {
+
+        const amount =
+          Number(item.amount);
+
+        const isIncome =
+          amount > 0;
+
+        const date =
+          parseDate(item.date);
+
+        const dateText =
+          date
+            ? `${date.getMonth()+1}월 ${date.getDate()}일`
+            : item.date;
+
+
+        return `
+          <div class="transaction">
+
+            <div class="transaction-main">
+
+              <span class="transaction-icon">
+                ${isIncome ? "💵" : "🧾"}
+              </span>
+
+              <div>
+
+                <strong>
+                  ${escapeHTML(item.name)}
+                </strong>
+
+                <p>
+                  ${escapeHTML(dateText)}
+                  ·
+                  ${escapeHTML(item.category)}
+                </p>
+
+              </div>
+
+            </div>
+
+            <strong class="${isIncome ? "plus" : "minus"}">
+
+              ${isIncome ? "+" : "-"}
+              ${money(
+                Math.abs(amount)
+              )}
+
+            </strong>
+
+          </div>
+        `;
+
+      })
+      .join("");
+
+}
+
+
+/* ---------------------------
+   HTML 안전 처리
+--------------------------- */
+
+function escapeHTML(value) {
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* 시작 */
+
+loadData();
+
+</script>
 
 </body>
 </html>
