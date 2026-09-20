@@ -10,6 +10,48 @@
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <style>
+    .budget-setting {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .budget-setting input {
+      width: 130px;
+      height: 32px;
+      padding: 0 10px;
+      border: 1px solid #d9ddd7;
+      border-radius: 7px;
+      background: #fff;
+      font-size: 11px;
+      text-align: right;
+    }
+
+    .budget-setting button {
+      height: 32px;
+      padding: 0 13px;
+      border: 0;
+      border-radius: 7px;
+      background: #5f9270;
+      color: white;
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .budget-setting button:hover {
+      background: #477b5a;
+    }
+
+    @media (max-width: 600px) {
+      .section-head.budget-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
 </head>
 
 <body>
@@ -39,6 +81,7 @@
 
 <main class="page">
 
+  <!-- 메인 -->
   <section class="hero">
 
     <div class="hero-text">
@@ -95,6 +138,7 @@
   </section>
 
 
+  <!-- 이번 달 요약 -->
   <section class="summary">
 
     <article class="summary-card">
@@ -141,15 +185,33 @@
   </section>
 
 
+  <!-- 예산 -->
   <section class="section" id="budget">
 
-    <div class="section-head">
+    <div class="section-head budget-head">
 
       <h2>이번 달 예산</h2>
 
-      <span>
-        예산 1,200,000원
-      </span>
+      <div class="budget-setting">
+
+        <input
+          type="number"
+          id="budgetInput"
+          min="0"
+          step="10000"
+          placeholder="예산 입력"
+        >
+
+        <span>원</span>
+
+        <button
+          type="button"
+          id="saveBudgetButton"
+        >
+          저장
+        </button>
+
+      </div>
 
     </div>
 
@@ -162,7 +224,10 @@
 
           <div>
             <strong id="budgetExpense">0</strong>
-            <span>/ 1,200,000원</span>
+
+            <span id="budgetTotalText">
+              / 예산을 입력해주세요
+            </span>
           </div>
 
           <div>
@@ -170,7 +235,7 @@
               class="green-text"
               id="budgetPercent"
             >
-              0%
+              -
             </strong>
 
             <span> 사용</span>
@@ -196,11 +261,11 @@
           <div>
 
             <strong id="budgetMessage">
-              예산을 확인하고 있어요.
+              이번 달 예산을 직접 입력해주세요.
             </strong>
 
             <p>
-              계획대로 천천히 기록해봐요!
+              매달 예산을 다르게 설정할 수 있어요!
             </p>
 
           </div>
@@ -257,6 +322,7 @@
   </section>
 
 
+  <!-- 분석 -->
   <section class="section" id="analysis">
 
     <div class="section-label">
@@ -308,6 +374,7 @@
   </section>
 
 
+  <!-- 하단 -->
   <section class="bottom-grid">
 
     <article class="pattern-card">
@@ -342,13 +409,16 @@
 
       <div class="card-title">
 
-        <h3>최근 내역</h3>
+        <h3>
+          최근 내역
+        </h3>
 
         <span id="recordCount">
           0건
         </span>
 
       </div>
+
 
       <div id="recentList">
 
@@ -385,7 +455,9 @@
     <span>오늘의 기록이 내일의 여유가 되도록</span>
   </div>
 
-  <span>My Ledger ♡</span>
+  <span>
+    My Ledger ♡
+  </span>
 
 </footer>
 
@@ -395,9 +467,11 @@
 const API_URL =
 "https://script.google.com/macros/s/AKfycbywXTV8GHFC9y4V16xE-438ZV45V2AWrkUDyxj34S3fnvWMfia394ucmSrOE30GGc_rIQ/exec";
 
-const MONTHLY_BUDGET = 1200000;
+
+let currentMonthExpense = 0;
 
 
+/* 금액 표시 */
 function money(value) {
 
   return Number(value || 0)
@@ -406,12 +480,19 @@ function money(value) {
 }
 
 
+/* 날짜 읽기 */
 function parseDate(value) {
 
-  if (!value) return null;
+  if (!value) {
+    return null;
+  }
+
+  const text =
+    String(value);
 
   const parts =
-    String(value).split("-");
+    text.split("-");
+
 
   if (parts.length === 3) {
 
@@ -423,8 +504,10 @@ function parseDate(value) {
 
   }
 
+
   const date =
     new Date(value);
+
 
   return isNaN(date.getTime())
     ? null
@@ -433,17 +516,289 @@ function parseDate(value) {
 }
 
 
+/* =========================
+   예산
+========================= */
+
+
+/* 월마다 다른 저장 이름 사용 */
+function getBudgetKey() {
+
+  const now =
+    new Date();
+
+  return (
+    "budget-" +
+    now.getFullYear() +
+    "-" +
+    (now.getMonth() + 1)
+  );
+
+}
+
+
+/* 저장된 예산 불러오기 */
+function getMonthlyBudget() {
+
+  const saved =
+    localStorage.getItem(
+      getBudgetKey()
+    );
+
+
+  if (!saved) {
+    return 0;
+  }
+
+
+  return Number(saved);
+
+}
+
+
+/* 처음 화면에 예산 표시 */
+function loadBudget() {
+
+  const budget =
+    getMonthlyBudget();
+
+
+  const input =
+    document.getElementById(
+      "budgetInput"
+    );
+
+
+  if (budget > 0) {
+
+    input.value =
+      budget;
+
+  }
+
+
+  updateBudget(
+    currentMonthExpense
+  );
+
+}
+
+
+/* 예산 저장 */
+function saveBudget() {
+
+  const input =
+    document.getElementById(
+      "budgetInput"
+    );
+
+
+  const budget =
+    Number(
+      input.value
+    );
+
+
+  if (
+    !budget ||
+    budget <= 0
+  ) {
+
+    alert(
+      "예산 금액을 입력해주세요."
+    );
+
+    return;
+
+  }
+
+
+  localStorage.setItem(
+    getBudgetKey(),
+    budget
+  );
+
+
+  updateBudget(
+    currentMonthExpense
+  );
+
+
+  const button =
+    document.getElementById(
+      "saveBudgetButton"
+    );
+
+
+  button.textContent =
+    "저장됨 ✓";
+
+
+  setTimeout(
+    function() {
+
+      button.textContent =
+        "저장";
+
+    },
+    1200
+  );
+
+}
+
+
+document
+  .getElementById(
+    "saveBudgetButton"
+  )
+  .addEventListener(
+    "click",
+    saveBudget
+  );
+
+
+/* 예산 화면 업데이트 */
+function updateBudget(expense) {
+
+  const budget =
+    getMonthlyBudget();
+
+
+  document
+    .getElementById(
+      "budgetExpense"
+    )
+    .textContent =
+    expense.toLocaleString(
+      "ko-KR"
+    );
+
+
+  if (!budget) {
+
+    document
+      .getElementById(
+        "budgetTotalText"
+      )
+      .textContent =
+      "/ 예산을 입력해주세요";
+
+
+    document
+      .getElementById(
+        "budgetPercent"
+      )
+      .textContent =
+      "-";
+
+
+    document
+      .getElementById(
+        "budgetProgress"
+      )
+      .style.width =
+      "0%";
+
+
+    document
+      .getElementById(
+        "budgetMessage"
+      )
+      .textContent =
+      "이번 달 예산을 직접 입력해주세요.";
+
+
+    return;
+
+  }
+
+
+  document
+    .getElementById(
+      "budgetTotalText"
+    )
+    .textContent =
+    "/ " +
+    budget.toLocaleString("ko-KR") +
+    "원";
+
+
+  const percent =
+    Math.round(
+      expense /
+      budget *
+      100
+    );
+
+
+  document
+    .getElementById(
+      "budgetPercent"
+    )
+    .textContent =
+    percent + "%";
+
+
+  document
+    .getElementById(
+      "budgetProgress"
+    )
+    .style.width =
+    Math.min(percent, 100) +
+    "%";
+
+
+  const remaining =
+    budget - expense;
+
+
+  if (remaining >= 0) {
+
+    document
+      .getElementById(
+        "budgetMessage"
+      )
+      .textContent =
+      "아직 " +
+      money(remaining) +
+      "의 예산이 남아 있어요.";
+
+  } else {
+
+    document
+      .getElementById(
+        "budgetMessage"
+      )
+      .textContent =
+      "예산을 " +
+      money(
+        Math.abs(remaining)
+      ) +
+      " 초과했어요.";
+
+  }
+
+}
+
+
+/* =========================
+   구글시트 데이터
+========================= */
+
 async function loadData() {
 
   try {
 
     const response =
-      await fetch(API_URL);
+      await fetch(
+        API_URL
+      );
+
 
     if (!response.ok) {
 
       throw new Error(
-        "데이터를 불러오지 못했습니다."
+        "데이터 불러오기 실패"
       );
 
     }
@@ -464,24 +819,31 @@ async function loadData() {
 
 
     updateDashboard(
-      Array.isArray(result.data)
+      Array.isArray(
+        result.data
+      )
         ? result.data
         : []
     );
 
 
-  } catch (error) {
+  } catch(error) {
 
-    console.error(error);
+    console.error(
+      error
+    );
+
 
     document
-      .getElementById("recentList")
+      .getElementById(
+        "recentList"
+      )
       .innerHTML = `
 
         <div class="empty-message error-message">
 
           데이터를 불러오지 못했어요.<br>
-          Apps Script 연결을 확인해주세요.
+          Google 스프레드시트 연결을 확인해주세요.
 
         </div>
 
@@ -492,37 +854,52 @@ async function loadData() {
 }
 
 
+/* 전체 대시보드 계산 */
 function updateDashboard(data) {
 
   const now =
     new Date();
 
+
   const year =
     now.getFullYear();
+
 
   const month =
     now.getMonth();
 
 
   document
-    .getElementById("heroMonth")
+    .getElementById(
+      "heroMonth"
+    )
     .textContent =
-    `${month + 1}월 가계부`;
+    (month + 1) +
+    "월 가계부";
 
 
+  /* 이번 달 */
   const currentData =
-    data.filter(item => {
+    data.filter(
+      function(item) {
 
-      const date =
-        parseDate(item.date);
-
-      return date &&
-        date.getFullYear() === year &&
-        date.getMonth() === month;
-
-    });
+        const date =
+          parseDate(
+            item.date
+          );
 
 
+        return (
+          date &&
+          date.getFullYear() === year &&
+          date.getMonth() === month
+        );
+
+      }
+    );
+
+
+  /* 지난달 */
   const previousDate =
     new Date(
       year,
@@ -532,156 +909,184 @@ function updateDashboard(data) {
 
 
   const previousData =
-    data.filter(item => {
+    data.filter(
+      function(item) {
 
-      const date =
-        parseDate(item.date);
-
-      return date &&
-        date.getFullYear() ===
-          previousDate.getFullYear() &&
-        date.getMonth() ===
-          previousDate.getMonth();
-
-    });
+        const date =
+          parseDate(
+            item.date
+          );
 
 
+        return (
+          date &&
+          date.getFullYear() ===
+            previousDate.getFullYear() &&
+          date.getMonth() ===
+            previousDate.getMonth()
+        );
+
+      }
+    );
+
+
+  /* 수입 */
   const income =
     currentData
       .filter(
-        item =>
-          Number(item.amount) > 0
+        function(item) {
+
+          return (
+            Number(
+              item.amount
+            ) > 0
+          );
+
+        }
       )
       .reduce(
-        (sum, item) =>
-          sum + Number(item.amount),
+        function(sum, item) {
+
+          return (
+            sum +
+            Number(
+              item.amount
+            )
+          );
+
+        },
         0
       );
 
 
+  /* 지출 */
   const expense =
     currentData
       .filter(
-        item =>
-          Number(item.amount) < 0
+        function(item) {
+
+          return (
+            Number(
+              item.amount
+            ) < 0
+          );
+
+        }
       )
       .reduce(
-        (sum, item) =>
-          sum +
-          Math.abs(
-            Number(item.amount)
-          ),
+        function(sum, item) {
+
+          return (
+            sum +
+            Math.abs(
+              Number(
+                item.amount
+              )
+            )
+          );
+
+        },
         0
       );
 
 
+  /* 지난달 지출 */
   const previousExpense =
     previousData
       .filter(
-        item =>
-          Number(item.amount) < 0
+        function(item) {
+
+          return (
+            Number(
+              item.amount
+            ) < 0
+          );
+
+        }
       )
       .reduce(
-        (sum, item) =>
-          sum +
-          Math.abs(
-            Number(item.amount)
-          ),
+        function(sum, item) {
+
+          return (
+            sum +
+            Math.abs(
+              Number(
+                item.amount
+              )
+            )
+          );
+
+        },
         0
       );
 
 
+  currentMonthExpense =
+    expense;
+
+
   document
-    .getElementById("totalIncome")
+    .getElementById(
+      "totalIncome"
+    )
     .textContent =
     money(income);
 
 
   document
-    .getElementById("totalExpense")
+    .getElementById(
+      "totalExpense"
+    )
     .textContent =
     money(expense);
 
 
   document
-    .getElementById("balance")
+    .getElementById(
+      "balance"
+    )
     .textContent =
-    money(income - expense);
+    money(
+      income - expense
+    );
 
 
-  updateBudget(expense);
+  updateBudget(
+    expense
+  );
+
 
   updateComparison(
     expense,
     previousExpense
   );
 
+
   updateCategories(
     currentData
   );
 
-  updateMonthlyChart(data);
+
+  updateMonthlyChart(
+    data
+  );
+
 
   updatePattern(
     currentData
   );
 
-  updateRecent(data);
+
+  updateRecent(
+    data
+  );
 
 }
 
 
-function updateBudget(expense) {
-
-  const percent =
-    Math.round(
-      expense /
-      MONTHLY_BUDGET *
-      100
-    );
-
-
-  const remaining =
-    MONTHLY_BUDGET -
-    expense;
-
-
-  document
-    .getElementById("budgetExpense")
-    .textContent =
-    expense.toLocaleString("ko-KR");
-
-
-  document
-    .getElementById("budgetPercent")
-    .textContent =
-    `${percent}%`;
-
-
-  document
-    .getElementById("budgetProgress")
-    .style.width =
-    `${Math.min(percent,100)}%`;
-
-
-  if (remaining >= 0) {
-
-    document
-      .getElementById("budgetMessage")
-      .textContent =
-      `아직 ${money(remaining)}의 예산이 남아 있어요.`;
-
-  } else {
-
-    document
-      .getElementById("budgetMessage")
-      .textContent =
-      `예산을 ${money(Math.abs(remaining))} 초과했어요.`;
-
-  }
-
-}
-
+/* =========================
+   지난달 비교
+========================= */
 
 function updateComparison(
   current,
@@ -693,6 +1098,7 @@ function updateComparison(
       "comparePercent"
     );
 
+
   const message =
     document.getElementById(
       "compareMessage"
@@ -701,7 +1107,9 @@ function updateComparison(
 
   if (previous === 0) {
 
-    title.textContent = "-";
+    title.textContent =
+      "-";
+
 
     message.textContent =
       "지난달 지출 기록이 아직 없어요.";
@@ -709,36 +1117,61 @@ function updateComparison(
   } else {
 
     const difference =
-      current - previous;
+      current -
+      previous;
+
 
     const percent =
       Math.round(
-        Math.abs(difference) /
+        Math.abs(
+          difference
+        ) /
         previous *
         100
       );
 
 
-    if (difference < 0) {
+    if (
+      difference < 0
+    ) {
 
       title.textContent =
-        `↓ ${percent}% 감소`;
+        "↓ " +
+        percent +
+        "% 감소";
+
 
       message.textContent =
-        `지난달보다 ${money(Math.abs(difference))} 적게 썼어요.`;
+        "지난달보다 " +
+        money(
+          Math.abs(
+            difference
+          )
+        ) +
+        " 적게 썼어요.";
 
-    } else if (difference > 0) {
+    } else if (
+      difference > 0
+    ) {
 
       title.textContent =
-        `↑ ${percent}% 증가`;
+        "↑ " +
+        percent +
+        "% 증가";
+
 
       message.textContent =
-        `지난달보다 ${money(difference)} 더 썼어요.`;
+        "지난달보다 " +
+        money(
+          difference
+        ) +
+        " 더 썼어요.";
 
     } else {
 
       title.textContent =
         "변화 없음";
+
 
       message.textContent =
         "지난달과 지출이 같아요.";
@@ -757,24 +1190,38 @@ function updateComparison(
 
 
   document
-    .getElementById("previousBar")
+    .getElementById(
+      "previousBar"
+    )
     .style.height =
-    `${Math.max(
-      previous / max * 55,
+    Math.max(
+      previous /
+      max *
+      55,
       4
-    )}px`;
+    ) +
+    "px";
 
 
   document
-    .getElementById("currentBar")
+    .getElementById(
+      "currentBar"
+    )
     .style.height =
-    `${Math.max(
-      current / max * 55,
+    Math.max(
+      current /
+      max *
+      55,
       4
-    )}px`;
+    ) +
+    "px";
 
 }
 
+
+/* =========================
+   항목별 지출
+========================= */
 
 function updateCategories(data) {
 
@@ -783,33 +1230,61 @@ function updateCategories(data) {
 
   data
     .filter(
-      item =>
-        Number(item.amount) < 0
-    )
-    .forEach(item => {
+      function(item) {
 
-      const category =
-        String(
-          item.category || "기타"
-        )
-        .split(">")[0]
-        .trim();
-
-
-      categories[category] =
-        (categories[category] || 0) +
-        Math.abs(
-          Number(item.amount)
+        return (
+          Number(
+            item.amount
+          ) < 0
         );
 
-    });
+      }
+    )
+    .forEach(
+      function(item) {
+
+        const category =
+          String(
+            item.category ||
+            "기타"
+          )
+          .split(">")[0]
+          .trim();
+
+
+        const amount =
+          Math.abs(
+            Number(
+              item.amount
+            )
+          );
+
+
+        categories[category] =
+          (
+            categories[category] ||
+            0
+          ) +
+          amount;
+
+      }
+    );
 
 
   const sorted =
-    Object.entries(categories)
+    Object
+      .entries(
+        categories
+      )
       .sort(
-        (a,b) =>
-          b[1] - a[1]
+        function(a,b) {
+
+          return (
+            b[1] -
+            a[1]
+          );
+
+        }
       );
 
 
@@ -819,12 +1294,16 @@ function updateCategories(data) {
     );
 
 
-  if (!sorted.length) {
+  if (
+    sorted.length === 0
+  ) {
 
     container.innerHTML = `
 
       <div class="empty-message">
+
         이번 달 지출 기록이 아직 없어요 🌿
+
       </div>
 
     `;
@@ -840,13 +1319,26 @@ function updateCategories(data) {
 
   container.innerHTML =
     sorted
-      .slice(0,5)
+      .slice(
+        0,
+        8
+      )
       .map(
-        ([category,value]) => {
+        function(item) {
+
+          const category =
+            item[0];
+
+
+          const value =
+            item[1];
+
 
           const width =
             Math.round(
-              value / max * 100
+              value /
+              max *
+              100
             );
 
 
@@ -881,6 +1373,10 @@ function updateCategories(data) {
 }
 
 
+/* =========================
+   월별 지출
+========================= */
+
 function updateMonthlyChart(data) {
 
   const container =
@@ -888,8 +1384,10 @@ function updateMonthlyChart(data) {
       "monthlyChart"
     );
 
+
   const now =
     new Date();
+
 
   const months = [];
 
@@ -910,33 +1408,52 @@ function updateMonthlyChart(data) {
 
     const total =
       data
-        .filter(item => {
+        .filter(
+          function(item) {
 
-          const date =
-            parseDate(item.date);
+            const date =
+              parseDate(
+                item.date
+              );
 
-          return date &&
-            date.getFullYear() ===
-              target.getFullYear() &&
-            date.getMonth() ===
-              target.getMonth() &&
-            Number(item.amount) < 0;
 
-        })
+            return (
+              date &&
+              date.getFullYear() ===
+                target.getFullYear() &&
+              date.getMonth() ===
+                target.getMonth() &&
+              Number(
+                item.amount
+              ) < 0
+            );
+
+          }
+        )
         .reduce(
-          (sum,item) =>
-            sum +
-            Math.abs(
-              Number(item.amount)
-            ),
+          function(sum,item) {
+
+            return (
+              sum +
+              Math.abs(
+                Number(
+                  item.amount
+                )
+              )
+            );
+
+          },
           0
         );
 
 
     months.push({
       label:
-        `${target.getMonth()+1}월`,
-      total
+        (target.getMonth() + 1) +
+        "월",
+
+      total:
+        total
     });
 
   }
@@ -945,7 +1462,11 @@ function updateMonthlyChart(data) {
   const max =
     Math.max(
       ...months.map(
-        item => item.total
+        function(item) {
+
+          return item.total;
+
+        }
       ),
       1
     );
@@ -954,7 +1475,7 @@ function updateMonthlyChart(data) {
   container.innerHTML =
     months
       .map(
-        (item,index) => {
+        function(item,index) {
 
           const height =
             item.total === 0
@@ -998,6 +1519,10 @@ function updateMonthlyChart(data) {
 }
 
 
+/* =========================
+   소비 패턴
+========================= */
+
 function updatePattern(data) {
 
   const categories = {};
@@ -1007,52 +1532,83 @@ function updatePattern(data) {
 
   data
     .filter(
-      item =>
-        Number(item.amount) < 0
-    )
-    .forEach(item => {
+      function(item) {
 
-      const category =
-        String(
-          item.category || "기타"
-        )
-        .split(">")[0]
-        .trim();
-
-
-      const amount =
-        Math.abs(
-          Number(item.amount)
+        return (
+          Number(
+            item.amount
+          ) < 0
         );
 
+      }
+    )
+    .forEach(
+      function(item) {
 
-      total += amount;
+        const category =
+          String(
+            item.category ||
+            "기타"
+          )
+          .split(">")[0]
+          .trim();
 
 
-      categories[category] =
-        (categories[category] || 0) +
-        amount;
+        const amount =
+          Math.abs(
+            Number(
+              item.amount
+            )
+          );
 
-    });
+
+        total +=
+          amount;
+
+
+        categories[category] =
+          (
+            categories[category] ||
+            0
+          ) +
+          amount;
+
+      }
+    );
 
 
   const sorted =
-    Object.entries(categories)
+    Object
+      .entries(
+        categories
+      )
       .sort(
-        (a,b) =>
-          b[1] - a[1]
+        function(a,b) {
+
+          return (
+            b[1] -
+            a[1]
+          );
+
+        }
       );
 
 
-  if (!sorted.length) {
+  if (
+    sorted.length === 0
+  ) {
+
     return;
+
   }
 
 
-  const [
-    topCategory,
-    topAmount
-  ] = sorted[0];
+  const topCategory =
+    sorted[0][0];
+
+
+  const topAmount =
+    sorted[0][1];
 
 
   const percent =
@@ -1064,9 +1620,12 @@ function updatePattern(data) {
 
 
   document
-    .getElementById("patternTitle")
+    .getElementById(
+      "patternTitle"
+    )
     .textContent =
-    `${topCategory} 지출이 가장 많아요`;
+    topCategory +
+    " 지출이 가장 많아요";
 
 
   document
@@ -1074,22 +1633,49 @@ function updatePattern(data) {
       "patternDescription"
     )
     .textContent =
-    `전체 지출의 약 ${percent}%를 ${topCategory}에 사용했어요.`;
+    "전체 지출의 약 " +
+    percent +
+    "%를 " +
+    topCategory +
+    "에 사용했어요.";
 
 
   document
-    .getElementById("patternTags")
+    .getElementById(
+      "patternTags"
+    )
     .innerHTML =
     sorted
-      .slice(0,3)
+      .slice(
+        0,
+        3
+      )
       .map(
-        ([category],index) =>
-          `<span>#${escapeHTML(category)}${index === 0 ? " 1위" : ""}</span>`
+        function(item,index) {
+
+          return (
+            "<span>#" +
+            escapeHTML(
+              item[0]
+            ) +
+            (
+              index === 0
+                ? " 1위"
+                : ""
+            ) +
+            "</span>"
+          );
+
+        }
       )
       .join("");
 
 }
 
+
+/* =========================
+   최근 내역
+========================= */
 
 function updateRecent(data) {
 
@@ -1102,18 +1688,31 @@ function updateRecent(data) {
   const sorted =
     [...data]
       .sort(
-        (a,b) => {
+        function(a,b) {
 
           const dateA =
-            parseDate(a.date);
+            parseDate(
+              a.date
+            );
+
 
           const dateB =
-            parseDate(b.date);
+            parseDate(
+              b.date
+            );
+
 
           return (
-            dateB?.getTime() || 0
-          ) - (
-            dateA?.getTime() || 0
+            (
+              dateB
+                ? dateB.getTime()
+                : 0
+            ) -
+            (
+              dateA
+                ? dateA.getTime()
+                : 0
+            )
           );
 
         }
@@ -1121,18 +1720,25 @@ function updateRecent(data) {
 
 
   document
-    .getElementById("recordCount")
+    .getElementById(
+      "recordCount"
+    )
     .textContent =
-    `${data.length}건`;
+    data.length +
+    "건";
 
 
-  if (!sorted.length) {
+  if (
+    sorted.length === 0
+  ) {
 
     container.innerHTML = `
 
       <div class="empty-message">
+
         아직 기록이 없어요.<br>
         첫 내역을 추가해보세요 🌿
+
       </div>
 
     `;
@@ -1144,79 +1750,119 @@ function updateRecent(data) {
 
   container.innerHTML =
     sorted
-      .slice(0,5)
-      .map(item => {
+      .slice(
+        0,
+        5
+      )
+      .map(
+        function(item) {
 
-        const amount =
-          Number(item.amount);
-
-        const isIncome =
-          amount > 0;
-
-        const date =
-          parseDate(item.date);
-
-
-        const dateText =
-          date
-            ? `${date.getMonth()+1}월 ${date.getDate()}일`
-            : item.date;
+          const amount =
+            Number(
+              item.amount
+            );
 
 
-        return `
+          const isIncome =
+            amount > 0;
 
-          <div class="transaction">
 
-            <div class="transaction-main">
+          const date =
+            parseDate(
+              item.date
+            );
 
-              <span class="transaction-icon">
-                ${isIncome ? "💵" : "🧾"}
-              </span>
 
-              <div>
+          const dateText =
+            date
+              ? (
+                  (date.getMonth() + 1) +
+                  "월 " +
+                  date.getDate() +
+                  "일"
+                )
+              : item.date;
 
-                <strong>
-                  ${escapeHTML(item.name)}
-                </strong>
 
-                <p>
-                  ${escapeHTML(dateText)}
-                  ·
-                  ${escapeHTML(item.category)}
-                </p>
+          return `
+
+            <div class="transaction">
+
+              <div class="transaction-main">
+
+                <span class="transaction-icon">
+                  ${isIncome ? "💵" : "🧾"}
+                </span>
+
+                <div>
+
+                  <strong>
+                    ${escapeHTML(item.name)}
+                  </strong>
+
+                  <p>
+                    ${escapeHTML(dateText)}
+                    ·
+                    ${escapeHTML(item.category)}
+                  </p>
+
+                </div>
 
               </div>
 
+
+              <strong
+                class="${isIncome ? "plus" : "minus"}"
+              >
+
+                ${isIncome ? "+" : "-"}
+                ${money(Math.abs(amount))}
+
+              </strong>
+
             </div>
 
-            <strong class="${isIncome ? "plus" : "minus"}">
+          `;
 
-              ${isIncome ? "+" : "-"}
-              ${money(Math.abs(amount))}
-
-            </strong>
-
-          </div>
-
-        `;
-
-      })
+        }
+      )
       .join("");
 
 }
 
 
+/* 글자 안전 처리 */
 function escapeHTML(value) {
 
-  return String(value ?? "")
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+  return String(
+    value ?? ""
+  )
+  .replaceAll(
+    "&",
+    "&amp;"
+  )
+  .replaceAll(
+    "<",
+    "&lt;"
+  )
+  .replaceAll(
+    ">",
+    "&gt;"
+  )
+  .replaceAll(
+    '"',
+    "&quot;"
+  )
+  .replaceAll(
+    "'",
+    "&#039;"
+  );
 
 }
 
+
+/* 시작 */
+loadBudget();
 
 loadData();
 

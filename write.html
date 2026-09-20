@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
 
+<head>
   <meta charset="UTF-8">
 
   <meta
@@ -9,15 +9,9 @@
     content="width=device-width, initial-scale=1.0"
   >
 
-  <title>
-    내역 추가 | 나의 가계부
-  </title>
+  <title>내역 추가 | 나의 가계부</title>
 
-
-  <link
-    rel="preconnect"
-    href="https://fonts.googleapis.com"
-  >
+  <link rel="preconnect" href="https://fonts.googleapis.com">
 
   <link
     rel="preconnect"
@@ -40,7 +34,6 @@
 
 <body>
 
-
 <header class="topbar">
 
   <div class="topbar-inner">
@@ -49,9 +42,7 @@
       href="index.html"
       class="brand"
     >
-      <span class="brand-leaf">
-        🌿
-      </span>
+      <span class="brand-leaf">🌿</span>
 
       <strong>
         나의 가계부
@@ -88,7 +79,6 @@
 
 
 <main class="write-page">
-
 
   <a
     href="index.html"
@@ -143,6 +133,7 @@
   >
 
 
+    <!-- 수입 / 지출 -->
     <div class="form-group">
 
       <label>
@@ -151,7 +142,6 @@
 
 
       <div class="type-grid">
-
 
         <label class="type-button">
 
@@ -183,12 +173,12 @@
 
         </label>
 
-
       </div>
 
     </div>
 
 
+    <!-- 날짜 -->
     <div class="form-group">
 
       <label for="date">
@@ -204,6 +194,7 @@
     </div>
 
 
+    <!-- 사용처 -->
     <div class="form-group">
 
       <label for="name">
@@ -213,13 +204,14 @@
       <input
         id="name"
         type="text"
-        placeholder="예: 스타벅스, 이마트 장보기"
+        placeholder="예: 점심, 스타벅스, 책 구입"
         required
       >
 
     </div>
 
 
+    <!-- 금액 -->
     <div class="form-group">
 
       <label for="amount">
@@ -251,8 +243,8 @@
     </div>
 
 
+    <!-- 카테고리 -->
     <div class="form-two-column">
-
 
       <div class="form-group">
 
@@ -260,8 +252,10 @@
           대분류
         </label>
 
-        <select id="category">
-        </select>
+        <select
+          id="category"
+          required
+        ></select>
 
       </div>
 
@@ -272,15 +266,17 @@
           세부항목
         </label>
 
-        <select id="subcategory">
-        </select>
+        <select
+          id="subcategory"
+          required
+        ></select>
 
       </div>
-
 
     </div>
 
 
+    <!-- 결제수단 -->
     <div class="form-group">
 
       <label for="payment">
@@ -289,19 +285,19 @@
 
       <select id="payment">
 
-        <option>
+        <option value="체크카드">
           체크카드
         </option>
 
-        <option>
+        <option value="계좌이체">
           계좌이체
         </option>
 
-        <option>
+        <option value="현금">
           현금
         </option>
 
-        <option>
+        <option value="기타">
           기타
         </option>
 
@@ -315,6 +311,7 @@
     </div>
 
 
+    <!-- 안내 -->
     <div
       class="form-notice"
       id="formNotice"
@@ -331,6 +328,7 @@
     </div>
 
 
+    <!-- 버튼 -->
     <div class="form-buttons">
 
       <a href="index.html">
@@ -345,7 +343,6 @@
       </button>
 
     </div>
-
 
   </form>
 
@@ -364,25 +361,48 @@
 
   </div>
 
-
 </main>
 
 
 <script>
 
-
 const API_URL =
-"https://script.google.com/macros/s/AKfycbywXTV8GHFC9y4V16xE-438ZV45V2AWrkUDyxj34S3fnvWMfia394ucmSrOE30GGc_rIQ/exec";
+  "https://script.google.com/macros/s/AKfycbywXTV8GHFC9y4V16xE-438ZV45V2AWrkUDyxj34S3fnvWMfia394ucmSrOE30GGc_rIQ/exec";
 
+
+/* =========================
+   지출 카테고리
+========================= */
 
 const EXPENSE_CATEGORIES = {
 
   "식비": [
-    "카페",
+    "장보기",
     "외식",
     "배달",
-    "장보기",
     "간식",
+    "기타"
+  ],
+
+  "고정지출": [
+    "통신비",
+    "보험",
+    "구독",
+    "관리비",
+    "공과금",
+    "기타"
+  ],
+
+  "커피": [
+    "카페",
+    "기타"
+  ],
+
+  "사교모임": [
+    "친구모임",
+    "회식",
+    "데이트",
+    "모임",
     "기타"
   ],
 
@@ -394,19 +414,12 @@ const EXPENSE_CATEGORIES = {
     "기타"
   ],
 
-  "쇼핑": [
-    "의류",
-    "화장품",
-    "생활용품",
+  "자기계발비": [
+    "책",
+    "강의",
+    "교육",
+    "운동",
     "취미",
-    "기타"
-  ],
-
-  "고정지출": [
-    "통신비",
-    "보험",
-    "구독",
-    "관리비",
     "기타"
   ],
 
@@ -417,19 +430,20 @@ const EXPENSE_CATEGORIES = {
     "기타"
   ],
 
-  "여가": [
-    "여행",
-    "문화생활",
-    "모임",
-    "기타"
-  ],
-
   "기타": [
+    "생활용품",
+    "쇼핑",
+    "의료",
+    "미용",
     "기타"
   ]
 
 };
 
+
+/* =========================
+   수입 카테고리
+========================= */
 
 const INCOME_CATEGORIES = {
 
@@ -443,6 +457,8 @@ const INCOME_CATEGORIES = {
 
 };
 
+
+/* 요소 가져오기 */
 
 const form =
   document.getElementById(
@@ -474,6 +490,10 @@ const notice =
   );
 
 
+/* =========================
+   오늘 날짜 자동 입력
+========================= */
+
 function setToday() {
 
   const now =
@@ -503,12 +523,18 @@ function setToday() {
 
 
   document
-    .getElementById("date")
+    .getElementById(
+      "date"
+    )
     .value =
     `${year}-${month}-${day}`;
 
 }
 
+
+/* =========================
+   수입 / 지출 확인
+========================= */
 
 function getType() {
 
@@ -520,6 +546,10 @@ function getType() {
 
 }
 
+
+/* =========================
+   대분류 만들기
+========================= */
 
 function updateCategories() {
 
@@ -533,13 +563,15 @@ function updateCategories() {
     Object
       .keys(categories)
       .map(
-        category => `
+        function(category) {
 
-          <option value="${category}">
-            ${category}
-          </option>
+          return `
+            <option value="${category}">
+              ${category}
+            </option>
+          `;
 
-        `
+        }
       )
       .join("");
 
@@ -548,6 +580,10 @@ function updateCategories() {
 
 }
 
+
+/* =========================
+   세부항목 만들기
+========================= */
 
 function updateSubcategories() {
 
@@ -560,26 +596,30 @@ function updateSubcategories() {
   const items =
     categories[
       categorySelect.value
-    ] || [
-      "기타"
-    ];
+    ] || ["기타"];
 
 
   subcategorySelect.innerHTML =
     items
       .map(
-        item => `
+        function(item) {
 
-          <option value="${item}">
-            ${item}
-          </option>
+          return `
+            <option value="${item}">
+              ${item}
+            </option>
+          `;
 
-        `
+        }
       )
       .join("");
 
 }
 
+
+/* =========================
+   안내문
+========================= */
 
 function showNotice(
   message,
@@ -623,7 +663,6 @@ function showNotice(
 
 
   notice.innerHTML = `
-
     <span>
       ${icon}
     </span>
@@ -631,16 +670,18 @@ function showNotice(
     <div>
       ${message}
     </div>
-
   `;
 
 }
 
 
+/* =========================
+   기록 저장
+========================= */
+
 form.addEventListener(
   "submit",
   async function(event) {
-
 
     event.preventDefault();
 
@@ -651,13 +692,17 @@ form.addEventListener(
 
     const date =
       document
-        .getElementById("date")
+        .getElementById(
+          "date"
+        )
         .value;
 
 
     const name =
       document
-        .getElementById("name")
+        .getElementById(
+          "name"
+        )
         .value
         .trim();
 
@@ -665,7 +710,9 @@ form.addEventListener(
     const amountValue =
       Number(
         document
-          .getElementById("amount")
+          .getElementById(
+            "amount"
+          )
           .value
       );
 
@@ -695,6 +742,8 @@ form.addEventListener(
     }
 
 
+    /* 지출은 음수 / 수입은 양수 */
+
     const amount =
       type === "expense"
         ? -Math.abs(
@@ -705,6 +754,20 @@ form.addEventListener(
           );
 
 
+    /*
+      구글시트에는
+
+      날짜
+      이름
+      항목
+      금액
+
+      순서로 저장됩니다.
+
+      항목 예:
+      커피 > 카페
+    */
+
     const data = {
 
       date:
@@ -714,7 +777,9 @@ form.addEventListener(
         name,
 
       category:
-        `${category} > ${subcategory}`,
+        category +
+        " > " +
+        subcategory,
 
       amount:
         amount
@@ -736,7 +801,6 @@ form.addEventListener(
 
 
     try {
-
 
       const response =
         await fetch(
@@ -796,18 +860,17 @@ form.addEventListener(
 
 
       setTimeout(
-        () => {
+        function() {
 
           window.location.href =
             "index.html";
 
         },
-        800
+        700
       );
 
 
     } catch(error) {
-
 
       console.error(
         error
@@ -829,23 +892,27 @@ form.addEventListener(
 
     }
 
-
   }
 );
 
 
-categorySelect.addEventListener(
-  "change",
-  updateSubcategories
-);
+/* 대분류를 바꾸면 세부항목도 변경 */
 
+categorySelect
+  .addEventListener(
+    "change",
+    updateSubcategories
+  );
+
+
+/* 수입 / 지출을 바꾸면 카테고리 변경 */
 
 document
   .querySelectorAll(
     'input[name="type"]'
   )
   .forEach(
-    radio => {
+    function(radio) {
 
       radio.addEventListener(
         "change",
@@ -856,13 +923,14 @@ document
   );
 
 
+/* 시작 */
+
 setToday();
 
 updateCategories();
 
-
 </script>
 
-
 </body>
+
 </html>
