@@ -1,44 +1,99 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>내역 추가 | 나의 가계부</title>
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>
+    내역 추가 | 나의 가계부
+  </title>
 
-  <link rel="stylesheet" href="style.css">
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  >
+
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
 
 <body>
 
+
 <header class="topbar">
+
   <div class="topbar-inner">
 
-    <a href="index.html" class="brand">
-      <span class="brand-leaf">🌿</span>
-      <strong>나의 가계부</strong>
+    <a
+      href="index.html"
+      class="brand"
+    >
+      <span class="brand-leaf">
+        🌿
+      </span>
+
+      <strong>
+        나의 가계부
+      </strong>
     </a>
 
+
     <nav class="nav">
-      <a href="index.html">홈</a>
-      <a href="index.html#recent">내역</a>
-      <a href="index.html#budget">예산</a>
-      <a href="index.html#analysis">분석</a>
+
+      <a href="index.html">
+        홈
+      </a>
+
+      <a href="index.html#recent">
+        내역
+      </a>
+
+      <a href="index.html#budget">
+        예산
+      </a>
+
+      <a href="index.html#analysis">
+        분석
+      </a>
+
     </nav>
+
 
     <div></div>
 
   </div>
+
 </header>
 
 
 <main class="write-page">
 
-  <a href="index.html" class="back">
+
+  <a
+    href="index.html"
+    class="back"
+  >
     ← 홈으로 돌아가기
   </a>
 
@@ -46,7 +101,10 @@
   <section class="write-header">
 
     <div>
-      <span class="write-label">NEW RECORD</span>
+
+      <span class="write-label">
+        NEW RECORD
+      </span>
 
       <h1>
         새로운 내역을 기록해요 ✏️
@@ -55,33 +113,48 @@
       <p>
         오늘 들어오거나 나간 돈을 간단하게 기록해보세요.
       </p>
+
     </div>
 
 
     <div class="sticky-note">
-      <span>🌿</span>
+
+      <span>
+        🌿
+      </span>
 
       <p>
         작은 기록이<br>
         큰 변화를 만들어요.
       </p>
 
-      <strong>:)</strong>
+      <strong>
+        :)
+      </strong>
+
     </div>
 
   </section>
 
 
-  <form class="write-form" id="recordForm">
+  <form
+    class="write-form"
+    id="recordForm"
+  >
 
-    <!-- 구분 -->
+
     <div class="form-group">
 
-      <label>구분</label>
+      <label>
+        구분
+      </label>
+
 
       <div class="type-grid">
 
+
         <label class="type-button">
+
           <input
             type="radio"
             name="type"
@@ -92,10 +165,12 @@
           <span class="expense-type">
             ↑ &nbsp; 지출
           </span>
+
         </label>
 
 
         <label class="type-button">
+
           <input
             type="radio"
             name="type"
@@ -105,16 +180,20 @@
           <span class="income-type">
             ↓ &nbsp; 수입
           </span>
+
         </label>
 
+
       </div>
+
     </div>
 
 
-    <!-- 날짜 -->
     <div class="form-group">
 
-      <label for="date">날짜</label>
+      <label for="date">
+        날짜
+      </label>
 
       <input
         id="date"
@@ -125,7 +204,6 @@
     </div>
 
 
-    <!-- 이름 -->
     <div class="form-group">
 
       <label for="name">
@@ -142,14 +220,18 @@
     </div>
 
 
-    <!-- 금액 -->
     <div class="form-group">
 
-      <label for="amount">금액</label>
+      <label for="amount">
+        금액
+      </label>
+
 
       <div class="amount-field">
 
-        <span>₩</span>
+        <span>
+          ₩
+        </span>
 
         <input
           id="amount"
@@ -160,15 +242,17 @@
           required
         >
 
-        <strong>원</strong>
+        <strong>
+          원
+        </strong>
 
       </div>
 
     </div>
 
 
-    <!-- 항목 -->
     <div class="form-two-column">
+
 
       <div class="form-group">
 
@@ -176,7 +260,8 @@
           대분류
         </label>
 
-        <select id="category"></select>
+        <select id="category">
+        </select>
 
       </div>
 
@@ -187,14 +272,15 @@
           세부항목
         </label>
 
-        <select id="subcategory"></select>
+        <select id="subcategory">
+        </select>
 
       </div>
+
 
     </div>
 
 
-    <!-- 결제수단 -->
     <div class="form-group">
 
       <label for="payment">
@@ -202,25 +288,46 @@
       </label>
 
       <select id="payment">
-        <option>체크카드</option>
-        <option>계좌이체</option>
-        <option>현금</option>
-        <option>기타</option>
+
+        <option>
+          체크카드
+        </option>
+
+        <option>
+          계좌이체
+        </option>
+
+        <option>
+          현금
+        </option>
+
+        <option>
+          기타
+        </option>
+
       </select>
 
+
       <p class="field-help">
-        현재 시트에는 결제수단 열이 없어 저장되지는 않아요.
+        현재는 결제수단이 시트에 저장되지는 않아요.
       </p>
 
     </div>
 
 
-    <div class="form-notice" id="formNotice">
-      <span>ⓘ</span>
+    <div
+      class="form-notice"
+      id="formNotice"
+    >
+
+      <span>
+        ⓘ
+      </span>
 
       <div>
         기록하기를 누르면 Google 스프레드시트에 저장돼요.
       </div>
+
     </div>
 
 
@@ -230,35 +337,43 @@
         취소
       </a>
 
-      <button type="submit" id="saveButton">
+      <button
+        type="submit"
+        id="saveButton"
+      >
         기록하기
       </button>
 
     </div>
 
+
   </form>
 
 
   <div class="write-decoration">
-    <span class="plant-emoji">🌿</span>
+
+    <span class="plant-emoji">
+      🌿
+    </span>
 
     <p>
       쓰는 만큼<br>
       더 나를 알게 돼요.<br>
       :)
     </p>
+
   </div>
+
 
 </main>
 
 
 <script>
 
+
 const API_URL =
-  "https://script.google.com/macros/s/AKfycbyhjcK_5ip7OjqngwACkPqn_iroi9Y68riTT3GPKO-tlqvqpiWVfDnp2rkzIsEhg8q2/exec";
+"https://script.google.com/macros/s/AKfycbywXTV8GHFC9y4V16xE-438ZV45V2AWrkUDyxj34S3fnvWMfia394ucmSrOE30GGc_rIQ/exec";
 
-
-/* 항목 */
 
 const EXPENSE_CATEGORIES = {
 
@@ -330,70 +445,102 @@ const INCOME_CATEGORIES = {
 
 
 const form =
-  document.getElementById("recordForm");
+  document.getElementById(
+    "recordForm"
+  );
+
 
 const categorySelect =
-  document.getElementById("category");
+  document.getElementById(
+    "category"
+  );
+
 
 const subcategorySelect =
-  document.getElementById("subcategory");
+  document.getElementById(
+    "subcategory"
+  );
+
 
 const saveButton =
-  document.getElementById("saveButton");
+  document.getElementById(
+    "saveButton"
+  );
+
 
 const notice =
-  document.getElementById("formNotice");
+  document.getElementById(
+    "formNotice"
+  );
 
-
-/* 오늘 날짜 자동 입력 */
 
 function setToday() {
 
-  const now = new Date();
+  const now =
+    new Date();
 
-  const year = now.getFullYear();
+
+  const year =
+    now.getFullYear();
+
 
   const month =
-    String(now.getMonth() + 1).padStart(2, "0");
+    String(
+      now.getMonth() + 1
+    ).padStart(
+      2,
+      "0"
+    );
+
 
   const day =
-    String(now.getDate()).padStart(2, "0");
+    String(
+      now.getDate()
+    ).padStart(
+      2,
+      "0"
+    );
 
-  document.getElementById("date").value =
+
+  document
+    .getElementById("date")
+    .value =
     `${year}-${month}-${day}`;
+
 }
 
-
-/* 현재 수입/지출 */
 
 function getType() {
 
-  return document.querySelector(
-    'input[name="type"]:checked'
-  ).value;
+  return document
+    .querySelector(
+      'input[name="type"]:checked'
+    )
+    .value;
 
 }
 
 
-/* 대분류 만들기 */
-
 function updateCategories() {
 
-  const type = getType();
-
   const categories =
-    type === "income"
+    getType() === "income"
       ? INCOME_CATEGORIES
       : EXPENSE_CATEGORIES;
 
 
   categorySelect.innerHTML =
-    Object.keys(categories)
-      .map(category => `
-        <option value="${category}">
-          ${category}
-        </option>
-      `)
+    Object
+      .keys(categories)
+      .map(
+        category => `
+
+          <option value="${category}">
+            ${category}
+          </option>
+
+        `
+      )
       .join("");
 
 
@@ -402,39 +549,42 @@ function updateCategories() {
 }
 
 
-/* 세부항목 만들기 */
-
 function updateSubcategories() {
 
-  const type = getType();
-
   const categories =
-    type === "income"
+    getType() === "income"
       ? INCOME_CATEGORIES
       : EXPENSE_CATEGORIES;
 
-  const category =
-    categorySelect.value;
 
   const items =
-    categories[category] || ["기타"];
+    categories[
+      categorySelect.value
+    ] || [
+      "기타"
+    ];
 
 
   subcategorySelect.innerHTML =
     items
-      .map(item => `
-        <option value="${item}">
-          ${item}
-        </option>
-      `)
+      .map(
+        item => `
+
+          <option value="${item}">
+            ${item}
+          </option>
+
+        `
+      )
       .join("");
 
 }
 
 
-/* 안내 메시지 */
-
-function showNotice(message, type = "normal") {
+function showNotice(
+  message,
+  type = "normal"
+) {
 
   notice.classList.remove(
     "notice-success",
@@ -442,12 +592,25 @@ function showNotice(message, type = "normal") {
   );
 
 
-  if (type === "success") {
-    notice.classList.add("notice-success");
+  if (
+    type === "success"
+  ) {
+
+    notice.classList.add(
+      "notice-success"
+    );
+
   }
 
-  if (type === "error") {
-    notice.classList.add("notice-error");
+
+  if (
+    type === "error"
+  ) {
+
+    notice.classList.add(
+      "notice-error"
+    );
+
   }
 
 
@@ -460,18 +623,24 @@ function showNotice(message, type = "normal") {
 
 
   notice.innerHTML = `
-    <span>${icon}</span>
-    <div>${message}</div>
+
+    <span>
+      ${icon}
+    </span>
+
+    <div>
+      ${message}
+    </div>
+
   `;
 
 }
 
 
-/* 저장 */
-
 form.addEventListener(
   "submit",
   async function(event) {
+
 
     event.preventDefault();
 
@@ -479,14 +648,19 @@ form.addEventListener(
     const type =
       getType();
 
+
     const date =
-      document.getElementById("date").value;
+      document
+        .getElementById("date")
+        .value;
+
 
     const name =
       document
         .getElementById("name")
         .value
         .trim();
+
 
     const amountValue =
       Number(
@@ -495,8 +669,10 @@ form.addEventListener(
           .value
       );
 
+
     const category =
       categorySelect.value;
+
 
     const subcategory =
       subcategorySelect.value;
@@ -515,44 +691,40 @@ form.addEventListener(
       );
 
       return;
+
     }
 
 
-    /*
-      지출은 음수
-      수입은 양수
-    */
-
     const amount =
       type === "expense"
-        ? -Math.abs(amountValue)
-        : Math.abs(amountValue);
+        ? -Math.abs(
+            amountValue
+          )
+        : Math.abs(
+            amountValue
+          );
 
-
-    /*
-      Google Sheet
-
-      날짜 | 이름 | 항목 | 금액
-
-      예:
-      2026-09-20 | 스타벅스 | 식비 > 카페 | -5500
-    */
 
     const data = {
 
-      date: date,
+      date:
+        date,
 
-      name: name,
+      name:
+        name,
 
       category:
         `${category} > ${subcategory}`,
 
-      amount: amount
+      amount:
+        amount
 
     };
 
 
-    saveButton.disabled = true;
+    saveButton.disabled =
+      true;
+
 
     saveButton.textContent =
       "저장 중...";
@@ -565,26 +737,34 @@ form.addEventListener(
 
     try {
 
+
       const response =
         await fetch(
           API_URL,
           {
 
-            method: "POST",
+            method:
+              "POST",
 
             headers: {
+
               "Content-Type":
                 "text/plain;charset=UTF-8"
+
             },
 
             body:
-              JSON.stringify(data)
+              JSON.stringify(
+                data
+              )
 
           }
         );
 
 
-      if (!response.ok) {
+      if (
+        !response.ok
+      ) {
 
         throw new Error(
           "서버 응답 오류"
@@ -597,7 +777,9 @@ form.addEventListener(
         await response.json();
 
 
-      if (!result.success) {
+      if (
+        !result.success
+      ) {
 
         throw new Error(
           result.message ||
@@ -623,31 +805,34 @@ form.addEventListener(
         800
       );
 
-    }
 
-    catch (error) {
+    } catch(error) {
 
-      console.error(error);
+
+      console.error(
+        error
+      );
 
 
       showNotice(
-        "저장하지 못했어요. 잠시 후 다시 시도해주세요.",
+        "저장하지 못했어요. 연결 상태를 확인해주세요.",
         "error"
       );
 
 
-      saveButton.disabled = false;
+      saveButton.disabled =
+        false;
+
 
       saveButton.textContent =
         "기록하기";
 
     }
 
+
   }
 );
 
-
-/* 이벤트 */
 
 categorySelect.addEventListener(
   "change",
@@ -659,23 +844,25 @@ document
   .querySelectorAll(
     'input[name="type"]'
   )
-  .forEach(radio => {
+  .forEach(
+    radio => {
 
-    radio.addEventListener(
-      "change",
-      updateCategories
-    );
+      radio.addEventListener(
+        "change",
+        updateCategories
+      );
 
-  });
+    }
+  );
 
-
-/* 처음 실행 */
 
 setToday();
 
 updateCategories();
 
+
 </script>
+
 
 </body>
 </html>
