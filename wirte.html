@@ -8,86 +8,100 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Noto+Sans+KR:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<header class="header">
 
-  <a href="index.html" class="logo">
-    <span class="logo-mark">☘</span>
-    <span>나의 가계부</span>
-  </a>
+<header class="topbar">
 
-  <nav>
-    <a href="index.html">홈</a>
-    <a href="index.html#history">내역</a>
-    <a href="index.html#budget">예산</a>
-    <a href="index.html#analysis">분석</a>
-  </nav>
+  <div class="topbar-inner">
 
-  <div class="header-note">write it down ✎</div>
+    <a href="index.html" class="brand">
+      <span class="brand-leaf">🌿</span>
+      <strong>나의 가계부</strong>
+    </a>
+
+    <nav class="nav">
+      <a href="index.html">홈</a>
+      <a href="index.html#recent">내역</a>
+      <a href="index.html#budget">예산</a>
+      <a href="index.html#analysis">분석</a>
+      <a href="#">항목관리</a>
+    </nav>
+
+    <div></div>
+
+  </div>
 
 </header>
 
 
 <main class="write-page">
 
-  <a href="index.html" class="back-link">
+  <a href="index.html" class="back">
     ← 홈으로 돌아가기
   </a>
 
 
-  <section class="write-intro">
+  <section class="write-header">
 
     <div>
-      <span class="eyebrow">NEW RECORD</span>
+
+      <span class="write-label">
+        NEW RECORD
+      </span>
 
       <h1>
-        새로운 내역을<br>
-        기록해요 <span>✎</span>
+        새로운 내역을 기록해요 ✏️
       </h1>
 
       <p>
-        오늘 들어오거나 나간 돈을<br>
-        간단하게 기록해보세요.
+        오늘 들어오거나 나간 돈을 간단하게 기록해보세요.
       </p>
+
     </div>
 
 
-    <div class="write-note">
-      <span>little note</span>
+    <div class="sticky-note">
 
-      <strong>
+      <span>🌿</span>
+
+      <p>
         작은 기록이<br>
         큰 변화를 만들어요.
-      </strong>
+      </p>
 
-      <small>:)</small>
+      <strong>:)</strong>
+
     </div>
 
   </section>
 
 
-  <form class="record-form">
+  <form class="write-form">
 
     <div class="form-group">
 
       <label>구분</label>
 
-      <div class="type-selector">
+      <div class="type-grid">
 
-        <label>
+        <label class="type-button">
           <input type="radio" name="type" checked>
-          <span class="expense-select">↑ &nbsp; 지출</span>
+          <span class="expense-type">
+            ↑ &nbsp; 지출
+          </span>
         </label>
 
-        <label>
+        <label class="type-button">
           <input type="radio" name="type">
-          <span class="income-select">↓ &nbsp; 수입</span>
+          <span class="income-type">
+            ↓ &nbsp; 수입
+          </span>
         </label>
 
       </div>
@@ -97,11 +111,13 @@
 
     <div class="form-group">
 
-      <label for="date">날짜</label>
+      <label for="date">
+        날짜
+      </label>
 
       <input
-        type="date"
         id="date"
+        type="date"
         value="2026-09-20"
       >
 
@@ -110,11 +126,13 @@
 
     <div class="form-group">
 
-      <label for="name">이름 <small>(사용처·내용)</small></label>
+      <label for="name">
+        이름 (사용처·내용)
+      </label>
 
       <input
-        type="text"
         id="name"
+        type="text"
         placeholder="예: 스타벅스, 이마트 장보기"
       >
 
@@ -123,27 +141,34 @@
 
     <div class="form-group">
 
-      <label for="amount">금액</label>
+      <label for="amount">
+        금액
+      </label>
 
-      <div class="money-input">
+      <div class="amount-field">
+
         <span>₩</span>
 
         <input
-          type="number"
           id="amount"
+          type="number"
           placeholder="0"
         >
 
-        <b>원</b>
+        <strong>원</strong>
+
       </div>
 
     </div>
 
 
-    <div class="form-two">
+    <div class="form-two-column">
 
       <div class="form-group">
-        <label for="category">대분류</label>
+
+        <label for="category">
+          대분류
+        </label>
 
         <select id="category">
           <option>식비</option>
@@ -154,11 +179,15 @@
           <option>여가</option>
           <option>기타</option>
         </select>
+
       </div>
 
 
       <div class="form-group">
-        <label for="subcategory">세부항목</label>
+
+        <label for="subcategory">
+          세부항목
+        </label>
 
         <select id="subcategory">
           <option>카페</option>
@@ -166,6 +195,7 @@
           <option>배달</option>
           <option>장보기</option>
         </select>
+
       </div>
 
     </div>
@@ -173,7 +203,9 @@
 
     <div class="form-group">
 
-      <label for="payment">결제수단</label>
+      <label for="payment">
+        결제수단
+      </label>
 
       <select id="payment">
         <option>체크카드</option>
@@ -185,25 +217,25 @@
     </div>
 
 
-    <div class="preview-notice">
+    <div class="form-notice">
 
-      <span>☀</span>
+      <span>ⓘ</span>
 
       <div>
-        <strong>지금은 화면을 확인하는 단계예요.</strong>
-        <p>입력해도 실제로 저장되지는 않아요.</p>
+        지금은 화면을 확인하는 단계라서<br>
+        입력해도 실제로 저장되지는 않아요.
       </div>
 
     </div>
 
 
-    <div class="form-actions">
+    <div class="form-buttons">
 
-      <a href="index.html" class="cancel-button">
+      <a href="index.html">
         취소
       </a>
 
-      <button type="button" class="save-button">
+      <button type="button">
         기록하기
       </button>
 
@@ -212,14 +244,14 @@
   </form>
 
 
-  <div class="write-bottom">
+  <div class="write-decoration">
 
-    <span class="small-plant">☘</span>
+    <span class="plant-emoji">🌿</span>
 
     <p>
       쓰는 만큼<br>
-      더 나를 알게 돼요.
-      <strong>♡</strong>
+      더 나를 알게 돼요.<br>
+      :)
     </p>
 
   </div>
