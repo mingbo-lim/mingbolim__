@@ -4,196 +4,370 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>나의 가계부</title>
+
+  <!-- 귀엽고 부드러운 한글 폰트 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Jua&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-  <header class="header">
-    <div class="logo">
-      <span class="logo-icon">🌿</span>
-      <span>나의 가계부</span>
+<header class="header">
+  <a href="index.html" class="logo">
+    <span class="logo-mark">☘</span>
+    <span>나의 가계부</span>
+  </a>
+
+  <nav>
+    <a href="index.html" class="active">홈</a>
+    <a href="#history">내역</a>
+    <a href="#budget">예산</a>
+    <a href="#analysis">분석</a>
+  </nav>
+
+  <div class="header-note">today's little record ♡</div>
+</header>
+
+
+<main class="container">
+
+  <!-- HERO -->
+  <section class="hero">
+
+    <div class="hero-copy">
+      <span class="eyebrow">SEPTEMBER · MONEY DIARY</span>
+
+      <h1>
+        이번 달도<br>
+        차근차근 기록해요
+        <span class="heart">♥</span>
+      </h1>
+
+      <p>
+        작은 기록이 모이면<br class="mobile-break">
+        내 소비 습관이 조금씩 보여요.
+      </p>
+
+      <a href="write.html" class="primary-button">
+        <span>＋</span> 내역 추가
+      </a>
     </div>
 
-    <nav>
-      <a href="index.html" class="active">홈</a>
-      <a href="#history">내역</a>
-      <a href="#budget">예산</a>
-      <a href="#analysis">분석</a>
-    </nav>
-  </header>
+    <div class="hero-art">
+      <div class="sun-shape"></div>
+
+      <div class="paper-note">
+        <span>little money note</span>
+        <strong>잘 쓰고,<br>잘 모으기!</strong>
+        <small>♡</small>
+      </div>
+
+      <div class="plant">
+        <div class="stem"></div>
+        <span class="leaf leaf1"></span>
+        <span class="leaf leaf2"></span>
+        <span class="leaf leaf3"></span>
+        <span class="leaf leaf4"></span>
+        <span class="leaf leaf5"></span>
+        <div class="pot"></div>
+      </div>
+    </div>
+
+  </section>
 
 
-  <main class="container">
+  <!-- SUMMARY -->
+  <section class="summary-grid">
 
-    <!-- 상단 -->
-    <section class="welcome">
+    <article class="summary-card">
+      <div class="summary-top">
+        <span class="round-icon green">↓</span>
+        <span class="card-label">이번 달 수입</span>
+      </div>
+
+      <strong class="money">3,200,000<span>원</span></strong>
+      <p>이번 달 들어온 돈이에요.</p>
+    </article>
+
+
+    <article class="summary-card">
+      <div class="summary-top">
+        <span class="round-icon coral">↑</span>
+        <span class="card-label">이번 달 지출</span>
+      </div>
+
+      <strong class="money">782,500<span>원</span></strong>
+      <p class="coral-text">지난달보다 8% 적게 썼어요 ↓</p>
+    </article>
+
+
+    <article class="summary-card sage-card">
+      <div class="summary-top">
+        <span class="round-icon yellow">●</span>
+        <span class="card-label">남은 금액</span>
+      </div>
+
+      <strong class="money">2,417,500<span>원</span></strong>
+      <p>수입에서 지출을 뺀 금액이에요.</p>
+    </article>
+
+  </section>
+
+
+  <!-- BUDGET -->
+  <section class="content-section" id="budget">
+
+    <div class="section-heading">
       <div>
-        <p class="small-title">9월 가계부</p>
-        <h1>이번 달도 차근차근 💛</h1>
-        <p class="sub-text">
-          이번 달의 수입과 지출을 한눈에 확인해보세요.
-        </p>
+        <span class="eyebrow">BUDGET</span>
+        <h2>이번 달 예산</h2>
       </div>
 
-      <a href="write.html" class="add-button">
-        + 내역 추가
-      </a>
-    </section>
+      <a href="#" class="tiny-link">예산 관리하기 →</a>
+    </div>
 
 
-    <!-- 요약 카드 -->
-    <section class="summary-grid">
+    <div class="budget-layout">
 
-      <div class="summary-card">
-        <p>이번 달 수입</p>
-        <h2>3,200,000원</h2>
-        <span class="income-text">이번 달 들어온 돈</span>
-      </div>
+      <article class="budget-card">
 
-      <div class="summary-card">
-        <p>이번 달 지출</p>
-        <h2>782,500원</h2>
-        <span class="expense-text">지난달보다 8% 적어요</span>
-      </div>
+        <div class="budget-main">
 
-      <div class="summary-card highlight-card">
-        <p>남은 금액</p>
-        <h2>2,417,500원</h2>
-        <span>수입 - 지출</span>
-      </div>
+          <div>
+            <span class="muted">현재 사용 금액</span>
+            <div class="budget-price">
+              <strong>782,500</strong>
+              <span>/ 1,200,000원</span>
+            </div>
+          </div>
 
-    </section>
+          <div class="budget-percent">
+            <strong>65%</strong>
+            <span>사용</span>
+          </div>
 
-
-    <!-- 예산 -->
-    <section class="section" id="budget">
-
-      <div class="section-title">
-        <div>
-          <p class="small-title">BUDGET</p>
-          <h2>이번 달 예산</h2>
         </div>
 
-        <span class="budget-number">
-          782,500 / 1,200,000원
-        </span>
-      </div>
-
-      <div class="budget-box">
-
-        <div class="progress-info">
-          <span>전체 예산</span>
-          <strong>65% 사용</strong>
-        </div>
 
         <div class="progress">
-          <div class="progress-bar" style="width:65%;"></div>
+          <div class="progress-fill"></div>
         </div>
 
-        <p class="budget-message">
-          아직 417,500원의 예산이 남아 있어요.
+
+        <div class="budget-message">
+          <span class="mini-leaf">☘</span>
+          <div>
+            <strong>아직 417,500원이 남아 있어요.</strong>
+            <p>지금처럼 천천히 써도 괜찮아요 :)</p>
+          </div>
+        </div>
+
+      </article>
+
+
+      <article class="compare-card">
+
+        <span class="eyebrow">LAST MONTH</span>
+        <h3>지난달보다</h3>
+
+        <div class="down-number">↓ 8% 감소</div>
+
+        <p>
+          지난달보다<br>
+          <strong>68,500원</strong> 적게 썼어요.
         </p>
 
+        <div class="mini-chart">
+          <div>
+            <span class="bar previous"></span>
+            <small>8월</small>
+          </div>
+
+          <div>
+            <span class="bar current"></span>
+            <small>9월</small>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+
+  </section>
+
+
+  <!-- ANALYSIS -->
+  <section class="content-section" id="analysis">
+
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">ANALYSIS</span>
+        <h2>이번 달 소비를 살펴봐요</h2>
       </div>
 
-    </section>
+      <span class="hand-note">where did my money go? ✎</span>
+    </div>
 
 
-    <!-- 소비 분석 -->
-    <section class="section" id="analysis">
+    <div class="analysis-grid">
 
-      <div class="section-title">
+      <!-- DONUT -->
+      <article class="white-card category-card">
+
+        <div class="card-title-row">
+          <h3>항목별 지출 비율</h3>
+          <span>총 지출 782,500원</span>
+        </div>
+
+        <div class="donut-layout">
+
+          <div class="donut">
+            <div class="donut-center">
+              <small>가장 많은 지출</small>
+              <strong>식비</strong>
+              <span>41%</span>
+            </div>
+          </div>
+
+          <div class="legend">
+
+            <div>
+              <span class="legend-dot food"></span>
+              <p>식비</p>
+              <strong>320,000원</strong>
+            </div>
+
+            <div>
+              <span class="legend-dot shopping"></span>
+              <p>쇼핑</p>
+              <strong>190,000원</strong>
+            </div>
+
+            <div>
+              <span class="legend-dot fixed"></span>
+              <p>고정지출</p>
+              <strong>160,000원</strong>
+            </div>
+
+            <div>
+              <span class="legend-dot transport"></span>
+              <p>교통비</p>
+              <strong>112,500원</strong>
+            </div>
+
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- PATTERN -->
+      <article class="pattern-card">
+
+        <span class="eyebrow">THIS MONTH'S PATTERN</span>
+
+        <div class="bulb">☀</div>
+
+        <h3>식비 지출이 가장 많아요</h3>
+
+        <p>
+          전체 지출의 약 41%를 식비에 사용했어요.
+          그중에서도 <strong>카페와 외식</strong> 비중이 높은 편이에요.
+        </p>
+
+        <div class="tags">
+          <span>#식비 1위</span>
+          <span>#카페</span>
+          <span>#외식</span>
+        </div>
+
+        <div class="scribble">
+          조금만 줄이면<br>
+          더 여유로워질지도 ♡
+        </div>
+
+      </article>
+
+    </div>
+
+
+    <!-- MONTH CHART -->
+    <article class="white-card monthly-card">
+
+      <div class="card-title-row">
         <div>
-          <p class="small-title">ANALYSIS</p>
-          <h2>어디에 많이 썼을까요?</h2>
+          <h3>월별 지출 흐름</h3>
+          <p>최근 6개월의 소비 변화를 확인해요.</p>
         </div>
+
+        <span class="tiny-link">최근 6개월</span>
       </div>
 
-      <div class="analysis-grid">
 
-        <div class="chart-card">
+      <div class="monthly-chart">
 
-          <div class="chart-row">
-            <span>🍚 식비</span>
-            <div class="chart-line">
-              <div style="width:80%;"></div>
-            </div>
-            <strong>320,000원</strong>
-          </div>
-
-          <div class="chart-row">
-            <span>🛍️ 쇼핑</span>
-            <div class="chart-line">
-              <div style="width:48%;"></div>
-            </div>
-            <strong>190,000원</strong>
-          </div>
-
-          <div class="chart-row">
-            <span>🏠 고정지출</span>
-            <div class="chart-line">
-              <div style="width:40%;"></div>
-            </div>
-            <strong>160,000원</strong>
-          </div>
-
-          <div class="chart-row">
-            <span>🚌 교통비</span>
-            <div class="chart-line">
-              <div style="width:28%;"></div>
-            </div>
-            <strong>112,500원</strong>
-          </div>
-
+        <div class="month-item">
+          <span style="height:46%"></span>
+          <small>4월</small>
         </div>
 
+        <div class="month-item">
+          <span style="height:66%"></span>
+          <small>5월</small>
+        </div>
 
-        <div class="pattern-card">
+        <div class="month-item">
+          <span style="height:57%"></span>
+          <small>6월</small>
+        </div>
 
-          <p class="small-title">이번 달 소비 패턴</p>
+        <div class="month-item">
+          <span style="height:72%"></span>
+          <small>7월</small>
+        </div>
 
-          <h3>🍚 식비 지출이 가장 많아요</h3>
+        <div class="month-item">
+          <span style="height:84%"></span>
+          <small>8월</small>
+        </div>
 
-          <p>
-            전체 지출 중 약 41%를 식비에 사용했어요.
-            그중 카페와 외식 지출의 비중이 높은 편이에요.
-          </p>
-
-          <div class="pattern-tags">
-            <span>#식비 1위</span>
-            <span>#카페</span>
-            <span>#외식</span>
-          </div>
-
+        <div class="month-item active">
+          <span style="height:62%"></span>
+          <small>9월</small>
         </div>
 
       </div>
 
-    </section>
+    </article>
+
+  </section>
 
 
-    <!-- 최근 내역 -->
-    <section class="section" id="history">
+  <!-- RECENT -->
+  <section class="content-section" id="history">
 
-      <div class="section-title">
-
-        <div>
-          <p class="small-title">RECENT</p>
-          <h2>최근 내역</h2>
-        </div>
-
-        <span class="more">전체보기 →</span>
-
+    <div class="section-heading">
+      <div>
+        <span class="eyebrow">RECENT</span>
+        <h2>최근 내역</h2>
       </div>
 
+      <a href="#" class="tiny-link">전체보기 →</a>
+    </div>
 
-      <div class="history-card">
+
+    <div class="recent-layout">
+
+      <article class="history-card">
 
         <div class="history-item">
 
-          <div class="history-left">
-            <div class="category-icon">☕</div>
+          <div class="history-info">
+            <span class="history-icon">☕</span>
 
             <div>
               <strong>스타벅스</strong>
@@ -201,15 +375,15 @@
             </div>
           </div>
 
-          <strong class="minus">- 5,500원</strong>
+          <strong class="expense">- 5,500원</strong>
 
         </div>
 
 
         <div class="history-item">
 
-          <div class="history-left">
-            <div class="category-icon">🛒</div>
+          <div class="history-info">
+            <span class="history-icon">🛒</span>
 
             <div>
               <strong>이마트 장보기</strong>
@@ -217,15 +391,15 @@
             </div>
           </div>
 
-          <strong class="minus">- 48,200원</strong>
+          <strong class="expense">- 48,200원</strong>
 
         </div>
 
 
         <div class="history-item">
 
-          <div class="history-left">
-            <div class="category-icon">💰</div>
+          <div class="history-info">
+            <span class="history-icon">💰</span>
 
             <div>
               <strong>월급</strong>
@@ -233,20 +407,40 @@
             </div>
           </div>
 
-          <strong class="plus">+ 3,200,000원</strong>
+          <strong class="income">+ 3,200,000원</strong>
 
         </div>
 
-      </div>
-
-    </section>
-
-  </main>
+      </article>
 
 
-  <footer>
-    <p>나의 가계부 · 오늘의 기록이 내일의 여유가 되도록 🌿</p>
-  </footer>
+      <aside class="little-message">
+        <span>☘</span>
+        <p>
+          오늘도 잘하고 있어요.<br>
+          <strong>작은 기록이 변화를 만들어요.</strong>
+        </p>
+        <div>♡</div>
+      </aside>
+
+    </div>
+
+  </section>
+
+
+  <div class="ending-note">
+    <span>☘</span>
+    오늘의 기록이 내일의 여유가 되도록
+    <span>♡</span>
+  </div>
+
+</main>
+
+
+<footer>
+  <span>나의 가계부</span>
+  <span>small records, better days.</span>
+</footer>
 
 </body>
 </html>
